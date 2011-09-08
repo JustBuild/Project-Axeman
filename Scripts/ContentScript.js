@@ -6,36 +6,38 @@
     Aleksandar Toplek,
     JustBuild 2011.
 
-    LICENSE: 
+    Collaborator
+    Everton Moreth
+    LICENSE:
 
         Copyright 2011 JustBuild Development. All rights reserved.
 
-        Redistribution and use in source and binary forms, with or without 
-        modification, are permitted provided that the following conditions 
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions
         are met:
 
-            1. Redistributions of source code must retain the above copyright 
+            1. Redistributions of source code must retain the above copyright
                notice, this list of conditions and the following disclaimer.
 
-            2. Redistributions in binary form must reproduce the above copyright 
-               notice, this list of conditions and the following disclaimer in 
-               the documentation and/or other materials provided with the 
+            2. Redistributions in binary form must reproduce the above copyright
+               notice, this list of conditions and the following disclaimer in
+               the documentation and/or other materials provided with the
                distribution.
 
-        THIS SOFTWARE IS PROVIDED BY JUSTBUILD DEVELOPMENT ''AS IS'' AND ANY 
-        EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
+        THIS SOFTWARE IS PROVIDED BY JUSTBUILD DEVELOPMENT ''AS IS'' AND ANY
+        EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
         PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JUSTBUILD DEVELOPMENT OR
-        CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-        EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
-        PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-        PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+        CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+        EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+        PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+        PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
         LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-        NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+        NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-        The views and conclusions contained in the software and documentation 
-        are those of the authors and should not be interpreted as representing 
+        The views and conclusions contained in the software and documentation
+        are those of the authors and should not be interpreted as representing
         official policies, either expressed or implied, of JustBuild Development
 
 */
@@ -83,20 +85,20 @@ init();
  * @author Aleksandar Toplek
  */
 function init() {
-	if (dev) console.log("init - Initializing...");
+	devLog("init - Initializing...");
     startTime = (new Date()).getTime();
-	
-    if (dev) console.log("init - Waiting for settings (0/" + dataAvailable + ")");
-    
+
+    devLog("init - Waiting for settings (0/" + dataAvailable + ")");
+
     if (dev) {
     	var extensionID = "iocibcglikkcbjcdkenhnfngokknheen";
-    	
+
     	var style = '<style type="text/css">' +
     				'	#DevBar {' +
     				'		position:fixed;' +
-    				'		bottom: 0px; right: 0px; left: 0px;' + 
+    				'		bottom: 0px; right: 0px; left: 0px;' +
     				'		padding: 5px;' +
-    				'		background: -webkit-gradient(linear, left top, left bottom, from(#D3D3D3), to(#919191));' +	
+    				'		background: -webkit-gradient(linear, left top, left bottom, from(#D3D3D3), to(#919191));' +
     				'	}' +
     				'	#DevButton {' +
     				'		color: lightgray;' +
@@ -111,19 +113,19 @@ function init() {
     				'</style>';
     	$("head").append(style);
     	$("body").append('<div id="DevBar" class="devbar"><b>&nbsp;Project Axeman DEV mode&nbsp;&nbsp;&nbsp;&nbsp;</b></div>');
-    	
+
     	// Injects link to Debug page (only in dev mode)
         $(".devbar").append('<a id="DevButton" target="_blank" href="chrome-extension://' + extensionID + '/Pages/Debug/DebugPage.html">Debug info</a>&nbsp;&nbsp;&nbsp;&nbsp;');
-        
+
         // Injects link to Options page (only in dev mode)
         $(".devbar").append('<a id="DevButton" target="_blank" href="chrome-extension://' + extensionID + '/Pages/Options.html">Options page</a>&nbsp;&nbsp;&nbsp;&nbsp;');
-        
+
         $(".devbar").append('<a id="DevInfoText" href="#" class="infotextTime">Script time: ### ms</a>');
     }
-    
+
     // Begins to load settings
     pageLoadData();
-    
+
     // Calls for PageAction show
     _sendExtensionProcessRequest("ShowActionPage");
 }
@@ -131,46 +133,46 @@ function init() {
 /**
  * Initializing page actions
  * Last used function
- * 
+ *
  * @author Aleksandar Toplek
  */
 function initPages() {
     var info = pageGetInfo();
-    
+
     if (info.pathname !== "/login.php" &&
-    	info.pathname !== "/logout.php" && 
+    	info.pathname !== "/logout.php" &&
     	info.pathname !== "/") {
     	pageProcessAll(info);
     }
-    
+
     // All finished, saving data
     saveData();
-    
+
     var endTime = (new Date()).getTime();
     if (dev) {
     	$(".infotextTime").text("Script time: " + (endTime - startTime) + " ms");
-    	console.log("initPages - Finished successfully! (" + (endTime - startTime) + ")");
+    	devLog("initPages - Finished successfully! (" + (endTime - startTime) + ")");
     }
 }
 
 function saveData() {
-	if (dev) console.log("saveData - Saving started...");
-	
+	devLog("saveData - Saving started...");
+
 	_sendDataSetRequest("village" + village.name, JSON.stringify(village));
-	
-	if (dev) console.log("saveData - All requests sent!");
+
+	devLog("saveData - All requests sent!");
 }
 
 /**
  * Requests for all settings to load
- * 
+ *
  * @author Aleksandar Toplek
  */
 function pageLoadData() {
-	if (dev) console.log("pageLoadSettings - dev[" + dev + "]");
-	if (dev) console.log("pageLoadSettings - dbgtmrs[" + dbgtmrs + "]");
-	if (dev) console.log("pageLoadSettings - [" + dataAvailable + "] settings available");
-	
+	devLog("pageLoadSettings - dev[" + dev + "]");
+	devLog("pageLoadSettings - dbgtmrs[" + dbgtmrs + "]");
+	devLog("pageLoadSettings - [" + dataAvailable + "] settings available");
+
 	requestData("Data", "checkGlobalRemoveInGameHelp");
 	requestData("Data", "checkGlobalStorageOverflowTimeout");
 	requestData("Data", "checkBuildBuildingResourceDifference");
@@ -181,7 +183,7 @@ function pageLoadData() {
 	requestData("Data", "checkMarketShowSumIncomingResources");
 	requestData("Data", "checkSendTroopsListMyVillages");
 	requestData("Data", "checkReportShowCheckAll");
-	
+
 	requestData("Data", "village" + globalGetActiveVillageName(), "village");
 }
 
@@ -191,24 +193,24 @@ function pageLoadVillageData() {
 		village.name = globalGetActiveVillageName();
 	}
 	else village = JSON.parse(village);
-	
-	console.log("pageLoadVillageData - Village loaded [" + village.name + "]");
-	console.log(village);
+
+	devLog("pageLoadVillageData - Village loaded [" + village.name + "]");
+	devLog(village);
 }
 
 /**
  * Gets setting and sets it to variable
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String} _settingName Name of setting to retrieve
  */
 function requestData(_category, _settingName, _variableName) {
-	_sendDataGetRequest(_settingName, function (response) { 
+	_sendDataGetRequest(_settingName, function (response) {
     	dataLoaded++;
     	eval((_variableName || _settingName) + " = '" + response + "';");
-    	
-    	if (dev) console.log("requestData - Waiting for data (" + dataLoaded + "/" + dataAvailable + ")");
+
+    	devLog("requestData - Waiting for data (" + dataLoaded + "/" + dataAvailable + ")");
     	if (dataLoaded === dataAvailable) {
     		initPages();
     	}
@@ -223,14 +225,14 @@ function requestData(_category, _settingName, _variableName) {
  * @return {Object} Returns an object with 'pathname' and 'search' properties.
  */
 function pageGetInfo() {
-    if (dev) console.log("pageGetPathname - Reading current page...");
-	
+    devLog("pageGetPathname - Reading current page...");
+
     var currentPath = window.location.pathname;
     var currentSeach = window.location.search;
-    
-    if (dev) console.log("pageGetInfo - Current page pathname [" + currentPath + "]");
-    if (dev) console.log("pageGetInfo - Current page search [" + currentSeach + "]");
-	
+
+    devLog("pageGetInfo - Current page pathname [" + currentPath + "]");
+    devLog("pageGetInfo - Current page search [" + currentSeach + "]");
+
     return {
     	pathname: currentPath,
     	search: currentSeach
@@ -242,22 +244,22 @@ function pageGetInfo() {
  * This should be called after all information is retrieved from page.
  *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String} info Info of current page
  */
 function pageProcessAll(info) {
-    if (dev) console.log("pageProcessAll - Starting...");
-	
-    var where = pageGetWhere(info.pathname);    
-    if (dev) console.log("pageProcessAll - Pathname [" + info.pathname + "] mathched with [" + where + "]");
+    devLog("pageProcessAll - Starting...");
+
+    var where = pageGetWhere(info.pathname);
+    devLog("pageProcessAll - Pathname [" + info.pathname + "] mathched with [" + where + "]");
 
     pageLoadVillageData();
     village.Resources.production = villageGetResourceProduction();
-    
-    if (checkGlobalRemoveInGameHelp === "On" | checkGlobalRemoveInGameHelp === "null") 
+
+    if (checkGlobalRemoveInGameHelp === "On" | checkGlobalRemoveInGameHelp === "null")
     	globalRemoveInGameHelp();
 
-    if (checkGlobalStorageOverflowTimeout === "On" | checkGlobalStorageOverflowTimeout === "null") 
+    if (checkGlobalStorageOverflowTimeout === "On" | checkGlobalStorageOverflowTimeout === "null")
     	globalOverflowTimer();
 
     if (where === "Build") globalInBuild();
@@ -288,17 +290,17 @@ function pageGetWhere(pathname) {
 
 /**
  * Filters active village from right village list
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @returns {String} Name of active village
  */
 function globalGetActiveVillageName() {
-	if (dev) console.log("globalGetActiveVillageName - Getting village name...");
-	
+	devLog("globalGetActiveVillageName - Getting village name...");
+
     var name = $("li[class*='entry'] > a[class='active']").text();
-	
-    if (dev) console.log("globalGetActiveVillageName - Village name [" + name + "]");
+
+    devLog("globalGetActiveVillageName - Village name [" + name + "]");
     return name;
 }
 
@@ -310,11 +312,11 @@ function globalGetActiveVillageName() {
  * @return {Array} Returns array of 'a' elemets with href to village view and name in text.
  */
 function globalGetVillagesList() {
-    if (dev) console.log("globalGetVillagesList - Getting village list...");
-	
+    devLog("globalGetVillagesList - Getting village list...");
+
     var villagesList = $("div[id='villageList'] > div[class='list'] > ul > li[class*='entry'] > a[class!='active']");
-	
-    if (dev) console.log("globalGetVillagesList - Village list: " + villagesList);
+
+    devLog("globalGetVillagesList - Village list: " + villagesList);
     return villagesList;
 }
 
@@ -325,46 +327,46 @@ function globalGetVillagesList() {
  *
  * @author Aleksandar Toplek
  */
-function globalRemoveInGameHelp() {	
-    if (dev) console.log("globalRemoveInGameHelp - Removing in game help...");
-	
+function globalRemoveInGameHelp() {
+    devLog("globalRemoveInGameHelp - Removing in game help...");
+
     $("#ingameManual").remove();
-	
-    if (dev) console.log("globalRemoveInGameHelp - In game help removed!");
+
+    devLog("globalRemoveInGameHelp - In game help removed!");
 }
 
 /**
  * Informs about warehouse and granary overflow
- * 
+ *
  * @author Aleksandar Toplek
  */
 function globalOverflowTimer() {
-    if (dev) console.log("globalOverflowTimer - Initializing...");
-	
+    devLog("globalOverflowTimer - Initializing...");
+
     $("#res").children().each(function(index) {
         // Skips crop consumption
         if (index !== 4) {
             var current 	= globalGetWarehousAmount(index + 1);
             var max 		= globalGetWarehousMax(index + 1);
             var timeLeft 	= (max - current) / village.Resources.production[index];
-	
-            if (dev) console.log("globalOverflowTimer - l" + (index + 1) + " appended!");
-			
+
+            devLog("globalOverflowTimer - l" + (index + 1) + " appended!");
+
             $(this).append("<div style='background-color: #EFF5FD;'><b><p id='paResourceOverflowTime" + index + "' style='text-align: right;'>" + _hoursToTime(timeLeft) + "</p></b></div>");
         }
     });
-    
+
     setInterval(globalOverflowTimerFunction, 1000, "paResourceOverflowTime");
-    if (dev) console.log("globalOverflowTimer - Timer registered!");
-            
-    if (dev) console.log("globalOverflowTimer - Finished!");
+    devLog("globalOverflowTimer - Timer registered!");
+
+    devLog("globalOverflowTimer - Finished!");
 }
 
 /**
  * Called by GlobalOverflow timer
  *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String} id 		Element id
  * @param {String} cother	Color for hours > 2
  * @param {String} cclose 	Color for hours < 2
@@ -376,11 +378,11 @@ function globalOverflowTimerFunction(id, czero, calmost, cclose, cother) {
         $("#" + id + index).each(function() {
             // Get current time from element
             var hours = _timeToHours($(this).text());
-            
-            if (dbgtmrs) console.log("globalOverflowTimerFunction - l" + (index + 1) + "   " + $(this).text() + "    " + hours);
-            
+
+            if (dbgtmrs) devLog("globalOverflowTimerFunction - l" + (index + 1) + "   " + $(this).text() + "    " + hours);
+
             // Not updating if 00:00:00
-            if (hours > 0) { 
+            if (hours > 0) {
                 // Subtracts one second and writes new text to element
                 hours -= 0.0002777006777777; // 1 s -> 1/~3600 (3601 because of calculation error)
                 $(this).html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + _hoursToTime(hours));
@@ -396,6 +398,17 @@ function globalOverflowTimerFunction(id, czero, calmost, cclose, cother) {
 }
 
 /**
+ * Shows log information only if on dev model
+ *
+ * @author Everton Moreth
+ *
+ * @param {*}* 	Accepts any "loggable" parameters, in any quantity
+ */
+function devLog() {
+    if (dev) console.log.apply(console, arguments)
+}
+
+/**
  * Warehouse current amount of [index] resource
  *
  * @author Aleksandar Toplek
@@ -403,7 +416,7 @@ function globalOverflowTimerFunction(id, czero, calmost, cclose, cother) {
  * @param {Number} 	index 	An index of resource
  * 							1 for wood, 2 for clay, 3 for iron, 4 for crop
  *
- * @return {Number} 		Returns an amount of resource currently in storage 
+ * @return {Number} 		Returns an amount of resource currently in storage
  */
 function globalGetWarehousAmount(index) {
     return parseInt(globalGetWarehousInfo(index).split("/")[0], 10);
@@ -417,7 +430,7 @@ function globalGetWarehousAmount(index) {
  * @param {Number} 	index 	An index of resource
  * 							1 for wood, 2 for clay, 3 for iron, 4 for crop
  *
- * @return {Number} 		Returns maximum amount of resource that could be stored in storage 
+ * @return {Number} 		Returns maximum amount of resource that could be stored in storage
  */
 function globalGetWarehousMax(index) {
     return parseInt(globalGetWarehousInfo(index).split("/")[1], 10);
@@ -431,7 +444,7 @@ function globalGetWarehousMax(index) {
  * @param {Number} 	index 	An index of resource
  * 							1 for wood, 2 for clay, 3 for iron, 4 for crop
  *
- * @return {Number} 		Returns an amount of resource currently in storage 
+ * @return {Number} 		Returns an amount of resource currently in storage
  */
 function globalGetWarehousInfo(index) {
     return $("#l" + (index)).text();
@@ -443,17 +456,17 @@ function globalGetWarehousInfo(index) {
  * @author Aleksandar Toplek
  */
 function globalInBuild() {
-    if (dev) console.log("globalInBuild() - In buils calls...");
-	
-    if (checkBuildBuildingResourceDifference === "On" | checkBuildBuildingResourceDifference === "null") 
+    devLog("globalInBuild() - In buils calls...");
+
+    if (checkBuildBuildingResourceDifference === "On" | checkBuildBuildingResourceDifference === "null")
     	buildCalculateBuildingResourcesDifference();
-    
-    if (checkBuildUnitResourceDifference === "On" | checkBuildUnitResourceDifference === "null") 
+
+    if (checkBuildUnitResourceDifference === "On" | checkBuildUnitResourceDifference === "null")
     	buildCalculateUnitResourcesDifference();
 
     if ($(".gid17").length) buildMarketCalls();
-	
-    if (dev) console.log("globalInBuild() - In build finished successfully!");
+
+    devLog("globalInBuild() - In build finished successfully!");
 }
 
 /**
@@ -462,37 +475,37 @@ function globalInBuild() {
  * @author Aleksandar Toplek
  */
 function globalInSendTroops() {
-    if (dev) console.log("globalInSendTroops - In send troops calls...");
-	
-    if (checkSendTroopsListMyVillages === "On" | checkSendTroopsListMyVillages === "null") 
+    devLog("globalInSendTroops - In send troops calls...");
+
+    if (checkSendTroopsListMyVillages === "On" | checkSendTroopsListMyVillages === "null")
     	sendTroopsFillVillagesList();
-	
-    if (dev) console.log("globalInSendTroops - In send troops finished successfully!");
+
+    devLog("globalInSendTroops - In send troops finished successfully!");
 }
 
 /**
  * Calls all Reports related functions
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String} search Search/Query of current page
  */
 function globalInReports(search) {
-	if (dev) console.log("globalInReports - In reports calls...");
-	
+	devLog("globalInReports - In reports calls...");
+
 	if (search === "") {
-		if (dev) console.log("globalInReports - Reports");
-		
-		if (checkReportShowCheckAll === "On" | checkReportShowCheckAll === "null") 
+		devLog("globalInReports - Reports");
+
+		if (checkReportShowCheckAll === "On" | checkReportShowCheckAll === "null")
 			reportsShowCheckAll();
 	}
 	else {
-		if (dev) console.log("globalInReports - Report view");
-		
+		devLog("globalInReports - Report view");
+
 		// No current use
 	}
-	
-	if (dev) console.log("globalInReports - In reports finished successfully!");
+
+	devLog("globalInReports - In reports finished successfully!");
 }
 
 /**
@@ -502,11 +515,11 @@ function globalInReports(search) {
  * @author Aleksandar Toplek
  */
 function buildCalculateBuildingResourcesDifference() {
-    if (dev) console.log("buildCalculateBuildingResourcesDifference - Calculating building resource differences...");
-    
+    devLog("buildCalculateBuildingResourcesDifference - Calculating building resource differences...");
+
     for (var rindex = 0; rindex < 4; rindex++) {
         var inWarehouse = globalGetWarehousAmount(rindex + 1);
-        
+
         // Building cost
         // .costs are for town hall celebration
         // .contractCosts are for building/upgreding building
@@ -518,27 +531,27 @@ function buildCalculateBuildingResourcesDifference() {
 
             $(this).append(div);
 
-            if (dev) console.log("buildCalculateBuildingResourcesDifference - r" + (rindex + 1) + " diff[" + diff + "]");
+            devLog("buildCalculateBuildingResourcesDifference - r" + (rindex + 1) + " diff[" + diff + "]");
 
             $(this).append("<div id='paResourceDifferenceC" + index + "R" + rindex + "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp" + _hoursToTime(diff < 0 ? (-diff) / village.Resources.production[rindex] : 0) + "</div>");
             globalOverflowTimerFunction("paResourceDifferenceC" + index + "R", '#0C9E21', '#AEBF61', '#A6781C', '#B20C08');
             if (rindex === 0) {
             	setInterval("globalOverflowTimerFunction('paResourceDifferenceC" + index + "R', '#0C9E21', '#AEBF61', '#A6781C', '#B20C08')", 1000);
             }
-        });        
+        });
     }
-    
-    if (dev) console.log("buildCalculateBuildingResourcesDifference - Building resource differences calculated!");
+
+    devLog("buildCalculateBuildingResourcesDifference - Building resource differences calculated!");
 }
 
 /**
  * Info about untit and storage resource difference
- * 
+ *
  * @author Aleksandar Toplek
  */
 function buildCalculateUnitResourcesDifference() {
-    if (dev) console.log("buildCalculateUnitResourcesDifference - Calculating unit resource difference...");
-    
+    devLog("buildCalculateUnitResourcesDifference - Calculating unit resource difference...");
+
     var inputs = $("input[name*='t']");
     var costs = $(".details > .showCosts");
 
@@ -548,24 +561,24 @@ function buildCalculateUnitResourcesDifference() {
                 "<div id='paUnitCostDifferenceI" + iindex + "R" + rindex + "' style='color:#0C9E21'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(0)</div>");
         });
     }
-    
+
     setInterval(buildCalculateUnitResourcesDifferenceTimerFunction, timerStep, [inputs, costs]);
-    
-    if (dev) console.log("buildCalculateUnitResourcesDifference - Timer registerd!");
-    
-    if (dev) console.log("buildCalculateUnitResourcesDifference - Unit resource differences calculated!");
+
+    devLog("buildCalculateUnitResourcesDifference - Timer registerd!");
+
+    devLog("buildCalculateUnitResourcesDifference - Unit resource differences calculated!");
 }
 
 /**
  * Called by buildCalculateUnitResourceDifference timer
  * Function that actualy changes and calculates values
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {Array} args  Index 0 represents unit inputs
  *                      Index 1 represents unit cost
  */
-function buildCalculateUnitResourcesDifferenceTimerFunction(args) { 
+function buildCalculateUnitResourcesDifferenceTimerFunction(args) {
     for (var rindex = 0; rindex < 4; rindex++) {
         var inWarehouse = globalGetWarehousAmount(rindex + 1);
 
@@ -575,8 +588,8 @@ function buildCalculateUnitResourcesDifferenceTimerFunction(args) {
             var color = diff < 0 ? "#B20C08" : "#0C9E21";
             $("#paUnitCostDifferenceI" + iindex + "R" + rindex ).html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(" + diff + ")");
             $("#paUnitCostDifferenceI" + iindex + "R" + rindex ).attr("style", "color:" + color);
-            
-            if (dbgtmrs) console.log("buildCalculateUnitResourcesDifferenceTimerFunction - diff [" + diff + "]");
+
+            if (dbgtmrs) devLog("buildCalculateUnitResourcesDifferenceTimerFunction - diff [" + diff + "]");
         });
     }
 }
@@ -587,15 +600,15 @@ function buildCalculateUnitResourcesDifferenceTimerFunction(args) {
  * @author Aleksandar Toplek
  */
 function buildMarketCalls() {
-    if (dev) console.log("buildMarketCalls - Marketplace calls...");
-	
+    devLog("buildMarketCalls - Marketplace calls...");
+
     var traderMaxTransport = buildMarketGetTraderMaxTransport();
     var tradersAvailable = buildMarketGetTradersAvailable();
-	
+
     console.info("buildMarketCalls - traderMaxTransport [" + traderMaxTransport + "]");
     console.info("buildMarketCalls - tradersAvailable [" + tradersAvailable + "]");
-	
-    if (checkMarketListMyVillages === "On" | checkMarketListMyVillages === "null") 
+
+    if (checkMarketListMyVillages === "On" | checkMarketListMyVillages === "null")
     	buildMarketFillVillagesList();
 
     buildMarketAddTransportShortcuts(traderMaxTransport);
@@ -604,11 +617,11 @@ function buildMarketCalls() {
         buildMarketInsertJunkResourceTable();
         buildMarketRegisterTimerFillInJunkResource([tradersAvailable, traderMaxTransport]);
     }
-	
-    if (checkMarketShowSumIncomingResources === "On" | checkMarketShowSumIncomingResources === "null") 
+
+    if (checkMarketShowSumIncomingResources === "On" | checkMarketShowSumIncomingResources === "null")
     	buildMarketIncomingSum();
 
-    if (dev) console.log("buildMarketCalls - Marketplace calls finished...");
+    devLog("buildMarketCalls - Marketplace calls finished...");
 }
 
 /**
@@ -618,29 +631,29 @@ function buildMarketCalls() {
  */
 function buildMarketRegisterTimerFillInJunkResource(args) {
     setInterval(buildMarketFillInJunkResourceTimer, timerStep, args);
-		
-    if (dev) console.log("buildMarketRegisterTimerFillInJunkResource - Timer set to interval [250]");
+
+    devLog("buildMarketRegisterTimerFillInJunkResource - Timer set to interval [250]");
 }
 
 /**
  * Inserts JunkResource rows in the end of resource selection table
- * 
+ *
  * @author Aleksandar Toplek
  */
 function buildMarketInsertJunkResourceTable() {
-    if (dev) console.log("buildMarketInsertJunkResourceTable - Inserting Junk resources table...");
-    
+    devLog("buildMarketInsertJunkResourceTable - Inserting Junk resources table...");
+
     $(".send_res > tbody").append("<tr><td></td><td></td><td class='currentLoaded'>0 </td><td class='maxRes'>/ 0</td></tr><tr><td></td><td></td><td>Junk:</td><td class='junkAmount'>0 (0)</td></tr>");
-    
-    if (dev) console.log("buildMarketInsertJunkResourceTable - Junk resources table inserted successfully...");
+
+    devLog("buildMarketInsertJunkResourceTable - Junk resources table inserted successfully...");
 }
 
 /**
  * Called by FillInJunkResource timer
  * Actualy caltulates and fills values of pre-inserted table
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {Array} args  1 represents trader maximal transport amount
  *                      0 represents how much traders is available
  */
@@ -669,7 +682,7 @@ function buildMarketFillInJunkResourceTimer(args) {
     var junkAmount = tradersNeeded * args[1] - resSum;
 
     // Styles of row (indicating too much resource requested / more traders needed)
-    if (tradersNeeded > args[0]) 
+    if (tradersNeeded > args[0])
         $(".currentLoaded").attr("style", "color:red;");
     else $(".currentLoaded").attr("style", "");
 
@@ -677,20 +690,20 @@ function buildMarketFillInJunkResourceTimer(args) {
     $(".currentLoaded").html(resSum + " ");
     $(".maxRes").html("/ " + resMax);
     $(".junkAmount").html((tradersNeeded > args[0] ? "NA" : junkAmount) + " (" + tradersNeeded + ")");
-    
-    if (dbgtmrs) console.log("buildMarketFillInJunkResourceTimer - traders [" + args[0] + "] each [" + args[1] + "] sending [" + resSum + "] with junk [" + junkAmount + "]");
+
+    if (dbgtmrs) devLog("buildMarketFillInJunkResourceTimer - traders [" + args[0] + "] each [" + args[1] + "] sending [" + resSum + "] with junk [" + junkAmount + "]");
 }
 
 /**
  * Looks for value of available traders
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @return {Number} Available traders or 0 if undefined
  */
 function buildMarketGetTradersAvailable() {
-    if (dev) console.log("buildMarketGetTradersAvailable - Started...");
-    
+    devLog("buildMarketGetTradersAvailable - Started...");
+
     var tradersSource = $("div[class*='traderCount'] > div:last").text();
 
     // NOTE: Regex code automated generator
@@ -701,17 +714,17 @@ function buildMarketGetTradersAvailable() {
 
     var p = new RegExp('(\\d+)', ["i"]);
     var result = p.exec(tradersSource);
-    
-    if (dev) console.log("buildMarketGetTradersAvailable - Finished! Traders available [" + result[1] + "]");
+
+    devLog("buildMarketGetTradersAvailable - Finished! Traders available [" + result[1] + "]");
 
     return parseInt(result[1], 10) || 0;
 }
 
 /**
  * Gets how mush one trader can transport
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @return {Number} Trader maximal resource transport or 0 if undefined
  */
 function buildMarketGetTraderMaxTransport() {
@@ -720,46 +733,78 @@ function buildMarketGetTraderMaxTransport() {
 
 /**
  * Replaces market village name text box with selection of players villages
- * 
+ *
  * @author Aleksandar Toplek
  */
 function buildMarketFillVillagesList() {
-    if (dev) console.log("buildMarketFillVillagesList - Started...");
-    
+    devLog("buildMarketFillVillagesList - Started...");
+
     // Gets data
     var selectData = globalGetVillagesList();
-    var selectInput = _selectB("EnterVillageName", "text village", "dname");
-    
-    if (dev) console.log("buildMarketFillVillagesList - Generating selection...");
-    
+    var selectInput = _selectB("enterVillageName_list", "text village", "dname");
+
+    devLog("buildMarketFillVillagesList - Generating selection...");
+
     // Generated select tag
     selectInput += _selectOption(_gim("TravianSelectVillage"));
     $.each(selectData, function (current, value) {
         selectInput += _selectOption(value.text);
     });
     selectInput += _selectE();
-    
-    if (dev) console.log("buildMarketFillVillagesList - Selection generated!;");
-    
+
+    devLog("buildMarketFillVillagesList - Selection generated!;");
+
+    // Creates two radio buttons for choosing the method of city selection
+    // These radio buttons does not have names in order to be invisible on the server side
+    // (radio with no names are not send on form submission)
+    var _textRadio = $('<input type="radio" id="marketNameOption_text" />');
+    var _listRadio = $('<input type="radio" id="marketNameOption_list" checked="checked" />');
+
+    var _compactInput = $(".compactInput")
+    _compactInput.prepend(_textRadio);
+    _compactInput.append($("<br />"));
+    _compactInput.append(_listRadio);
+
+    // Click handler for radios, each radio must uncheck the other one.
+    // Once they dont have names, their original behaviour does not happen
+    // They also have to disable the option that is not being used.
+    // Disabled form elemens are not sent in form submission, so they are
+    // not sent twice
+    _textRadio.click(function(){
+        $("#marketNameOption_list").attr("checked", false);
+        $("#enterVillageName_list").attr("disabled", true);
+        $("#enterVillageName").attr("disabled", "");
+    })
+
+    _listRadio.click(function(){
+        $("#marketNameOption_text").attr("checked", false);
+        $("#enterVillageName").attr("disabled", true);
+        $("#enterVillageName_list").attr("disabled", "");
+    })
+
+    // Disables the original name selector by default
+    // Changes the width to match the layout
+    $("#enterVillageName").attr("disabled", true).css("width", "78%");
+
     // Replaces textbox with selectionbox (drop-down)
-    $(".compactInput").html(selectInput);
-    
-    if (dev) console.log("buildMarketFillVillagesList - Textbox successfully replaced!");
+    _compactInput.append(selectInput);
+
+    devLog("buildMarketFillVillagesList - Textbox successfully replaced!");
 }
 
 /**
  * Adds resource shortcuts (e.g. 1x, 2x traders maximal transport amount)
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {Number} traderMaxTransport Trader maximum resource transport amount
  */
 function buildMarketAddTransportShortcuts(traderMaxTransport) {
-    if (dev) console.log("buildMarketAddTransportShortcuts - Started...");
-    
+    devLog("buildMarketAddTransportShortcuts - Started...");
+
     // SAMPLE: "<a href='#' onmouseup='add_res(1);' onclick='return false;'>1000</a>"
 
-    if (dev) console.log("buildMarketAddTransportShortcuts - Adding 1x shortcut");
+    devLog("buildMarketAddTransportShortcuts - Adding 1x shortcut");
     // 1x shortcut
     for (var index = 0; index < 4; index++) {
         var addCall = "add_res(" + (index + 1) + ");";
@@ -767,8 +812,8 @@ function buildMarketAddTransportShortcuts(traderMaxTransport) {
         $(".send_res > tbody > tr:eq(" + index + ") > .max").html(strX1);
     }
 
-    if (dev) console.log("buildMarketAddTransportShortcuts - 1x shortcud added!");
-    if (dev) console.log("buildMarketAddTransportShortcuts - Adding 2x shortcut");
+    devLog("buildMarketAddTransportShortcuts - 1x shortcud added!");
+    devLog("buildMarketAddTransportShortcuts - Adding 2x shortcut");
     // 2x shortcut
     if (checkMarketShowX2Shortcut === "On" | checkMarketShowX2Shortcut === "null") {
         for (var index = 0; index < 4; index++) {
@@ -776,10 +821,10 @@ function buildMarketAddTransportShortcuts(traderMaxTransport) {
             var strX2 = "/ <a href='#' onmouseup='" + addCall + addCall + "' onclick='return false;'>" + traderMaxTransport * 2 + "</a><br>";
             $(".send_res > tbody > tr:eq(" + index + ") > .max").append(strX2);
         }
-        if (dev) console.log("buildMarketAddTransportShortcuts - 1x shortcud added!");
+        devLog("buildMarketAddTransportShortcuts - 1x shortcud added!");
     }
-    
-    if (dev) console.log("buildMarketAddTransportShortcuts - Finished successfully!");
+
+    devLog("buildMarketAddTransportShortcuts - Finished successfully!");
 }
 
 /**
@@ -788,208 +833,208 @@ function buildMarketAddTransportShortcuts(traderMaxTransport) {
  * @author Aleksandar Toplek
  */
 function buildMarketIncomingSum() {
-    if (dev) console.log("buildMarketIncomingSum - Generating table...");
-	
+    devLog("buildMarketIncomingSum - Generating table...");
+
     var sum 		= [0, 0, 0, 0];
     var count 		= 0;
     var tableIndex 	= 0;
-	
+
     var maxTime 	= 0; // Temp variable
     $(".traders").each(function(index) {
         var bodys = $(this).children("tbody");
-        if (bodys.length === 2) {        	
+        if (bodys.length === 2) {
             // Gets max time and timer name
             var timeSpan 	= $(bodys[0].children).children("td").children("div:first").children();
             var time 		= timeSpan.text();
             var timeSplit 	= time.split(":");
             var timeInteger = timeSplit[0] * 3600 + timeSplit[1] * 60 + timeSplit[2] * 1;
-            
+
             if (timeInteger > maxTime) {
                 maxTime 	= timeInteger;
                 tableIndex 	= index;
                 count++;
             }
-			
+
             // Gets resources and sums it to total
             var res 		= $(bodys[1].children).children("td").children().text();
             var resSplit 	= res.split(" ");
-			
+
             for (var i = 0; i < 4; ++i) {
                 sum[i] += parseInt(resSplit[i + 1], 10);
             }
         }
     });
-	
+
     // Checks if any incoming trade exists
     if (count > 0) {
         // Recreate table with custom text
         var sourceTable = $(".traders:eq(" + tableIndex + ")");
-		
+
         var customTable = $(sourceTable.outerHTML());
-	
+
         // Head customization
         customTable.children("thead").children().children().each(function(index) {
             if (index === 0) $(this).html(_gim("TravianTotalIncoming"));
             else $(this).html(_gim("TravianIncomingFrom") + " " + count + " " + _gim("TravianVillagesLC"));
         });
-		
+
         customTable.children("tbody:first").children().children("td").children(".in").children().attr("id", "paIncomingSumTimer");
-		
+
         // Resource customization
         customTable.children("tbody:last").children().children("td").children().html(
-            "<img class='r1' src='img/x.gif' alt='wood'> " + sum[0] + "&nbsp;&nbsp;" + 
-            "<img class='r2' src='img/x.gif' alt='clay'> " + sum[1] + "&nbsp;&nbsp;" + 
-            "<img class='r3' src='img/x.gif' alt='iron'> " + sum[2] + "&nbsp;&nbsp;" + 
+            "<img class='r1' src='img/x.gif' alt='wood'> " + sum[0] + "&nbsp;&nbsp;" +
+            "<img class='r2' src='img/x.gif' alt='clay'> " + sum[1] + "&nbsp;&nbsp;" +
+            "<img class='r3' src='img/x.gif' alt='iron'> " + sum[2] + "&nbsp;&nbsp;" +
             "<img class='r4' src='img/x.gif' alt='crop'> " + sum[3] + "&nbsp;&nbsp;"
             );
-		
-        if (dev) console.log("buildMarketIncomingSum - Table generated! Appending table to beginning...");
-		
+
+        devLog("buildMarketIncomingSum - Table generated! Appending table to beginning...");
+
         // Appends custom table to beginning
         $(".traders:first").before(customTable.outerHTML());
-		
-        if (dev) console.log("buildMarketIncomingSum - Table appended successfully! Asigning timer...");
-		
+
+        devLog("buildMarketIncomingSum - Table appended successfully! Asigning timer...");
+
         // Updates incoming left time every 128 ms to original table value
         setInterval(function() {
             $("#paIncomingSumTimer").text(
                 sourceTable.children("tbody:first").children().children("td").children(".in").children().text());
         }, timerStep);
     }
-	
-    if (dev) console.log("buildMarketIncomingSum - Finished successfully!");
+
+    devLog("buildMarketIncomingSum - Finished successfully!");
 }
 
 /**
  * Replaces SendToops village name text box with selection of players villages
- * 
+ *
  * @author Aleksandar Toplek
  */
 function sendTroopsFillVillagesList() {
-    if (dev) console.log("sendTroopsFillVillagesList - Started...");
-    
+    devLog("sendTroopsFillVillagesList - Started...");
+
     var selectData = globalGetVillagesList();
     var selectInput = _selectB("enterVillageName", "text village", "dname");
-    
-    if (dev) console.log("sendTroopsFillVillagesList - Generating selection...");
-    
+
+    devLog("sendTroopsFillVillagesList - Generating selection...");
+
     selectInput += _selectOption(_gim("TravianSelectVillage"));
     $.each(selectData, function(current, value) {
         selectInput += _selectOption(value.text);
     });
     selectInput += _selectE();
-    
-    if (dev) console.log("sendTroopsFillVillagesList - Selection generated!");
-    if (dev) console.log("sendTroopsFillVillagesList - Appending table...");
-    
+
+    devLog("sendTroopsFillVillagesList - Selection generated!");
+    devLog("sendTroopsFillVillagesList - Appending table...");
+
     $(".compactInput").html(selectInput);
-    
-    if (dev) console.log("sendTroopsFillVillagesList - Finished successfully!");
+
+    devLog("sendTroopsFillVillagesList - Finished successfully!");
 }
 
 /**
  * Adds checkbox on the end of reports list to check all reports
- * 
+ *
  * @author Aleksandar Toplek
  */
 function reportsShowCheckAll() {
-	if (dev) console.log("reportsShowCheckAll - Started...");
-	
+	devLog("reportsShowCheckAll - Started...");
+
 	if (!$("#markAll").length) {
-		if (dev) console.log("reportsShowCheckAll - Generating data...");
-		
+		devLog("reportsShowCheckAll - Generating data...");
+
 		var sourceScript = "$(this).up('form').getElements('input[type=checkbox]').each(function(element){element.checked = this.checked;}, this);";
 		var sourceCode = "<div id='markAll'><input class='check' type='checkbox' id='sAll'><span><label for='sAll'>" + _gim("TravianSelectAll") + "</label></span></div>";
-	
+
 		var obj = $(sourceCode);
 		obj.children("input").attr("onClick", sourceScript);
 
 		$(".paginator").before(obj.outerHTML());
-		
-		if (dev) console.log("reportsShowCheckAll - Box appended");
+
+		devLog("reportsShowCheckAll - Box appended");
 	}
-	else if (dev) console.log("reportsShowCheckAll - Box already exists (user uses PLUS account)");
-	
-	if (dev) console.log("reportsShowCheckAll - Finished successfully!");
+	else devLog("reportsShowCheckAll - Box already exists (user uses PLUS account)");
+
+	devLog("reportsShowCheckAll - Finished successfully!");
 }
 
 /**
  * Transforms given time string into hours number
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String} time     Time as string
- * 
+ *
  * @return {Number} Hours as number
  *                  For input [02:19:59] output would be [2.333055555555556]
  */
 function _timeToHours(time) {
     var split = time.split(":");
-	
+
     var hours = parseInt(split[0], 10) + (parseInt(split[1], 10) / 60) + (parseInt(split[2], 10) / 3600);
     //console.warn(time + "    {" + split + "} =>  " + hours + " split(0)" + parseInt(split[0], 10) + " split(1)" + parseInt(split[1], 10) + " split(2)" + parseInt(split[2], 10));
-	
+
     return hours;
 }
 
 /**
  * Transforms given hours number to time string
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {Number} hours    Number representing hours (e.g. 1.253343333, ...)
- * 
+ *
  * @return {String} Time as string
  *                  For input [2.333055555555556] output would be [02:19:59]
- *                  
+ *
  * @private
  */
 function _hoursToTime(hours) {
-	
+
     var _hours = hours;
     _hours = Math.floor(_hours);
     hours -= _hours;
     hours *= 60;
-	
-    var _minutes = hours; 
+
+    var _minutes = hours;
     _minutes = Math.floor(_minutes);
     hours -= _minutes;
     hours *= 60;
-	
+
     var _seconds = parseInt(hours, 10);
     //_seconds = Math.floor(_seconds);
-	
-    return 	(_hours < 10 ? '0' + _hours : _hours) + ":" + 
-    (_minutes < 10 ? '0' + _minutes : _minutes) + ":" + 
+
+    return 	(_hours < 10 ? '0' + _hours : _hours) + ":" +
+    (_minutes < 10 ? '0' + _minutes : _minutes) + ":" +
     (_seconds < 10 ? '0' + _seconds : _seconds);
 }
 
 /**
  * Trys to parse given attribute to Number
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {Object} _element     Elemet with wanted attribute
  * @param {object} _attribute   Attribute to parse
- * 
+ *
  * @return {Number} Number or 0 if attribute is NaN
- * 
+ *
  * @private
  */
 function _getAttrNumber (_element, _attribute) {
-    return _toInt(($(_element)).attr(_attribute)); 
+    return _toInt(($(_element)).attr(_attribute));
 }
 
 /**
  * Trys to parse given value to Number
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {Object} value Value to try parse
- * 
+ *
  * @return {Number} Number or 0 if value is NaN
- * 
- * @private 
+ *
+ * @private
  */
 function _toInt(value) {
     var num = parseInt(value, 10);
@@ -998,36 +1043,37 @@ function _toInt(value) {
 
 /**
  * (Helper) Selection element begining tag
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String}  _id     ID attribute
  * @param {String}  _class  Class attribute
  * @param {String}  _name   Name attribute
- * 
+ *
  * @return {String} Selection begning tag (e.g. <select ...>)
- * 
+ *
  * @private
  */
 function _selectB (_id, _class, _name) {
-    return 	"<select " + 
-    (_id == undefined 		? "" : "id='" 		+ _id 		+ "' ") + 
-    (_class == undefined 	? "" : "class='" 	+ _class 	+ "' ") + 
-    (_name == undefined 	? "" : "name='" 	+ _name 	+ "' ") + 
+    return 	"<select " +
+    (_id == undefined 		? "" : "id='" 		+ _id 		+ "' ") +
+    (_class == undefined 	? "" : "class='" 	+ _class 	+ "' ") +
+    (_name == undefined 	? "" : "name='" 	+ _name 	+ "' ") +
     ">";
 }
+
 
 /**
  * (Helper) Selection element -> Child option tag
  *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String}  _value      Value attribute
  * @param {String}  _id         ID attribute
  * @param {Boolean} _selected   Selected attribute
- * 
+ *
  * @return {String} Option tag (e.g. <option ...>...</option>)
- * 
+ *
  * @private
  */
 function _selectOption (_value, _id, _selected) {
@@ -1036,11 +1082,11 @@ function _selectOption (_value, _id, _selected) {
 
 /**
  * (Helper) Selection element end tag
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @return Selection end tag (e.g. </select>)
- * 
+ *
  * @private
  */
 function _selectE () {
@@ -1049,13 +1095,13 @@ function _selectE () {
 
 /**
  * (Helper) Gets locale message
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String} name Name of locale message
- * 
+ *
  * @return {String} Message from current locale language
- * 
+ *
  * @private
  */
 function _gim(name) {
@@ -1064,9 +1110,9 @@ function _gim(name) {
 
 /**
  * Gets current village resource production per hour
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @returns {Array} Resource production
  * 					0 wood, 1 clay, 2 iron, 3 crop
  */
@@ -1084,22 +1130,22 @@ function villageGetResourceProduction() {
         perHour[1] = m[2];
         perHour[2] = m[3];
         perHour[3] = m[4];
-	
-        if (dev) console.log("globalOverflowTimer - Resources per hour: " + perHour[0] + " " + perHour[1] + " " + perHour[2] + " " + perHour[3]);
+
+        devLog("globalOverflowTimer - Resources per hour: " + perHour[0] + " " + perHour[1] + " " + perHour[2] + " " + perHour[3]);
     }
-    
+
     return perHour;
 }
 
 
 /**
  * Sends request for Notification message
- * 
+ *
  * @author Aleksandar Toplek
- * 
+ *
  * @param {String} image Image name
  * @param {String} message Message to show
- * 
+ *
  * @private
  */
 function _sendNotifiRequest(image, message) {
@@ -1196,13 +1242,13 @@ function _sendRequest(request, callback) {
  */
 function Controller(devMode) {
 	InitializeController();
-	
+
 	function BeginInitialization() {
 		_log("BeginInitialization - Initialization of new controller began...");
-		
+
 		_log("BeginInitialization - Finished!");
 	}
-	
+
 	function _log(message) {
 		console.log(message);
 	}
@@ -1215,23 +1261,23 @@ function Controller(devMode) {
  * @author Aleksandar Toplek
  */
 function PageView() {
-	
-// Page data 
+
+// Page data
 // NOT NEEDED SINCE ITS ONLY VARIABLE IN CLASS
 //	this.Gatherer = {
-		
+
 //	};
 // This is done through view object
-/*	
+/*
 	// Page modifications
 	this.Modifier = {
-		
+
 	};
 */
 }
 
 function Village() {
-	// NOTE: Any *.travian.*/... page (except help) 
+	// NOTE: Any *.travian.*/... page (except help)
 	this.name = "<NameNotDefined>";
 	this.loyalty = 100;
 
@@ -1240,23 +1286,23 @@ function Village() {
 	this.population = 0;
 	this.coordX = 0;
 	this.coordY = 0;
-	
+
 	// TODO: Is this data or control?
 	//this.resourceOverflowLastUpdate = 0;
 	//this.resourceOverflowTime = [0, 0, 0, 0];
-	
+
 	// NOTE: On any *.travian.*/... page (except help)
 	this.Resources = {
 		lastUpdated: 0,
-		
+
 		storage: [0, 0],
 		production: [0, 0, 0, 0]
 	};
-	
+
 	// NOTE: On dorf2.php
 	this.VillageIn = {
 		lastUpdated: 0,
-		
+
 		levels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		buildings: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	};
@@ -1264,15 +1310,15 @@ function Village() {
 	// NOTE: On dorf1.php
 	this.VillageOut = {
 		lastUpdated: 0,
-		
+
 		type: "f3",
 		levels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	};
-	
+
 	this.Troops = {
 		lastUpdatedMyTroops: 0,
 		lastUpdatedTotalTroops: 0,
-	
+
 		// NOTE: myTroops don't count units in support or attack
 		// NOTE: On dorf1.php
 		myTroops: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1284,36 +1330,37 @@ function Village() {
 			nature: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 		}
 	};
-	
+
 	this.Queue = {
 		// NOTE: On dorf1.php
 		// NOTE: On dorf2.php
 		Building: {
-			
+
 		},
 		// NOTE: On build.php > barracks
 		// NOTE: On build.php > stable
-		// NOTE: On build.php > Workshop 
+		// NOTE: On build.php > Workshop
 		Troops: {
-			
+
 		},
 		// Note: On build.php > palace
-		// NOTE: On build.php > residence 
+		// NOTE: On build.php > residence
 		PalaceResidence: {
-			
+
 		},
 		// NOTE: On build.php > armory
 		Armory: {
-			
+
 		},
 		// NOTE: On build.php > town hall
 		TownHall: {
-			
+
 		}
 	};
-	
+
 	// TODO: Oases
 	// TODO: Artefacts
 	// TODO: Can build/conquer new village
 	// TODO: Culture points
 }
+
