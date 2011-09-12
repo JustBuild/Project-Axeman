@@ -62,8 +62,6 @@ function init() {
     devLog("init - Waiting for settings (0/" + dataAvailable + ")");
 
     if (dev) {
-    	var extensionID = "iocibcglikkcbjcdkenhnfngokknheen";
-
     	var style = '<style type="text/css">' +
     				'	#DevBar {' +
     				'		position:fixed;' +
@@ -86,10 +84,10 @@ function init() {
     	$("body").append('<div id="DevBar" class="devbar"><b>&nbsp;Project Axeman DEV mode&nbsp;&nbsp;&nbsp;&nbsp;</b></div>');
 
     	// Injects link to Debug page (only in dev mode)
-        $(".devbar").append('<a id="DevButton" target="_blank" href="chrome-extension://' + extensionID + '/Pages/Debug/DebugPage.html">Debug info</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+        $(".devbar").append('<a id="DevButton" target="_blank" href="chrome-extension://' + extensionId + '/Pages/Debug/DebugPage.html">Debug info</a>&nbsp;&nbsp;&nbsp;&nbsp;');
 
         // Injects link to Options page (only in dev mode)
-        $(".devbar").append('<a id="DevButton" target="_blank" href="chrome-extension://' + extensionID + '/Pages/Options.html">Options page</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+        $(".devbar").append('<a id="DevButton" target="_blank" href="chrome-extension://' + extensionId + '/Pages/Options.html">Options page</a>&nbsp;&nbsp;&nbsp;&nbsp;');
 
         $(".devbar").append('<a id="DevInfoText" href="#" class="infotextTime">Script time: ### ms</a>');
     }

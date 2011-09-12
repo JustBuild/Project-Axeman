@@ -29,6 +29,7 @@
         "js": [ 
             "Scripts/jQuery.js", 
             "Scripts/jQueryUI.js",
+            "Scripts/ExtensionId.js",
             "Scripts/ContentScript.js"
         ],
         "matches": [ 
