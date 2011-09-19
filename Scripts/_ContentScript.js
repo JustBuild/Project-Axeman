@@ -8,9 +8,9 @@
 
     Collaborator
     Everton Moreth
-    
+
 	License at LICENSE.md file distributed with this file.
-	
+
 */
 
 // TODO: Performance - Retrieve only needed settings
@@ -315,13 +315,29 @@ function globalOverflowTimer() {
     $("#res").children().each(function(index) {
         // Skips crop consumption
         if (index !== 4) {
-            var current 	= globalGetWarehousAmount(index + 1);
-            var max 		= globalGetWarehousMax(index + 1);
-            var timeLeft 	= (max - current) / village.Resources.production[index];
+            var actualProduction = village.Resources.production[index];
+            if(actualProduction == 0)
+            {
+                $(this).append("<div style='background-color: #EFF5FD;'><b><p id='paResourceOverflowTime" + index + "' style='text-align: right;'>" + _gim("TravianNever") + "</p></b></div>");
+            }
+            else {
+                var current 	= globalGetWarehousAmount(index + 1);
 
+                if(actualProduction > 0) {
+                    var max 		= globalGetWarehousMax(index + 1);
+                    var timeLeft 	= (max - current) / actualProduction;
+
+                    $(this).append("<div style='background-color: #EFF5FD;'><b><p id='paResourceOverflowTime" + index + "' style='text-align: right;'>" + _hoursToTime(timeLeft) + "</p></b></div>");
+                }
+                else {
+                    var timeLeft 	= current / Math.abs(actualProduction);
+
+                    $(this).append("<div style='background-color: #EFF5FD;  color:red !important; border: 1px solid red;'><b><p id='paResourceOverflowTime" + index + "' style='text-align: right;'>" +  _hoursToTime(timeLeft) + "</p></b></div>");
+
+                }
+            }
             devLog("globalOverflowTimer - l" + (index + 1) + " appended!");
 
-            $(this).append("<div style='background-color: #EFF5FD;'><b><p id='paResourceOverflowTime" + index + "' style='text-align: right;'>" + _hoursToTime(timeLeft) + "</p></b></div>");
         }
     });
 
@@ -406,7 +422,7 @@ function globalGetWarehousMax(index) {
 }
 
 /**
- * Warrehouse info about [index] resource
+ * Warehouse info about [index] resource
  *
  * @author Aleksandar Toplek
  *
@@ -724,7 +740,7 @@ function buildMarketFillVillagesList() {
     devLog("buildMarketFillVillagesList - Selection generated!;");
 
 	// TODO: Make this compatible with Send troops page
-	
+
     // Creates two radio buttons for choosing the method of city selection
     // These radio buttons does not have names in order to be invisible on the server side
     // (radio with no names are not send on form submission)
@@ -1089,21 +1105,14 @@ function _gim(name) {
  */
 function villageGetResourceProduction() {
 	var perHour 	= [0, 0, 0, 0];
-    var  scriptText = $("script:contains('resources.production')").text();
 
-    // From http://txt2re.com/index-javascript.php3?s=resources.production%20=%20{%20%27l1%27:%201250,%27l2%27:%201500,%27l3%27:%201250,%27l4%27:%20508};&15&13&12&11&17
-    // Gets resource production from <script /> element in page
-    var re = '.*?\\d+.*?(\\d+).*?\\d+.*?(\\d+).*?\\d+.*?(\\d+)+.*?\\d+.*?(\\d+)';
-    var p = new RegExp(re, ["i"]);
-    var m = p.exec(scriptText);
-    if (m != null) {
-        perHour[0] = m[1];
-        perHour[1] = m[2];
-        perHour[2] = m[3];
-        perHour[3] = m[4];
+    var resources = {};
+    eval($("script:contains('resources.production')").text())
 
-        devLog("globalOverflowTimer - Resources per hour: " + perHour[0] + " " + perHour[1] + " " + perHour[2] + " " + perHour[3]);
+    for(var i = 0; i < 4; i++) {
+        perHour[i] = resources.production["l" + (i+1)];
     }
+    devLog("globalOverflowTimer - Resources per hour: " + perHour[0] + " " + perHour[1] + " " + perHour[2] + " " + perHour[3]);
 
     return perHour;
 }
