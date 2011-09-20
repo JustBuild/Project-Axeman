@@ -27,5 +27,11 @@
     "TravianSelectAll": {
     	"message": "Oznaci sve",
         "description": "Koristi se kod odabira vise oznaka ili jedinica"
+    },
+
+    "TravianNever": {   
+        "message": "Nikad",
+        "description": "Opce namjene za nesto sto se nikad nece dogoditi."
     }
+
 }
