@@ -34,6 +34,7 @@
         ],
         "matches": [ 
             "http://*.travian.ae/*", 
+            "http://*.travian.asia/*",
             "http://*.travian.com.au/*", 
             "http://*.travian.ba/*", 
             "http://*.travian.bg/*", 
