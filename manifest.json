@@ -8,29 +8,34 @@
     "background_page":  "Pages/Background.html",
     "options_page":     "Pages/Options.html",
     
-    "page_action": {
-        "default_icon": "Icons/icon48.png",
-        "default_title": "Project Axeman",
-        "default_popup": "Pages/Popup.html"
-    },
-    
-	"permissions": [
-    	"notifications"
-  	],
-
     "icons": {
         "128":  "Icons/icon128.png",
         "16":   "Icons/icon16.png",
         "48":   "Icons/icon48.png"
     },
 
+    "permissions": [
+        "notifications"
+    ],
+
+    "page_action": {
+        "default_icon": "Icons/icon48.png",
+        "default_title": "Project Axeman",
+        "default_popup": "Pages/Popup.html"
+    },
+    
     "content_scripts": [ {
         "run_at": "document_end",
         "js": [ 
             "Scripts/jQuery.js", 
             "Scripts/jQueryUI.js",
+            
             "Scripts/ExtensionId.js",
-            "Scripts/ContentScript.js"
+            
+            "Scripts/ContentScript.js",
+
+            "Scripts/App/Enums.js",
+            "Scripts/App/App.js"
         ],
         "matches": [ 
             "http://*.travian.ae/*", 
