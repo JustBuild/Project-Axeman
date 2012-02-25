@@ -18,4 +18,4 @@ The views and conclusions contained in the software and documentation are those 
 
 ## Using
 
-All files of ''Project Axeman'' are subject to this **LICENSE** as stated above. Any usage of source code and b
+All files of ''Project Axeman'' are subject to this **LICENSE** as stated above. 

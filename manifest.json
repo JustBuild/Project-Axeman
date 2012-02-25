@@ -1,7 +1,7 @@
 {
     "name":             "Project Axeman",
     "description":      "__MSG_ExtensionInfoDescription__",
-    "version":          "0.2.0",
+    "version":          "0.2.0.0",
     
     "default_locale": "en",
     

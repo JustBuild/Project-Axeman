@@ -1,5 +1,6 @@
 # Project Axeman
 _Current version 0.1.7_
+_Development version 0.2.0.0_
 
 
 ## Overview
@@ -16,12 +17,14 @@ _This extension uses [Google Chrome](http://www.google.com/chrome "Google Chrome
     - 2X shortcut 
     - Junk resources
     - Incoming resource sum
+    - Easy send resource to my village
 - Warehouse and Granary full indicators
 - Resource needed to build/upgrade buildings and units
 - Settings page where you can customize extension
 - Translations: _(to participate contact us justbuilddev@gmail.com)_
     - en _(English)_
     - hr _(Hrvatski)_
+    - ptBR _Portuguese (Brazil)_ (version 0.1.7 only)
     - _Full list available [here](https://github.com/JustBuild/Project-Axeman/wiki/Internationalization "Project Axeman internationalization page")_
 
 #### _Features to come_
@@ -46,7 +49,7 @@ Collaborator(s):
 ## Changelog
 
 
-- **Version 0.2.0** _(18.09.2011.)_
+- **Version 0.2.0** _(unknown)_
 
     - <div style="color:red;">Added: SessionStorage/LocalStorage option for sitted villages or players</div>
     - Added: Text box parallel to village selection box
