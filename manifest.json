@@ -29,8 +29,6 @@
         "js": [ 
             "Scripts/jQuery.js", 
             "Scripts/jQueryUI.js",
-            
-            "Scripts/ExtensionID.js",
 
             "Scripts/App/Helpers.js",
             "Scripts/App/Enums.js",

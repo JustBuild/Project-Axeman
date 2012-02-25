@@ -9,9 +9,14 @@
  *
  */
 
+// Definitions
+var App = {
+	"Start": Start
+};
+
 /*
  * Application entry point
  */
-function Start(isDevelopmentMode) {
+function Start() {
 
 }
