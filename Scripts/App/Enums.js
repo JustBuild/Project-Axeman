@@ -1,12 +1,11 @@
 /*
- *
  * Enums.js
  *
  * Author:
  * 		Aleksandar Toplek,
  *
- * Date created:
- * 		08.09.2011.
+ * Created on:
+ * 		25.02.2012.
  *
  */
  

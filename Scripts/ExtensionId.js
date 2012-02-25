@@ -25,4 +25,4 @@
 /*                                                       */
 /*********************************************************/
 
-var extensionId = "gocnicgafbnpopbpkcojggdeegmgiadp";
+var ExtensionID = "gocnicgafbnpopbpkcojggdeegmgiadp";
