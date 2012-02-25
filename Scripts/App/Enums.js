@@ -1,3 +1,15 @@
+/*
+ *
+ * Enums.js
+ *
+ * Author:
+ * 		Aleksandar Toplek,
+ *
+ * Date created:
+ * 		08.09.2011.
+ *
+ */
+ 
 var Enums = {
 	VillageTypes: {
 		f1: [3, 3, 3, 9],
