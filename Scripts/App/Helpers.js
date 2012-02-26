@@ -10,10 +10,27 @@
  */
 
 var Helpers = {
-	"Log": Log
+	"Error": 	Error,
+	"Warn": 	Warn,
+	"Log": 		Log
 };
 
 
+// TODO: Comment function
+function Error(message) {
+	if (IsDevelopmentMode) {
+		console.error(message);
+	}
+}
+
+// TODO: Comment function
+function Warn(message) {
+	if (IsDevelopmentMode) {
+		console.warn(message);
+	}
+}
+
+// TODO: Comment function
 function Log(message) {
 	if (IsDevelopmentMode) {
 		console.log(message);

@@ -9,14 +9,18 @@
  *
  */
 
+ // TODO: Remove Models.js
+ // NOTE: All models goese to its "namespace"
+
 // Definitions
 var Models = {
-	"Village": Village
+	"Village": 		Village,
+	"Profile": 		Profile
 };
 
 
 /*
- * Village model class
+ * Village model
  */
 function Village() {
 	// Note: On any *.travian.*/... page (except help)
@@ -79,3 +83,11 @@ function Village() {
 		TroopLevels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
 	};
 }
+
+/*
+ * Profile model
+ */
+ function Profile() {
+ 	this.isDefault = false;
+	this.profileName = "Default";
+ }

@@ -18,5 +18,6 @@ var App = {
  * Application entry point
  */
 function Start() {
-
+	var request = new RequestObject("Background", "Settings", "Profile", "Get", null);
+	Request.Send(request, null);
 }
