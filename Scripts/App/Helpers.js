@@ -36,3 +36,10 @@ function Log(message) {
 		console.log(message);
 	}	
 }
+
+// TODO: Comment function
+function DLog(message) {
+	if (IsDebugMode == true && IsDevelopmentMode == true) {
+		console.log("DEBUG:    " + message);
+	}
+}

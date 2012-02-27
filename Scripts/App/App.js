@@ -11,13 +11,23 @@
 
 // Definitions
 var App = {
-	"Start": Start
+	"Start": 				Start,
+	"RegisterPlugins": 		RegisterPlugins
 };
 
 /*
  * Application entry point
  */
 function Start() {
-	var request = new Request("haha", "Settings", "Profile", "Get", null);
+	// Requests test
+	var request = new Requests.Request("Background", "Notification", "ShowSimple", "Action", null);
 	request.Send(null);
+
+	App.RegisterPlugins();
+}
+
+
+// TODO: Comment function
+function RegisterPlugins() {
+	DevelopmentToolbar.Register();
 }

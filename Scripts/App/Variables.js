@@ -10,3 +10,4 @@
  */
 
  var IsDevelopmentMode = true;
+ var IsDebugMode = true;
