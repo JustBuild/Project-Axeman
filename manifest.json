@@ -30,11 +30,13 @@
             "Scripts/jQuery.js", 
             "Scripts/jQueryUI.js",
 
-            "Scripts/App/Helpers.js",
             "Scripts/App/Enums.js",
-            "Scripts/App/Request.js",
-            "Scripts/App/Notification.js",
+            "Scripts/App/Variables.js",
+            "Scripts/App/Helpers.js",
+            "Scripts/App/Requests.js",
+            "Scripts/App/Notifications.js",
             "Scripts/App/Models.js",
+
             "Scripts/App/App.js",
             "Scripts/App/AppLauncher.js"
         ],

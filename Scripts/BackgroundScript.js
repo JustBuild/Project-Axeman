@@ -19,10 +19,10 @@ BackgroundScript.Initialize();
 
 // TODO: Comment function
 function Initialize() {
-	Request.Recieve("Background", GotRequest);
+	Requests.Recieve("Background", GotRequest);
 }
 
 
 function GotRequest(request, sender, sendResponse) {
-	Helpers.Log("Got request { requestSign: " + requestSign + ", requestCategory: " + requestCategory + ", requestName: " + requestName + ", actionName: " + actionName + ", requestData: " + requestData + " }");
+	Helpers.Log("Got request { requestSign: " + request.requestSign + ", requestCategory: " + request.requestCategory + ", requestName: " + request.requestName + ", actionName: " + request.actionName + ", requestData: " + request.requestData + " }");
 }

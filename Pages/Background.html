@@ -1,43 +1,11 @@
 <!--
-
     Background.html
 
-    by
-    Aleksandar Toplek,
-    JustBuild 2011.
+    Author:
+            Aleksandar Toplek,
 
-    LICENSE: 
-
-        Copyright 2011 JustBuild Development. All rights reserved.
-
-        Redistribution and use in source and binary forms, with or without 
-        modification, are permitted provided that the following conditions 
-        are met:
-
-            1. Redistributions of source code must retain the above copyright 
-               notice, this list of conditions and the following disclaimer.
-
-            2. Redistributions in binary form must reproduce the above copyright 
-               notice, this list of conditions and the following disclaimer in 
-               the documentation and/or other materials provided with the 
-               distribution.
-
-        THIS SOFTWARE IS PROVIDED BY JUSTBUILD DEVELOPMENT ''AS IS'' AND ANY 
-        EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
-        PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JUSTBUILD DEVELOPMENT OR
-        CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-        EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
-        PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-        PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-        LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-        NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
-        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-        The views and conclusions contained in the software and documentation 
-        are those of the authors and should not be interpreted as representing 
-        official policies, either expressed or implied, of JustBuild Development
-
+    Created on:
+            27.02.2012.
 -->
 
 <!DOCTYPE html>
@@ -46,15 +14,22 @@
     	<meta charset="UTF-8">
         <title>Project Axeman - Background worker page</title>
         
+        <!-- jQuery script -->
 		<script type="text/javascript" src="../Scripts/jQuery.js"></script>
-		<script type="text/javascript" src="../Scripts/jQueryUI.js"></script>
+
+        <!-- App scripts -->
+        <script type="text/javascript" src="../Scripts/App/Enums.js"></script>
+        <script type="text/javascript" src="../Scripts/App/Variables.js"></script>
+        <script type="text/javascript" src="../Scripts/App/Helpers.js"></script>
+        <script type="text/javascript" src="../Scripts/App/Models.js"></script>
+        <script type="text/javascript" src="../Scripts/App/Requests.js"></script>
+        <script type="text/javascript" src="../Scripts/App/Notifications.js"></script>
+
+        <!-- Background script -->
+        <script type="text/javascript" src="../Scripts/BackgroundScript.js"></script>
 		
+        <!-- TODO: Remove if not needed -->
 		<script>
-            include_dom("../Scripts/App/Helpers.js");
-            include_dom("../Scripts/App/Request.js");
-            include_dom("../Scripts/App/Notification.js");
-			include_dom("../Scripts/BackgroundScript.js");
-		
 			// Code from: http://forums.digitalpoint.com/showthread.php?t=147315
 			function include_dom(script_filename) {
 			    var html_doc = document.getElementsByTagName('head').item(0);
@@ -68,5 +43,13 @@
 		</script>
 		
 	</head>
-    <body></body>
+    <body>
+        <h1>This is <i>BACKGROUND</i> page of Project Axeman</h1>
+        <p>If you see this, something went wrong. Please report waht you did to get here.</p>
+        <p>
+            <a href="http://github.com/JustBuild/Project-Axeman/wiki" alt="Project Axeman support page">
+                Project Axeman Support page
+            </a>
+        </p>
+    </body>
 </html>

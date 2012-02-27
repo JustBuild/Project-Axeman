@@ -1,0 +1,28 @@
+RELEASE TODO LIST
+	(1)		Variables.js > IsDevelopmentMode => false
+
+
+LIBRARIES USED
+
+	jQuery current version:		1.7.1
+	jQueryUI current version:	1.8.18
+
+
+USING AND LAUNCHING APP
+
+	For using plugins you need to include following scripts:
+		Total: (5)
+
+		(in that order)
+		(1)		Scripts/App/Enums.js
+		(2)		Scripts/App/Variables.js
+		(3)		Scripts/App/Helpers.js
+		(4)		Scripts/App/Models.js
+		(5)		Scripts/App/Requests.js
+		(6)		Scripts/App/Notifications.js
+
+	To launch app include all above stated scripts plus two: 
+		
+		(in that order)
+		(1)		Scripts/App/App.js
+		(2)		Scripts/App/AppLauncher.js
