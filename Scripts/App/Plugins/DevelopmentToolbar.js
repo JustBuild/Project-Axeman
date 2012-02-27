@@ -22,9 +22,11 @@
  	Helpers.Log("Registering DevelopmentToolbar plugin...");
 
  	if (IsDevelopmentMode == false) {
- 		Helpers.Log("Plugin set to inactive due to extension not in development mode.");
+ 		Helpers.DLog("Plugin set to inactive due to extension not in development mode.");
  	}
  	else {
+ 		Helpers.DLog("Extension is in development mode - plugin set to active.");
+ 		
  		// TODO: Implement registration here
  	}
  }
