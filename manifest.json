@@ -37,6 +37,8 @@
             "Scripts/App/Notifications.js",
             "Scripts/App/Models.js",
 
+            "Scripts/App/Plugins/DevelopmentToolbar.js",
+
             "Scripts/App/App.js",
             "Scripts/App/AppLauncher.js"
         ],
