@@ -23,6 +23,20 @@ function Initialize() {
 }
 
 
+// TODO: Comment function
 function GotRequest(request, sender, sendResponse) {
-	Helpers.Log("Got request { requestSign: " + request.requestSign + ", requestCategory: " + request.requestCategory + ", requestName: " + request.requestName + ", actionName: " + request.actionName + ", requestData: " + request.requestData + " }");
+	Helpers.DLog("Got request { requestSign: " + request.requestSign + ", requestCategory: " + request.requestCategory + ", requestName: " + request.requestName + ", actionName: " + request.actionName + ", requestData: " + request.requestData + " }");
+
+	if(request.requestCategory == "Notification") {
+		GotNotificationRequest(request);
+	}
+}
+
+// TODO: Comment function
+function GotNotificationRequest(request) {
+	Helpers.DLog("Got Notification request.");
+
+	if (request.actionName == "Show") {
+		request.requestData.Show();
+	}
 }

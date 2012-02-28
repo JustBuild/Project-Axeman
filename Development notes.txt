@@ -26,3 +26,8 @@ USING AND LAUNCHING APP
 		(in that order)
 		(1)		Scripts/App/App.js
 		(2)		Scripts/App/AppLauncher.js
+
+AVAILABLE PLUGINS
+	Total: (1)
+
+	DevelopmentToolbar 		(Scripts/App/DevelopmentToolbar.js)

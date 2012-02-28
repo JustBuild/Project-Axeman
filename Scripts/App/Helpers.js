@@ -12,7 +12,8 @@
 var Helpers = {
 	"Error": 	Error,
 	"Warn": 	Warn,
-	"Log": 		Log
+	"Log": 		Log,
+	"DLog":  	DLog
 };
 
 
