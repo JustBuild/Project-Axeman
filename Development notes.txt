@@ -8,6 +8,10 @@ LIBRARIES USED
 	jQueryUI current version:	1.8.18
 
 
+APPLICATION DIAGRAM availabel at
+	https://cacoo.com/diagrams/KjPQ0pHQGjoujRxt
+	
+
 USING AND LAUNCHING APP
 
 	For using plugins you need to include following scripts:
