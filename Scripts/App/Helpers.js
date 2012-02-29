@@ -10,12 +10,24 @@
  */
 
 var Helpers = {
-	"Error": 	Error,
-	"Warn": 	Warn,
-	"Log": 		Log,
-	"DLog":  	DLog
+	"GetImageURL": 			GetImageURL,
+	"GetExtensionRootURL": 	GetExtensionRootURL,
+	"Error": 				Error,
+	"Warn": 				Warn,
+	"Log": 					Log,
+	"DLog":  				DLog
 };
 
+
+// TODO: Comment function
+function GetImageURL(category, filename) {
+	return GetExtensionRoot("Images/" + category + "/" + filename);
+}
+
+// TODO: Comment function
+function GetExtensionRootURL(path) {
+	return chrome.extension.getURL(path);
+}
 
 // TODO: Comment function
 function Error(message) {

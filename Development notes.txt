@@ -10,28 +10,27 @@ LIBRARIES USED
 
 APPLICATION DIAGRAM availabel at
 	https://cacoo.com/diagrams/KjPQ0pHQGjoujRxt
-	
+
 
 USING AND LAUNCHING APP
 
 	For using plugins you need to include following scripts:
 		Total: (5)
-
 		(in that order)
-		(001)	Scripts/App/Enums.js
-		(002)	Scripts/App/Variables.js
-		(003)	Scripts/App/Helpers.js
-		(004)	Scripts/App/Models.js
 
-		These are managers
-		(900)	Scripts/App/RequestManager.js
-		(901)	Scripts/App/NotificationManager.js
+		Scripts/App/Enums.js
+		Scripts/App/Variables.js
+		Scripts/App/Helpers.js
+		Scripts/App/Models.js
+		
+		Scripts/App/RequestManager.js
+		Scripts/App/NotificationManager.js
 
 	To launch app include all above stated scripts plus two: 
-		
 		(in that order)
-		(1)		Scripts/App/App.js
-		(2)		Scripts/App/AppLauncher.js
+		
+		Scripts/App/App.js
+		Scripts/App/AppLauncher.js
 
 AVAILABLE PLUGINS
 	Total: (1)
