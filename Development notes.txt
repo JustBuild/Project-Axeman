@@ -14,12 +14,14 @@ USING AND LAUNCHING APP
 		Total: (5)
 
 		(in that order)
-		(1)		Scripts/App/Enums.js
-		(2)		Scripts/App/Variables.js
-		(3)		Scripts/App/Helpers.js
-		(4)		Scripts/App/Models.js
-		(5)		Scripts/App/Requests.js
-		(6)		Scripts/App/Notifications.js
+		(001)	Scripts/App/Enums.js
+		(002)	Scripts/App/Variables.js
+		(003)	Scripts/App/Helpers.js
+		(004)	Scripts/App/Models.js
+
+		These are managers
+		(900)	Scripts/App/RequestManager.js
+		(901)	Scripts/App/NotificationManager.js
 
 	To launch app include all above stated scripts plus two: 
 		

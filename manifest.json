@@ -33,9 +33,10 @@
             "Scripts/App/Enums.js",
             "Scripts/App/Variables.js",
             "Scripts/App/Helpers.js",
-            "Scripts/App/Requests.js",
-            "Scripts/App/Notifications.js",
             "Scripts/App/Models.js",
+
+            "Scripts/App/RequestManager.js",
+            "Scripts/App/NotificationManager.js",
 
             "Scripts/App/Plugins/DevelopmentToolbar.js",
 

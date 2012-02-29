@@ -14,12 +14,14 @@ var BackgroundScript = {
 	"Initialize": 		Initialize
 };
 
-BackgroundScript.Initialize();
 
+// This is called since there is no launcher
+// as there is for App script
+BackgroundScript.Initialize();
 
 // TODO: Comment function 
 function Initialize() {
-	Requests.Recieve("Background", GotRequest);
+	RequestManager.Recieve("Background", GotRequest);
 }
 
 
@@ -37,6 +39,6 @@ function GotNotificationRequest(request) {
 	Helpers.DLog("Got Notification request.");
 
 	if (request.actionName == "Show") {
-		Notifications.Show(request.requestData);
+		NotificationManager.Show(request.requestData);
 	}
 }
