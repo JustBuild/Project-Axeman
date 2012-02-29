@@ -17,7 +17,7 @@ var BackgroundScript = {
 BackgroundScript.Initialize();
 
 
-// TODO: Comment function
+// TODO: Comment function 
 function Initialize() {
 	Requests.Recieve("Background", GotRequest);
 }
@@ -37,6 +37,6 @@ function GotNotificationRequest(request) {
 	Helpers.DLog("Got Notification request.");
 
 	if (request.actionName == "Show") {
-		request.requestData.Show();
+		Notifications.Show(request.requestData);
 	}
 }

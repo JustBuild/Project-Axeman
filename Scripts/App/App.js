@@ -19,12 +19,12 @@ var App = {
  * Application entry point
  */
 function Start() {
-	var notification = new Notifications.Notification(null, "Project Axeman", "Test message", 5000);
-
 	// Requests test
+	var notification = new Notifications.Notification(null, "Project Axeman", "Test message", 1000);
 	var request = new Requests.Request("Background", "Notification", "Simple", "Show", notification);
-	request.Send(null);
+	Requests.Send(request, null);
 
+	// Register plugins
 	App.RegisterPlugins();
 }
 

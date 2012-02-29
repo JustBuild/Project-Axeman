@@ -19,25 +19,15 @@
 
 
 
-// TODO: Comment object
+// TODO: Comment class
 function Request(requestSign, requestCategory, requestName, actionName, requestData) {
 	this.requestSign = requestSign,
 	this.requestCategory = requestCategory,
 	this.requestName = requestName,
 	this.actionName = actionName,
-	this.requestData = requestData,
-
-	/*
-	 * Sends request with data and callback to 
-	 * listener. 
-	 *
-	 * callback can be {Null} - in that case it is
-	 *          replaces with empty funtion call    
-	 */
-	this.Send = function(callback) {
-		chrome.extension.sendRequest(this, callback || function() {});
-	}
+	this.requestData = requestData
 };
+
 
 // TODO: Comment function
 function Recieve(sign, callback) {
@@ -58,5 +48,5 @@ function Recieve(sign, callback) {
  *          replaces with empty funtion call    
  */
  function Send(request, callback) {
- 	request.Send(callback);
+ 	chrome.extension.sendRequest(request, callback || function() {});
  };
