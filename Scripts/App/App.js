@@ -20,7 +20,7 @@ var App = {
  */
 function Start() {
 	// Requests test
-	var notification = new NotificationManager.Notification(null, "Project Axeman", "Test message", 1000);
+	var notification = new NotificationManager.Notification(Helpers.GetImageURL("Notifications", "ProjectAxeman.png"), "Project Axeman", "Test message", 1000);
 	var request = new RequestManager.Request("Background", "Notification", "Simple", "Show", notification);
 	RequestManager.Send(request, null);
 

@@ -21,7 +21,7 @@ var Helpers = {
 
 // TODO: Comment function
 function GetImageURL(category, filename) {
-	return GetExtensionRoot("Images/" + category + "/" + filename);
+	return GetExtensionRootURL("Images/" + category + "/" + filename);
 }
 
 // TODO: Comment function
