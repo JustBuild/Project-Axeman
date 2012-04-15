@@ -9,8 +9,6 @@
  *
  */
 
-var IsDevelopmentMode = true;
-
 // Start message (log) that contains
 // date and extension root URL
 Helpers.Log("Extension initialized at ");
@@ -18,5 +16,5 @@ Helpers.Log((new Date()).toString());
 Helpers.Log("Extension URL: " + chrome.extension.getURL("/") + "]");
 Helpers.Log("Starting App...");
 
-
-App.Start(IsDevelopmentMode);
+var application = new App();
+application.Initialize();

@@ -14,6 +14,9 @@ var BackgroundScript = {
 	"Initialize": 		Initialize
 };
 
+// Variables
+notificationManager = new NotificationManager();
+
 
 // This is called since there is no launcher
 // as there is for App script
@@ -39,6 +42,6 @@ function GotNotificationRequest(request) {
 	Helpers.DLog("Got Notification request.");
 
 	if (request.actionName == "Show") {
-		NotificationManager.Show(request.requestData);
+		notificationManager.Show(request.requestData);
 	}
 }

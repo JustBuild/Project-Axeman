@@ -9,27 +9,36 @@
  *
  */
 
-// Definitions
-var App = {
-	"Start": 				Start,
-	"RegisterPlugins": 		RegisterPlugins
-};
+function App() {
+	/************************************************
+	 *
+	 * Application entry point
+	 * 
+	 ***********************************************/
+	this.Initialize = function() {
+		// Requests test
+		//var notification = new NotificationManager.Notification(Helpers.GetImageURL("Notifications", "ProjectAxeman.png"), "Project Axeman", "Test message", 1000);
+		var notification = new Notification(Helpers.GetImageURL("Notifications", "ProjectAxeman.png"), "Project Axeman", "Test message", 1000);
+		var request = new RequestManager.Request("Background", "Notification", "Simple", "Show", notification);
+		RequestManager.Send(request, null);
 
-/*
- * Application entry point
- */
-function Start() {
-	// Requests test
-	var notification = new NotificationManager.Notification(Helpers.GetImageURL("Notifications", "ProjectAxeman.png"), "Project Axeman", "Test message", 1000);
-	var request = new RequestManager.Request("Background", "Notification", "Simple", "Show", notification);
-	RequestManager.Send(request, null);
-
-	// Register plugins
-	App.RegisterPlugins();
-}
+		// Register plugins
+		this.RegisterPlugins();
+	}
 
 
-// TODO: Comment function
-function RegisterPlugins() {
-	DevelopmentToolbar.Register();
+	this.knownPlugins = [
+		DevelopmentToolbar
+	]
+
+	/************************************************
+	 *
+	 * Registers all known plugins
+	 *
+	 ***********************************************/
+	this.RegisterPlugins = function() {
+		for(var index in this.knownPlugins) {
+			this.knownPlugins[index].Register();
+		}
+	}
 }
