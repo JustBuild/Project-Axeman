@@ -1,4 +1,4 @@
-/*
+/************************************************
  * Models.js
  *
  * Author:
@@ -7,21 +7,14 @@
  * Created on:
  *		25.02.2012.
  *
- */
-
- // TODO: Remove Models.js
- // NOTE: All models goese to its "namespace"
-
-// Definitions
-var Models = {
-	"Village": 		Village,
-	"Profile": 		Profile
-};
+ ***********************************************/
 
 
-/*
+/************************************************
+ *
  * Village model
- */
+ *
+ ***********************************************/
 function Village() {
 	// Note: On any *.travian.*/... page (except help)
 	this.name = "<NameNotDefined>";
@@ -84,9 +77,11 @@ function Village() {
 	};
 }
 
-/*
+/************************************************
+ *
  * Profile model
- */
+ *
+ ***********************************************/
  function Profile() {
  	this.isDefault = false;
 	this.profileName = "Default";

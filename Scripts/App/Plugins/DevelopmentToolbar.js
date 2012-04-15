@@ -1,4 +1,4 @@
-/*
+/************************************************
  * DevelopmentToolbar.js
  * 
  * Author:
@@ -7,41 +7,42 @@
  * Created on:
  * 		27.02.2012.
  *
- */
+ ***********************************************/
 
-// Here goese public function definitions
- var DevelopmentToolbar = {
- 	"Register": 		Register
- }
+/************************************************
+ *
+ * Development toolbar that appears on bottom
+ * of the page
+ *
+ ***********************************************/
+function DevelopmentToolbar() {
+	/********************************************
+	 *
+	 * Registers Developer toolbar plugin
+	 *
+	 *******************************************/
+	this.Register = function() {
+		Helpers.Log("Registering DevelopmentToolbar plugin...");
 
+		if (IsDevelopmentMode == false) {
+			Helpers.DLog("Plugin set to inactive due to extension not in development mode.");
+		}
+		else {
+			Helpers.DLog("Extension is in development mode - plugin set to active.");
 
-/*
- * Registers Developer toolbar plugin
- */
- function Register() {
- 	Helpers.Log("Registering DevelopmentToolbar plugin...");
-
- 	if (IsDevelopmentMode == false) {
- 		Helpers.DLog("Plugin set to inactive due to extension not in development mode.");
- 	}
- 	else {
- 		Helpers.DLog("Extension is in development mode - plugin set to active.");
- 		
- 		var toolbar = GetNewToolbar(
- 			GetNewLabel("Project - Axeman"),
- 			GetNewButton("[BUTTON]", "#")
+			var toolbar = this.GetNewToolbar(
+ 				this.GetNewLabel("Project - Axeman"),
+ 				this.GetNewButton("[BUTTON]", "#")
  			);
 
- 		$("head").append(GetDevelopmentToolbarStyle());
- 		$("body").append(toolbar);
- 	}
- }
+			$("head").append(this.GetDevelopmentToolbarStyle());
+			$("body").append(toolbar);
+		}
+	}
 
-// TODO: Comment function
-function GetDevelopmentToolbarStyle() {
-	var style;
-
-	var style =	'<style type="text/css">' +
+	// TODO: Comment function
+	this.GetDevelopmentToolbarStyle = function() {
+		var style = '<style type="text/css">' +
 					' .DTBase {' +
 						'position:fixed;' +
 						'bottom: 0px; right: 0px; left: 0px;' +
@@ -66,38 +67,39 @@ function GetDevelopmentToolbarStyle() {
 					'}' +
 				'</style>';
 
-	return style;
-}
-
-// TODO: Comment function
-function GetNewLabel(content) {
-	return '<a class="DTLabel" href="#">' + content + '</a>';
-}
-
-// TODO: Comment function
-function GetNewInfoLabel(content) {
-	return '<a class="DTLabel DTInfo" href="#">' + content + '</a>';
-}
-
-// TODO: Comment function
-function GetNewWarnLabel(content) {
-	return '<a class="DTLabel DTWarn" href="#">' + content + '</a>';
-}
-
-// TODO: Comment function
-function GetNewToolbar() {
-	Helpers.DLog("Creating new toolbar with " + arguments.length + " components.");
-
-	var toolbarSource = '<div class="DTBase" id="DevelopmentToolbar">';
-	for (var index = 0; index < arguments.length; index++) {
-		toolbarSource += arguments[index];
+		return style;
 	}
-	toolbarSource += '</dev>';
 
-	return toolbarSource;
+	// TODO: Comment function
+	this.GetNewLabel = function(content) {
+		return '<a class="DTLabel" href="#">' + content + '</a>';
+	}
+
+	// TODO: Comment function
+	this.GetNewInfoLabel = function(content) {
+		return '<a class="DTLabel DTInfo" href="#">' + content + '</a>';
+	}
+
+	// TODO: Comment function
+	this.GetNewWarnLabel = function(content) {
+		return '<a class="DTLabel DTWarn" href="#">' + content + '</a>';
+	}
+
+	// TODO: Comment function
+	this.GetNewToolbar = function() {
+		Helpers.DLog("Creating new toolbar with " + arguments.length + " components.");
+
+		var toolbarSource = '<div class="DTBase" id="DevelopmentToolbar">';
+		for (var index = 0; index < arguments.length; index++) {
+			toolbarSource += arguments[index];
+		}
+		toolbarSource += '</dev>';
+
+		return toolbarSource;
+	}
+
+	// TODO: Comment function
+	this.GetNewButton = function(content, reference) {
+		return '<a class="DTButton" target="_blank" href="' + reference + '">' + content + '</a>&nbsp;&nbsp;&nbsp;&nbsp;'
+	}
 }
-
- // TODO: Comment function
- function GetNewButton(content, reference) {
- 	return '<a class="DTButton" target="_blank" href="' + reference + '">' + content + '</a>&nbsp;&nbsp;&nbsp;&nbsp;'
- }

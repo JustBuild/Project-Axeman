@@ -1,4 +1,4 @@
-/*
+/************************************************
  * App.js
  * 
  * Author:
@@ -7,38 +7,62 @@
  * Created on:
  * 		25.02.2012.
  *
- */
+ ***********************************************/
 
+/************************************************
+ *
+ * Application class
+ *
+ * Initialize object of this class to start
+ * using extension on current website
+ *
+ ***********************************************/
 function App() {
-	/************************************************
-	 *
-	 * Application entry point
-	 * 
-	 ***********************************************/
-	this.Initialize = function() {
-		// Requests test
-		//var notification = new NotificationManager.Notification(Helpers.GetImageURL("Notifications", "ProjectAxeman.png"), "Project Axeman", "Test message", 1000);
-		var notification = new Notification(Helpers.GetImageURL("Notifications", "ProjectAxeman.png"), "Project Axeman", "Test message", 1000);
-		var request = new RequestManager.Request("Background", "Notification", "Simple", "Show", notification);
-		RequestManager.Send(request, null);
-
-		// Register plugins
-		this.RegisterPlugins();
-	}
-
-
-	this.knownPlugins = [
+	/********************************************
+	 * VARIABLES
+	 *******************************************/
+	this.availablePlugins = [
 		DevelopmentToolbar
 	]
 
-	/************************************************
+	/********************************************
 	 *
-	 * Registers all known plugins
+	 * Application entry point
+	 * 
+	 *******************************************/
+	this.Initialize = function() {
+		// Register plugins
+		this.RegisterPlugins(this.availablePlugins);
+
+		// Call test function if in development mode
+		if (IsDevelopmentMode) {
+			this.TestFunction();
+		}
+	}
+
+	/********************************************
 	 *
-	 ***********************************************/
-	this.RegisterPlugins = function() {
-		for(var index in this.knownPlugins) {
-			this.knownPlugins[index].Register();
+	 * Test method
+	 *
+	 * Start this only in development mode
+	 *
+	 *******************************************/
+	this.TestFunction = function () {
+		// NotificationManager test
+		var notification = new Notification(Helpers.GetImageURL("Notifications", "ProjectAxeman.png"), "Project Axeman", "Test message", 1000);
+		var request = new Request("Background", "Notification", "Simple", "Show", notification);
+		request.Send(null);
+	}
+
+	/********************************************
+	 *
+	 * Registers all available plugins from
+	 * the list passed
+	 *
+	 *******************************************/
+	this.RegisterPlugins = function(pluginsToRegister) {
+		for (var index in pluginsToRegister) {
+			(new pluginsToRegister[index]).Register();
 		}
 	}
 }

@@ -1,4 +1,4 @@
-/*
+/************************************************
  * Requests.js
  * 
  * Author:
@@ -7,46 +7,58 @@
  * Created on:
  * 		25.02.2012.
  *
- */
+ ************************************************/
 
- // Definition
- var RequestManager = {
- 	"Request": 			Request,
- 	"Send": 			Send,
- 	"Recieve": 			Recieve
- };
-
-
-
-
-// TODO: Comment class
-function Request(requestSign, requestCategory, requestName, actionName, requestData) {
-	this.requestSign = requestSign,
-	this.requestCategory = requestCategory,
-	this.requestName = requestName,
-	this.actionName = actionName,
-	this.requestData = requestData
-};
-
-
-// TODO: Comment function
-function Recieve(sign, callback) {
-	chrome.extension.onRequest.addListener(
-		function(request, sender, sendResponse) {
-			if (sign == request.requestSign) {
-				callback(request, sender, sendResponse);
-			}
-		}
-	);
-};
-
-/*
- * Sends request with data and callback to 
- * listener. 
+/************************************************
  *
- * callback can be {Null} - in that case it is
- *          replaces with empty funtion call    
- */
- function Send(request, callback) {
- 	chrome.extension.sendRequest(request, callback || function() {});
- };
+ * Request class to store data
+ *
+ ***********************************************/
+function Request(requestSign, requestCategory, requestName, actionName, requestData) {
+	this.requestSign = requestSign;
+	this.requestCategory = requestCategory;
+	this.requestName = requestName;
+	this.actionName = actionName;
+	this.requestData = requestData;
+
+	/********************************************
+	 *
+	 * Sends request with data and callback to
+	 * listener.
+	 *
+	 * callback can be {Null} - in that case
+	 *          it si replaces with empty
+	 *			funtion call
+	 *
+	 ********************************************/
+	this.Send = function (request, callback) {
+		chrome.extension.sendRequest(this, callback || function () { });
+	}
+}
+
+/************************************************
+ *
+ * Request manager class 
+ *
+ * THIS CLASS USES chrome WEBKITNOTIFICATION
+ * AND NEEDS TO HAVE PERMISSION
+ *
+ * Run this from BackgroundScript
+ *
+ ***********************************************/
+function RequestManager() {
+	/********************************************
+	 *
+	 * Adds reciever for specific sign
+	 *
+	 *******************************************/
+	this.Recieve = function(sign, callback) {
+		chrome.extension.onRequest.addListener(
+			function(request, sender, sendResponse) {
+				if (sign == request.requestSign) {
+					callback(request, sender, sendResponse);
+				}
+			}
+		);
+	}
+}

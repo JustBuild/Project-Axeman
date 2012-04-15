@@ -16,6 +16,7 @@ var BackgroundScript = {
 
 // Variables
 notificationManager = new NotificationManager();
+requestManager = new RequestManager();
 
 
 // This is called since there is no launcher
@@ -24,7 +25,7 @@ BackgroundScript.Initialize();
 
 // TODO: Comment function 
 function Initialize() {
-	RequestManager.Recieve("Background", GotRequest);
+	requestManager.Recieve("Background", GotRequest);
 }
 
 

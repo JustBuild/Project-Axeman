@@ -1,4 +1,4 @@
-/*
+/************************************************
  * AppLauncher.js
  * 
  * Author:
@@ -7,14 +7,19 @@
  * Created on:
  * 		25.02.2012.
  *
- */
+ ***********************************************/
+
+// DO NOT USE ANY EXTENSION SCRIPT CLASSES (except App class)
+// OR CREATE ANY VARIABLES IN THIS SCRIPT . THIS IS LAUNCHER!
 
 // Start message (log) that contains
 // date and extension root URL
-Helpers.Log("Extension initialized at ");
-Helpers.Log((new Date()).toString());
-Helpers.Log("Extension URL: " + chrome.extension.getURL("/") + "]");
-Helpers.Log("Starting App...");
+console.log("Project Axeman Extension initialized at ");
+console.log((new Date()).toString());
+console.log("Extension URL [" + chrome.extension.getURL("/") + "]");
+console.log("Starting App...");
 
-var application = new App();
-application.Initialize();
+// Create new App object and initialize
+(new App()).Initialize();
+
+console.log("App started!");

@@ -2,7 +2,7 @@
 //       Do not include this script to App
 //       Do not include this note to actual plugin script
 
-/*
+/************************************************
  * <PLUGIN FILE NAME>.js
  * 
  * Author:
@@ -11,17 +11,22 @@
  * Created on:
  * 		<DD.MM.YYYY.>
  *
- */
+ ***********************************************/
 
-// Here goese public function definitions
- var <PLUGIN_NAME> = {
- 	"Register": 		Register
- }
-
-
-/*
- * Registers <PLUGIN NAME> plugin
- */
- function Register() {
- 	// TODO: Implement plugin here
- }
+/************************************************
+ *
+ * <PLUGIN_NAME>
+ *
+ * <PLUGIN_SUMMARY>
+ *
+ ***********************************************/
+function <PLUGIN_NAME> {
+	/********************************************
+	 *
+	 * Registers <PLUGIN NAME> plugin
+	 *
+	 *******************************************/
+	this.Register = function() {
+		// TODO: Implement plugin here
+	}
+}
