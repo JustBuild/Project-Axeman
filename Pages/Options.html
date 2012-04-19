@@ -67,6 +67,7 @@
                 // General
                 setupCheckboxButton("checkGlobalRemoveInGameHelp");
                 setupCheckboxButton("checkGlobalStorageOverflowTimeout");
+                setupCheckboxButton("colorBuildableFields");
 
                 // Build
                 setupCheckboxButton("checkBuildBuildingResourceDifference");
@@ -83,6 +84,9 @@
 
                 // PLUS options
                 setupCheckboxButton("checkReportShowCheckAll");
+
+                // Bot options
+                setupCheckboxButton("botActivated");
             }
 
             function setupCheckboxButton(name) {
@@ -128,6 +132,7 @@
                 <li class="ui-state-default ui-corner-top"><a href="#tabs-3">Marketplace</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#tabs-4">Sending troops</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#tabs-5">PLUS options</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#tabs-6">Bot options</a></li>
             </ul>
             <div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
 
@@ -147,6 +152,12 @@
                             <input type="checkbox" id="checkGlobalStorageOverflowTimeout" class="ui-helper-hidden-accessible">
                             <label id="checkGlobalStorageOverflowTimeoutLabel" for="checkGlobalStorageOverflowTimeout" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" />
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Color Buildable Fields&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="checkbox" id="colorBuildableFields" class="ui-helper-hidden-accessible">
+                            <label id="colorBuildableFieldsLabel" for="colorBuildableFields" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" /> </td>
                     </tr>
 
                 </table>
@@ -246,6 +257,19 @@
 
                 </table>
 
+            </div>
+            <div id="tabs-6" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                <table>
+
+                    <tr>
+                        <td>Activate Bot&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>
+                            <input type="checkbox" id="botActivated" class="ui-helper-hidden-accessible">
+                            <label id="botActivatedLabel" for="botActivated" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" />
+                        </td>						
+                    </tr>
+
+                </table>
             </div>
             
         </div>

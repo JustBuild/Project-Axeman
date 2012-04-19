@@ -30,7 +30,8 @@
             "Scripts/jQuery.js", 
             "Scripts/jQueryUI.js",
             "Scripts/ExtensionId.js",
-            "Scripts/ContentScript.js"
+            "Scripts/ContentScript.js",
+            "Scripts/_ContentScript.js"
         ],
         "matches": [ 
             "http://*.travian.ae/*", 
