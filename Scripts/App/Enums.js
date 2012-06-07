@@ -1,4 +1,4 @@
-/************************************************
+/******************************************************************************
  * Enums.js
  *
  * Author:
@@ -7,16 +7,53 @@
  * Created on:
  * 		25.02.2012.
  *
- ***********************************************/
+ *****************************************************************************/
  
 var Enums = {
-	/********************************************
+	/**************************************************************************
+	 *
+	 * List of all available pages in travian game
+	 *
+	 * This list doesn't cover all possibilities, it contains only main
+	 * pages of game this doesn't include tabs and some subdomain pages.
+	 * (eg. answers.travian.* is not listed)
+	 *
+	 *************************************************************************/
+	TravianPages: {
+		Home: "/",
+		Login: "/login.php",
+		Logout: "/logout.php",
+		Player: "/spieler.php",
+
+		VillageOut: "/dorf1.php",
+		VillageIn: "/dorf2.php",
+		VillageView: "/dorf3.php",
+
+		Build: "/build.php",
+
+		Map: "/karte.php",
+		MapPosition: "/position_details.php",
+
+		Statistics: "/statistiken.php",
+		Reports: "/berichte.php",
+		Messages: "/nachrichten.php",
+
+		HeroLook: "/hero.php",
+		HeroInventory: "/hero_inventory.php",
+		HeroAdventures: "/hero_adventure.php",
+		HeroAuctions: "/hero_auction.php",
+
+		Plus: "/plus.php",
+		Help: "/help.php"
+	},
+
+	/**************************************************************************
 	 *
 	 * Village types and its fields amount
 	 *
 	 * [wood, clay, iron, crop]
 	 * 
-	 *******************************************/
+	 *************************************************************************/
 	// NOTE: This is not needed since we can look at VillageOutMaps.f#[#].length
 	/*
 	VillageTypes: {
@@ -35,17 +72,21 @@ var Enums = {
 	},
 	*/
 	
-	/********************************************
+	/**************************************************************************
 	 *
 	 * Village out filed IDs
 	 *
-	 * Specifies the resource map in a village,
-	 * with arrays of wood, clay, iron and
-	 * crop respectively
+	 * Specifies the resource map in a village, with arrays of wood, clay, 
+	 * iron and crop respectively.
+	 * (eg. Enums.VillageOutMaps.fX[Y].length for number of fields,
+	 *		Enums.VillageOutMaps.fX[Y][Z] for field build id where
+	 *		X is type of village,
+	 *		Y is filed type and 
+	 *		Z is filed index)
 	 *
-	 * Thanks to: Ignacio Munizaga (thagat)
+	 * Author: Ignacio Munizaga (thagat)
 	 *
-	 *******************************************/
+	 *************************************************************************/
 	VillageOutMaps: {
 		f1: [[2, 13, 16], [5, 15, 17], [6, 9, 10], [0, 1, 3, 4, 7, 8, 11, 12, 14]],
 		f2: [[2, 13, 16], [4, 5, 15, 17], [0, 3, 6, 9, 10], [1, 7, 8, 11, 12, 14]],
@@ -61,13 +102,13 @@ var Enums = {
 		f12: [[0, 2, 3, 13, 16], [4, 5, 15, 17], [6, 9, 10], [1, 7, 8, 11, 12, 14]],
 	},
 
-	/********************************************
+	/**************************************************************************
 	 *
 	 * Fields constants
 	 *
 	 * lvl#: [wood, clay, iron, crop, consumption, time, culture points, production]
 	 *
-	 *******************************************/
+	 *************************************************************************/
 	Fields: [
 		{ // Woood
 			lvl1: [40, 100, 50, 60, 2, 260, 1, 5],

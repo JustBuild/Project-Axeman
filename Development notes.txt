@@ -8,7 +8,7 @@ LIBRARIES USED
 	jQueryUI current version:	1.8.18
 
 
-APPLICATION DIAGRAM availabel at
+APPLICATION DIAGRAM available at
 	https://cacoo.com/diagrams/KjPQ0pHQGjoujRxt
 
 
@@ -25,6 +25,7 @@ USING AND LAUNCHING APP
 		
 		Scripts/App/RequestManager.js
 		Scripts/App/NotificationManager.js
+		Scripts/App/PluginsManager.js
 
 	To launch app include all above stated scripts plus two: 
 		(in that order)
@@ -33,6 +34,17 @@ USING AND LAUNCHING APP
 		Scripts/App/AppLauncher.js
 
 AVAILABLE PLUGINS
+	To add new plugin, you need to specify name and location of plugin script
+	on two places. On place is in manifest.json, you need to put your script 
+	filename including path to list of extension scripts. Then to automaticaly
+	register that script on extension start you need to put plugin class name
+	under available scripts list in PluginsManager.js script. 
+
 	Total: (1)
 
 	DevelopmentToolbar 		(Scripts/App/DevelopmentToolbar.js)
+
+
+TODO LIST (AleksandarDev)
+	- HelpPlugin (Insert FAQ of extensions to help.php)
+	- PluginManager

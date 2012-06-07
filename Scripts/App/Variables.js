@@ -1,4 +1,4 @@
-/*
+/******************************************************************************
  * Variables.js
  *
  * Author:
@@ -7,7 +7,12 @@
  * Created on:
  *		27.02.2012.
  *
- */
+ *****************************************************************************/
 
- var IsDevelopmentMode = true;
- var IsDebugMode = true;
+// Development and debuging variables
+var IsDevelopmentMode = true;
+var IsDebugMode = true;
+
+// Active page variables
+var ActivePage = "/";
+var ActivePageQuery = "";

@@ -1,4 +1,4 @@
-/************************************************
+/******************************************************************************
  * Requests.js
  * 
  * Author:
@@ -7,13 +7,13 @@
  * Created on:
  * 		25.02.2012.
  *
- ************************************************/
+ *****************************************************************************/
 
-/************************************************
+/******************************************************************************
  *
  * Request class to store data
  *
- ***********************************************/
+ *****************************************************************************/
 function Request(requestSign, requestCategory, requestName, actionName, requestData) {
 	this.requestSign = requestSign;
 	this.requestCategory = requestCategory;
@@ -21,7 +21,7 @@ function Request(requestSign, requestCategory, requestName, actionName, requestD
 	this.actionName = actionName;
 	this.requestData = requestData;
 
-	/********************************************
+	/**************************************************************************
 	 *
 	 * Sends request with data and callback to
 	 * listener.
@@ -30,13 +30,13 @@ function Request(requestSign, requestCategory, requestName, actionName, requestD
 	 *          it si replaces with empty
 	 *			funtion call
 	 *
-	 ********************************************/
+	 **************************************************************************/
 	this.Send = function (request, callback) {
 		chrome.extension.sendRequest(this, callback || function () { });
 	}
 }
 
-/************************************************
+/******************************************************************************
  *
  * Request manager class 
  *
@@ -45,13 +45,13 @@ function Request(requestSign, requestCategory, requestName, actionName, requestD
  *
  * Run this from BackgroundScript
  *
- ***********************************************/
+ *****************************************************************************/
 function RequestManager() {
-	/********************************************
+	/**************************************************************************
 	 *
 	 * Adds reciever for specific sign
 	 *
-	 *******************************************/
+	 *************************************************************************/
 	this.Recieve = function(sign, callback) {
 		chrome.extension.onRequest.addListener(
 			function(request, sender, sendResponse) {

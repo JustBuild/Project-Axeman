@@ -1,93 +1,130 @@
-/************************************************
+/******************************************************************************
  * DevelopmentToolbar.js
  * 
  * Author:
- * 		Aleksandar Toplek,
+ * 		Aleksandar Toplek
  *
  * Created on:
  * 		27.02.2012.
  *
- ***********************************************/
+ * Notes:
+ *			This plugin will enable developers to access frequently accessed
+ *		development pages and give them aditional information about extension
+ *		state. 
+ *			This plugin will only be active when extension app is in 
+ *		development mode which means that IsDevelopmentMode is set to true.
+ *		This can be done by changing variable at Variables.js file.
+ *
+ *****************************************************************************/
 
-/************************************************
+/******************************************************************************
  *
- * Development toolbar that appears on bottom
- * of the page
+ * Development toolbar that appears on bottom of the page
  *
- ***********************************************/
+ *****************************************************************************/
 function DevelopmentToolbar() {
-	/********************************************
+	/**************************************************************************
+	 *
+	 * Plugin header
+	 *
+	 *************************************************************************/
+	this.PImg = "DevelopmentToolbar.png";
+	this.PNam = "Development Toolbar";
+	this.PVer = "0.0.2.0";
+	this.PDes = "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script";
+	this.PAut = "Aleksandar Toplek (AleksandarDev)";
+	this.PMIS = "http://";
+	this.PFea = true;
+	this.PBet = true;
+
+	/**************************************************************************
 	 *
 	 * Registers Developer toolbar plugin
 	 *
-	 *******************************************/
-	this.Register = function() {
-		Helpers.Log("Registering DevelopmentToolbar plugin...");
+	 *************************************************************************/
+	this.Register = function () {
+		Helpers.Log("DevelopmentToolbar: Registering DevelopmentToolbar plugin...");
 
+		// Check if plugin needs to be activated
 		if (IsDevelopmentMode == false) {
-			Helpers.DLog("Plugin set to inactive due to extension not in development mode.");
+			// Don't activate plugin message
+			Helpers.Log("DevelopmentToolbar: Plugin set to inactive because extension is not in development mode.");
 		}
 		else {
-			Helpers.DLog("Extension is in development mode - plugin set to active.");
+			// Activate plugin message
+			Helpers.Log("DevelopmentToolbar: Extension is in development mode - plugin set to active.");
 
+			// Creates new development toolbar source code
 			var toolbar = this.GetNewToolbar(
  				this.GetNewLabel("Project - Axeman"),
  				this.GetNewButton("[BUTTON]", "#")
  			);
 
+			// Appends style and code to current page
 			$("head").append(this.GetDevelopmentToolbarStyle());
 			$("body").append(toolbar);
 		}
-	}
+	};
 
 	// TODO: Comment function
-	this.GetDevelopmentToolbarStyle = function() {
+	this.GetDevelopmentToolbarStyle = function () {
 		var style = '<style type="text/css">' +
+					// Toolbar style
 					' .DTBase {' +
 						'position:fixed;' +
 						'bottom: 0px; right: 0px; left: 0px;' +
 						'padding: 5px;' +
 						'background: -webkit-gradient(linear, left top, left bottom, from(#D3D3D3), to(#919191));' +
 					'}' +
+					// Button style
 					' .DTButton {' +
 						'color: lightgray;' +
 						'background: -webkit-gradient(linear, left top, left bottom, from(#747474), to(#4B4B4B));' +
 						'padding: 2px 8px 2px 8px;' +
 						'border-radius: 10px;' +
 					'}' +
-					' .DTLabel {' +
+					// Label style
+					' .DTLabelNormal {' +
 						'padding: 0px 10px;' +
 						'color: black;' +
 					'}' +
-					' .DTInfo {' +
+					// InfoLabel style
+					' .DTLabelInfo {' +
 						'color: gray;' +
 					'}' +
-					' .DTWarn {' +
+					// WarnLabel style
+					' .DTLabelWarn {' +
 						'color: red;' +
 					'}' +
 				'</style>';
 
 		return style;
-	}
+	};
 
 	// TODO: Comment function
-	this.GetNewLabel = function(content) {
-		return '<a class="DTLabel" href="#">' + content + '</a>';
-	}
+	this.GetNewLabel = function (content) {
+		Helpers.DLog("DevelopmentToolbar: Creating new label '" + content + "'");
+
+		return '<a class="DTLabelNormal" href="#">' + content + '</a>';
+	};
 
 	// TODO: Comment function
-	this.GetNewInfoLabel = function(content) {
-		return '<a class="DTLabel DTInfo" href="#">' + content + '</a>';
-	}
+	this.GetNewLabelInfo = function (content) {
+		Helpers.DLog("DevelopmentToolbar: Creating new InfoLabel '" + content + "'");
+
+		return '<a class="DTLabelNormal DTLabelInfo" href="#">' + content + '</a>';
+	};
 
 	// TODO: Comment function
-	this.GetNewWarnLabel = function(content) {
-		return '<a class="DTLabel DTWarn" href="#">' + content + '</a>';
-	}
+	this.GetNewLabelWarn = function (content) {
+		Helpers.DLog("DevelopmentToolbar: Creating new WarnLabel '" + content + "'");
+
+		return '<a class="DTLabelNormal DTLabelWarn" href="#">' + content + '</a>';
+	};
 
 	// TODO: Comment function
-	this.GetNewToolbar = function() {
-		Helpers.DLog("Creating new toolbar with " + arguments.length + " components.");
+	this.GetNewToolbar = function () {
+		Helpers.DLog("DevelopmentToolbar: Creating new Toolbar with [" + arguments.length + "] components.");
 
 		var toolbarSource = '<div class="DTBase" id="DevelopmentToolbar">';
 		for (var index = 0; index < arguments.length; index++) {
@@ -96,10 +133,12 @@ function DevelopmentToolbar() {
 		toolbarSource += '</dev>';
 
 		return toolbarSource;
-	}
+	};
 
 	// TODO: Comment function
-	this.GetNewButton = function(content, reference) {
+	this.GetNewButton = function (content, reference) {
+		Helpers.DLog("DevelopmentToolbar: Creating new Button of content '" + content + "'");
+
 		return '<a class="DTButton" target="_blank" href="' + reference + '">' + content + '</a>&nbsp;&nbsp;&nbsp;&nbsp;'
-	}
+	};
 }

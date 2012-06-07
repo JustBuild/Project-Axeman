@@ -37,6 +37,7 @@
 
             "Scripts/App/RequestManager.js",
             "Scripts/App/NotificationManager.js",
+			"Scripts/App/PluginsManager.js",
 
             "Scripts/App/Plugins/DevelopmentToolbar.js",
 
