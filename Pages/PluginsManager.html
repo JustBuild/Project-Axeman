@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Plugins manager</title>
+
+		<!-- jQuery scripts -->
+		<link type="text/css" href="css/styles.css" rel="stylesheet" />
+		<script type="text/javascript" src="../Scripts/jQuery.js"></script>
+		<script type="text/javascript" src="../Scripts/jQueryUI.js"></script>
+
+		<!-- Extension scripts -->
+		<script type="text/javascript" src="../Scripts/App/Enums.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Variables.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Helpers.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Models.js"></script>
+        
+		<script type="text/javascript" src="../Scripts/App/RequestManager.js"></script>
+		<script type="text/javascript" src="../Scripts/App/NotificationManager.js"></script>
+		<script type="text/ecmascript" src="../Scripts/App/PluginsManager.js"></script>
+
+		<script type="text/javascript">
+			$(function () {
+				$("#checkMarketShowJunkResource").attr("checked", true);
+				$("#checkMarketShowJunkResource").button().click(function () {
+					$("#checkMarketShowJunkResourceLabel span").text($("#checkMarketShowJunkResource").attr("checked") ? "Off" : "On");
+					$("#PImage").attr("style", "-webkit-filter:grayscale(" + ($("#checkMarketShowJunkResource").attr("checked") ? 1 : 0) + ");");
+				});
+				$("#checkMarketShowJunkResource").click();
+			});
+		</script>
+
+	</head>
+	<body>
+		<div style="min-width:300px; max-width:600px;background-origin:border-box; background-repeat:no-repeat; background-position: right bottom; background-image:url(../Images/PluginBetaMark.png); background-color:#f2f2f2; padding:15px; border-radius:10px; box-shadow: 2px 2px 15px #bbb;">
+			<table id="tablePlugins" style="font-family:'Segoe UI'; font-size:85%;">
+				<tr>
+					<td style="text-align:center; vertical-align:top">
+						<table>
+							<tr>
+								<td>
+									<img id="PImage" src="../Images/PluginImagePlaceholder.png" alt="&lt;SECONDARY_PLUGIN_NAME&gt;" width="64" height="64" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="checkbox" id="checkMarketShowJunkResource" class="ui-helper-hidden-accessible" />
+									<label 
+										id="checkMarketShowJunkResourceLabel" 
+										for="checkMarketShowJunkResource" 
+										class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+										role="button" 
+										aria-disabled="false" />
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td>Development Toolbar</td>
+								<td style="text-align:right; color:#353535">(0.0.2.0)</td>
+							</tr>
+							<tr style="color:#959595">
+								<td colspan="2">
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et tristique turpis. Praesent mollis eros a mauris egestas commodo. 
+									</p>
+								</td>
+							</tr>
+							<tr style="color:#656565">
+								<td>Aleksandar Toplek (AleksandarDev)</td>
+								<td>
+									<a href="&lt;SITE_ADDRESS&gt;">More info...</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
