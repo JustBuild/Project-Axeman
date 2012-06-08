@@ -12,7 +12,8 @@
 function PluginsManager() {
 	// List of available plugins
 	this.availablePlugins = [
-		DevelopmentToolbar
+		DevelopmentToolbar,
+		Feedback
 	];
 
 
@@ -34,15 +35,22 @@ function PluginsManager() {
 		Helpers.DLog("App: Registering [" + pluginsToRegister.length + "] plugins");
 		for (var index in pluginsToRegister) {
 			var plugin = new pluginsToRegister[index]();
-			var activeStateRequest = new Request("Background", "Data", "PActive" + plugin.PAli, "get", null);
-			activeStateRequest.Send(function (response) {
-				if (response == "On") {
-					Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is active... Registering");
-					plugin.Register();
-				}
-				else Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is NOT active!");
-			});
+			RegisterPlugin(plugin);	
 		}
+	};
+
+	var RegisterPlugin = function (plugin) {
+		var activeStateRequest = new Request("Background", "Data", "PActive" + plugin.PAli, "get", null);
+		var isLoaded = false;
+		activeStateRequest.Send(function (response) {
+			if (response == "On") {
+				Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is active... Registering");
+				plugin.Register();
+			}
+			else Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is NOT active!");
+
+			var isLoaded = true;
+		});
 	};
 }
 

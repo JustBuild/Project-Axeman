@@ -45,6 +45,7 @@
 			"Scripts/App/PluginsManager.js",
 
             "Scripts/App/Plugins/DevelopmentToolbar.js",
+			"Scripts/App/Plugins/Feedback.js",
 
             "Scripts/App/App.js",
             "Scripts/App/AppLauncher.js"

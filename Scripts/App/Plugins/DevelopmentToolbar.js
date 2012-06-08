@@ -32,7 +32,7 @@ function DevelopmentToolbar() {
 	this.PCat = "Development";
 	this.PImg = "DevelopmentToolbar.png";
 	this.PNam = "Development Toolbar";
-	this.PVer = "0.0.2.0";
+	this.PVer = "0.0.2.1";
 	this.PDes = "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script";
 	this.PAut = "JustBuild Development";
 	this.PMIS = "https://github.com/JustBuild/Project-Axeman";

@@ -44,7 +44,7 @@
  * <PLUGIN_SUMMARY>
  *
  *****************************************************************************/
-function <PLUGIN_NAME> {
+function <PLUGIN_NAME>() {
 	/**************************************************************************
 	 *
 	 * Plugin header
@@ -56,7 +56,7 @@ function <PLUGIN_NAME> {
 	this.PNam = "<SECONDARY_PLUGIN_NAME>";			// Secondary name (User friendly)
 	this.PVer = "<MAJOR.MINOR.REVISION(.BUILD)>";	// Version
 	this.PDes = "<DESCRIPTION>";					// Description
-	this.PDev = "<AUTHOR_NAME>";					// Author name (alias)
+	this.PAut = "<AUTHOR_NAME>";					// Author name (alias)
 	this.PMIS = "<SITE_ADDRESS>";					// More Info Site
 	this.PFea = false;								// Featured
 	this.PBet = true;								// Beta
