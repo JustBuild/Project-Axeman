@@ -29,6 +29,7 @@ function DevelopmentToolbar() {
 	 *
 	 *************************************************************************/
 	this.PAli = "DevelopmentToolbar";
+	this.PCat = "Development";
 	this.PImg = "PluginImagePlaceholder.png";
 	this.PNam = "Development Toolbar";
 	this.PVer = "0.0.2.0";
