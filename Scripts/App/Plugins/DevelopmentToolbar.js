@@ -30,12 +30,12 @@ function DevelopmentToolbar() {
 	 *************************************************************************/
 	this.PAli = "DevelopmentToolbar";
 	this.PCat = "Development";
-	this.PImg = "PluginImagePlaceholder.png";
+	this.PImg = "DevelopmentToolbar.png";
 	this.PNam = "Development Toolbar";
 	this.PVer = "0.0.2.0";
 	this.PDes = "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script";
-	this.PAut = "Aleksandar Toplek (AleksandarDev)";
-	this.PMIS = "http://";
+	this.PAut = "JustBuild Development";
+	this.PMIS = "https://github.com/JustBuild/Project-Axeman";
 	this.PFea = true;
 	this.PBet = true;
 
@@ -72,30 +72,46 @@ function DevelopmentToolbar() {
 	this.GetDevelopmentToolbarStyle = function () {
 		var style = '<style type="text/css">' +
 					// Toolbar style
-					' .DTBase {' +
+					'.DTBase {' +
 						'position:fixed;' +
 						'bottom: 0px; right: 0px; left: 0px;' +
 						'padding: 5px;' +
 						'background: -webkit-gradient(linear, left top, left bottom, from(#D3D3D3), to(#919191));' +
 					'}' +
 					// Button style
-					' .DTButton {' +
+					'.DTButton:link, ' +
+					'.DTButton:hover, ' +
+					'.DTButton:visited, ' +
+					'.DTButton:active, ' +
+					'.DTButton {' +
 						'color: lightgray;' +
 						'background: -webkit-gradient(linear, left top, left bottom, from(#747474), to(#4B4B4B));' +
 						'padding: 2px 8px 2px 8px;' +
 						'border-radius: 10px;' +
 					'}' +
 					// Label style
-					' .DTLabelNormal {' +
+					'.DTLabelNormal:link, ' +
+					'.DTLabelNormal:hover, ' +
+					'.DTLabelNormal:visited, ' +
+					'.DTLabelNormal:active, ' +
+					'.DTLabelNormal {' +
 						'padding: 0px 10px;' +
 						'color: black;' +
 					'}' +
 					// InfoLabel style
-					' .DTLabelInfo {' +
+					'.DTLabelInfo:link, ' +
+					'.DTLabelInfo:hover, ' +
+					'.DTLabelInfo:visited, ' +
+					'.DTLabelInfo:active, ' +
+					'.DTLabelInfo {' +
 						'color: gray;' +
 					'}' +
 					// WarnLabel style
-					' .DTLabelWarn {' +
+					'.DTLabelWarn:link, ' +
+					'.DTLabelWarn:hover, ' +
+					'.DTLabelWarn:visited, ' +
+					'.DTLabelWarn:active, ' +
+					'.DTLabelWarn {' +
 						'color: red;' +
 					'}' +
 				'</style>';
