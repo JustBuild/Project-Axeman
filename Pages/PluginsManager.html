@@ -16,67 +16,159 @@
         
 		<script type="text/javascript" src="../Scripts/App/RequestManager.js"></script>
 		<script type="text/javascript" src="../Scripts/App/NotificationManager.js"></script>
-		<script type="text/ecmascript" src="../Scripts/App/PluginsManager.js"></script>
+		<script type="text/javascript" src="../Scripts/App/PluginsManager.js"></script>
+
+		<script type="text/javascript" src="../Scripts/App/Plugins/DevelopmentToolbar.js"></script>
 
 		<script type="text/javascript">
 			$(function () {
-				$("#checkMarketShowJunkResource").attr("checked", true);
-				$("#checkMarketShowJunkResource").button().click(function () {
-					$("#checkMarketShowJunkResourceLabel span").text($("#checkMarketShowJunkResource").attr("checked") ? "Off" : "On");
-					$("#PImage").attr("style", "-webkit-filter:grayscale(" + ($("#checkMarketShowJunkResource").attr("checked") ? 1 : 0) + ");");
+				$("#PActive").attr("checked", true);
+				$("#PActive").button().click(function () {
+					$("#PActiveLabel span").text($("#PActive").attr("checked") ? "Off" : "On");
+					$("#PImage").attr("style", "-webkit-filter:grayscale(" + ($("#PActive").attr("checked") ? 1 : 0) + ");");
 				});
-				$("#checkMarketShowJunkResource").click();
+				$("#PActive").click();
+
+				$((new PluginsManager()).availablePlugins).each(function (index, pluginS) {
+					var plugin = (new pluginS());
+					var pluginItemSource =
+						"<tr><td><div class='PluginItem" + (plugin.PBet ? " BetaFlag" : "") + "'><table id='samplePlugin'><tr><td class='PluginOptions'><table><tr><td>" +
+						"<img id='PImage" + +plugin.PAli + "' src='" + Helpers.GetImageURL("Plugins", plugin.PImg) + "' alt='&lt;" + plugin.PNam + "&gt;' />" +
+						"</td></tr><tr><td>" +
+						"<input id='PActive" + plugin.PAli + "' type='checkbox' class='ui-helper-hidden-accessible' />" +
+						"<label id='PActiveLabel" + plugin.PAli + "' for='PActive" + plugin.PAli + "' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false' />" +
+						"</td></tr></table></td><td><table><tr>" +
+						"<td>" + plugin.PNam + "</td>" +
+						"<td class='PluginVersion'>(" + plugin.PVer + ")</td>" +
+						"</tr><tr class='PluginDescription'><td colspan='2'>" +
+						"<p>" + plugin.PDes + "</p>" +
+						"</td></tr><tr class='PluginAuthor'>" +
+						"<td>" + plugin.PAut + "</td><td><a href='&lt;" + plugin.PMIS + "&gt;'>More info...</a>" +
+						"</td></tr></table></td></tr></table></div></td></tr>";
+					$("#pluginsTable").append(pluginItemSource);
+
+					$("#PActive" + plugin.PAli).button().click(function () {
+						$("#PActiveLabel" + plugin.PAli + " span").text($("#PActive" + plugin.PAli).attr("checked") ? "Off" : "On");
+						$("#PImage" + plugin.PAli).attr("style", "-webkit-filter:grayscale(" + ($("#PActive" + plugin.PAli).attr("checked") ? 1 : 0) + ");");
+					});
+				});
 			});
 		</script>
 
+		<style type="text/css">
+			body {
+				font-family:'Segoe UI'; 
+				font-size:85%;
+			}
+
+			.PluginsTable {
+				margin: 20px;
+			}
+
+			.PluginItem {
+				background-color:#f8f8f8; 
+				
+				margin: 5px 0px;  
+				padding:15px; 
+				
+				border-radius:10px; 
+				box-shadow: 2px 2px 15px #bbb;
+			}
+
+			.PluginOptions {
+				text-align:center; 
+				vertical-align:top;
+			}
+
+			.PluginVersion {
+				text-align:right; 
+				color:#353535;
+			}
+
+			.PluginDescription {
+				color:#959595;
+			}
+
+			.PluginAuthor {
+				color:#656565;
+			}
+
+			.AlphaFlag,
+			.BetaFlag,
+			.Flag {
+				background-repeat:no-repeat; 
+				background-position: right bottom; 
+			}
+
+			.AlphaFlag {
+				background-image:url(../Images/PluginAlphaMark.png); 
+			}
+			
+			.BetaFlag {
+				background-image:url(../Images/PluginBetaMark.png); 
+			}
+
+			.Section {
+				border-style:solid; 
+				border-width:1px; 
+				border-color:#BDBDBD;
+			}
+
+			.FilterBar {
+				width:200px;
+				height:24px;
+				
+				margin-left:auto;
+				margin-right:auto;
+				
+				padding-bottom:2px;
+				padding-top:2px;
+				padding-right:2px;
+				padding-left:20px;
+				display:inline-block;
+				
+				border:1px;
+				border-color:#BDBDBD;
+				border-style:solid;
+				
+				box-shadow:inset 0px 2px 2px #ECECEC,0px 1px 1px white;
+			}
+			
+		</style>
+
 	</head>
 	<body>
-		<div style="min-width:300px; max-width:600px;background-origin:border-box; background-repeat:no-repeat; background-position: right bottom; background-image:url(../Images/PluginBetaMark.png); background-color:#f2f2f2; padding:15px; border-radius:10px; box-shadow: 2px 2px 15px #bbb;">
-			<table id="tablePlugins" style="font-family:'Segoe UI'; font-size:85%;">
-				<tr>
-					<td style="text-align:center; vertical-align:top">
-						<table>
-							<tr>
-								<td>
-									<img id="PImage" src="../Images/PluginImagePlaceholder.png" alt="&lt;SECONDARY_PLUGIN_NAME&gt;" width="64" height="64" />
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<input type="checkbox" id="checkMarketShowJunkResource" class="ui-helper-hidden-accessible" />
-									<label 
-										id="checkMarketShowJunkResourceLabel" 
-										for="checkMarketShowJunkResource" 
-										class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-										role="button" 
-										aria-disabled="false" />
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td>
-						<table>
-							<tr>
-								<td>Development Toolbar</td>
-								<td style="text-align:right; color:#353535">(0.0.2.0)</td>
-							</tr>
-							<tr style="color:#959595">
-								<td colspan="2">
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et tristique turpis. Praesent mollis eros a mauris egestas commodo. 
-									</p>
-								</td>
-							</tr>
-							<tr style="color:#656565">
-								<td>Aleksandar Toplek (AleksandarDev)</td>
-								<td>
-									<a href="&lt;SITE_ADDRESS&gt;">More info...</a>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
+		<div class="Section" style="width:664px; 
+				margin-left:auto; margin-right:auto; 
+				background-color:#ECECEC;"
+				>
+			<div style="text-overflow:ellipsis">
+				<img src="../Icons/icon128.png" />
+				<h1>Plugins</h1>
+			</div>
+
+			<div class="Section" style="margin:-1px">
+				<table style="margin-top:30px">
+					<tr><td style="text-align:center"><input type="text" class="FilterBar" placeholder="Filter plugins" /></td></tr>
+					<tr><td><table id="pluginsTable" class="PluginsTable"></table></td></tr>
+				</table>
+			</div>
+
+			<div style="margin-left:10px; padding:5px; color:#959595;">
+				<table>
+					<tr>
+						<td>
+							Project Axeman<br />
+							by JustBuild Development
+						</td>
+						<td>
+							<a href="https://github.com/JustBuild/Project-Axeman">Fork us on GitHub</a>
+							<a href="https://github.com/JustBuild/Project-Axeman/wiki/Support-%26-FAQ">FAQ</a>
+							<a href="mailto:justbuilddev@gmail.com?subject=Project Axeman - Plugins manager">Support</a>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>

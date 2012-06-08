@@ -28,7 +28,8 @@ function DevelopmentToolbar() {
 	 * Plugin header
 	 *
 	 *************************************************************************/
-	this.PImg = "DevelopmentToolbar.png";
+	this.PAli = "DevelopmentToolbar";
+	this.PImg = "PluginImagePlaceholder.png";
 	this.PNam = "Development Toolbar";
 	this.PVer = "0.0.2.0";
 	this.PDes = "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script";
@@ -57,7 +58,7 @@ function DevelopmentToolbar() {
 			// Creates new development toolbar source code
 			var toolbar = this.GetNewToolbar(
  				this.GetNewLabel("Project - Axeman"),
- 				this.GetNewButton("[BUTTON]", "#")
+ 				this.GetNewButton("PluginManager", Helpers.GetExtensionRootURL("/Pages/PluginsManager.html"))
  			);
 
 			// Appends style and code to current page

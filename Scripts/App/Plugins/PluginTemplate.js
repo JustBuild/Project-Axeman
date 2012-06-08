@@ -50,6 +50,7 @@ function <PLUGIN_NAME> {
 	 * Plugin header
 	 *
 	 *************************************************************************/
+	this.PAli = "<PLUGIN_NAME>";
 	this.PImg = "<PLUGIN_NAME>.png";				// Plugin image filename
 	this.PNam = "<SECONDARY_PLUGIN_NAME>";			// Secondary name (User friendly)
 	this.PVer = "<MAJOR.MINOR.REVISION(.BUILD)>";	// Version
