@@ -36,7 +36,7 @@ function DevelopmentToolbar() {
 	this.PDes = "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script";
 	this.PAut = "JustBuild Development";
 	this.PMIS = "https://github.com/JustBuild/Project-Axeman";
-	this.PFea = true;
+	this.PFea = false;
 	this.PBet = true;
 
 	/**************************************************************************
@@ -49,23 +49,22 @@ function DevelopmentToolbar() {
 
 		// Check if plugin needs to be activated
 		if (IsDevelopmentMode == false) {
-			// Don't activate plugin message
-			Helpers.Log("DevelopmentToolbar: Plugin set to inactive because extension is not in development mode.");
+			var developmentModeRequest = new Request("Background", "Data", "IsDevelopmentMode", "set", "true");
+			developmentModeRequest.Send(null);
 		}
-		else {
-			// Activate plugin message
-			Helpers.Log("DevelopmentToolbar: Extension is in development mode - plugin set to active.");
 
-			// Creates new development toolbar source code
-			var toolbar = this.GetNewToolbar(
- 				this.GetNewLabel("Project - Axeman"),
- 				this.GetNewButton("PluginManager", Helpers.GetExtensionRootURL("/Pages/PluginsManager.html"))
- 			);
+		// Activate plugin message
+		Helpers.Log("DevelopmentToolbar: Extension is in development mode - plugin set to active.");
 
-			// Appends style and code to current page
-			$("head").append(this.GetDevelopmentToolbarStyle());
-			$("body").append(toolbar);
-		}
+		// Creates new development toolbar source code
+		var toolbar = this.GetNewToolbar(
+ 			this.GetNewLabel("Project - Axeman"),
+ 			this.GetNewButton("PluginManager", Helpers.GetExtensionRootURL("/Pages/PluginsManager.html"))
+ 		);
+
+		// Appends style and code to current page
+		$("head").append(this.GetDevelopmentToolbarStyle());
+		$("body").append(toolbar);
 	};
 
 	// TODO: Comment function

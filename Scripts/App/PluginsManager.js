@@ -40,7 +40,7 @@ function PluginsManager() {
 					Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is active... Registering");
 					plugin.Register();
 				}
-				Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is NOT active!");
+				else Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is NOT active!");
 			});
 		}
 	};

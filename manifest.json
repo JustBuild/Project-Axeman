@@ -2,10 +2,13 @@
     "name":             "Project Axeman",
     "description":      "__MSG_ExtensionInfoDescription__",
     "version":          "0.2.0.0",
-    
+	"manifest_version": 2,
+	    
     "default_locale": "en",
     
-    "background_page":  "Pages/Background.html",
+    "background": {
+		"page": "Pages/Background.html"
+	},
     "options_page":     "Pages/Options.html",
     
     "icons": {
@@ -15,7 +18,9 @@
     },
 
     "permissions": [
-        "notifications"
+        "notifications",
+		"storage",
+		"unlimitedStorage"
     ],
 
     "page_action": {

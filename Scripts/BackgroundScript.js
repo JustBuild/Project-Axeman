@@ -25,6 +25,10 @@ BackgroundScript.Initialize();
 
 // TODO: Comment function 
 function Initialize() {
+	//if (typeof(localStorage) == 'undefined') {
+	//	alert('Your browser does not support HTML5 localStorage. Try upgrading.');
+	//}
+
 	requestManager.Recieve("Background", GotRequest);
 }
 
@@ -66,14 +70,19 @@ function GotDataRequest(request, response) {
 	}
 	else if (request.actionName == "set") {
 		try {
-			localStorage.setItem(reque.requestName, req.requestData);
+			localStorage.setItem(reque.requestName, request.requestData);
 			Helpers.Log("BackgroundScript: Data '" + request.requestName + "' SET [" + request.requestData + "]");
 		} catch (e) {
-			if (e == QUOTA_EXCEEDED_ERR) {
+			if (e != null) {
 				// Data wasnt successfully saved due to quota exceed so throw an error
-				Helpers.Error("_setVariable - Quota exceeded!");
+				Helpers.Error("BackgroundScript:  Quota exceeded!");
+				Helpers.Warn("BackgroundScript: " + localStorage.length);
+				alert("Quota exceded! Can't save any changes for Project Axeman");
 			}
-			else Helpers.Error("_setVariable - Unknown error!");
+			else {
+				Helpers.Error("BackgroundScript:  Unknown error!");
+				alert("Unknown error! Can't save any changes for Projrct Axeman");
+			}
 		}
 	}
 }

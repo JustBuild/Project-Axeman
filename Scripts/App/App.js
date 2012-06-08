@@ -26,6 +26,18 @@ function App() {
 	 * 
 	 *************************************************************************/
 	this.Initialize = function () {
+		// Check development and debug mode
+		var developmentModeRequest = new Request("Background", "Data", "IsDevelopmentMode", "get", null);
+		var debugModeRequest = new Request("Background", "Data", "IsDebugMode", "get", null);
+		developmentModeRequest.Send(function (response) {
+			IsDevelopmentMode = (response == "true" ? "true" : "false");
+		});
+		debugModeRequest.Send(function (response) {
+			IsDebugMode = (response == "true" ? "true" : "false");
+		});
+		if (IsDevelopmentMode) Helpers.Log("Development mode.");
+		if (IsDebugMode) Helpers.Log("Debug mode.");
+
 		// Get active page
 		this.GetActivePage();
 
