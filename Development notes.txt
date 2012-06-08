@@ -35,10 +35,11 @@ USING AND LAUNCHING APP
 
 AVAILABLE PLUGINS
 	To add new plugin, you need to specify name and location of plugin script
-	on two places. On place is in manifest.json, you need to put your script 
+	on three places. On place is in manifest.json, you need to put your script 
 	filename including path to list of extension scripts. Then to automaticaly
 	register that script on extension start you need to put plugin class name
-	under available scripts list in PluginsManager.js script. 
+	under available scripts list in PluginsManager.js script. Third is in
+	PluginsManager page.
 
 	Total: (1)
 

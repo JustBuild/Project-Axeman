@@ -26,14 +26,10 @@ function Request(requestSign, requestCategory, requestName, actionName, requestD
 	 * Sends request with data and callback to
 	 * listener.
 	 *
-	 * callback can be {Null} - in that case
-	 *          it si replaces with empty
-	 *			funtion call
-	 *
 	 **************************************************************************/
-	this.Send = function (request, callback) {
+	this.Send = function (callback) {
 		chrome.extension.sendRequest(this, callback || function () { });
-	}
+	};
 }
 
 /******************************************************************************

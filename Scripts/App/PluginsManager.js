@@ -33,8 +33,16 @@ function PluginsManager() {
 	this.RegisterPlugins = function (pluginsToRegister) {
 		Helpers.DLog("App: Registering [" + pluginsToRegister.length + "] plugins");
 		for (var index in pluginsToRegister) {
-			(new pluginsToRegister[index]).Register();
+			var plugin = new pluginsToRegister[index]();
+			var activeStateRequest = new Request("Background", "Data", "PActive" + plugin.PAli, "get", null);
+			activeStateRequest.Send(function (response) {
+				if (response == "On") {
+					Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is active... Registering");
+					plugin.Register();
+				}
+				Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is NOT active!");
+			});
 		}
-	}
+	};
 }
 
