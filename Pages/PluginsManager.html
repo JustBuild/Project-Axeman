@@ -22,21 +22,14 @@
 
 		<script type="text/javascript">
 			$(function () {
-				$("#PActive").attr("checked", true);
-				$("#PActive").button().click(function () {
-					$("#PActiveLabel span").text($("#PActive").attr("checked") ? "Off" : "On");
-					$("#PImage").attr("style", "-webkit-filter:grayscale(" + ($("#PActive").attr("checked") ? 1 : 0) + ");");
-				});
-				$("#PActive").click();
-
 				$((new PluginsManager()).availablePlugins).each(function (index, pluginS) {
 					var plugin = (new pluginS());
 					var pluginItemSource =
 						"<tr><td><div class='PluginItem" + (plugin.PBet ? " BetaFlag" : "") + "'><table id='samplePlugin'><tr><td class='PluginOptions'><table><tr><td>" +
-						"<img id='PImage" + +plugin.PAli + "' src='" + Helpers.GetImageURL("Plugins", plugin.PImg) + "' alt='&lt;" + plugin.PNam + "&gt;' />" +
+						"<img id='PImage" + plugin.PAli + "' src='" + Helpers.GetImageURL("Plugins", plugin.PImg) + "' alt='&lt;" + plugin.PNam + "&gt;' />" +
 						"</td></tr><tr><td>" +
 						"<input id='PActive" + plugin.PAli + "' type='checkbox' class='ui-helper-hidden-accessible' />" +
-						"<label id='PActiveLabel" + plugin.PAli + "' for='PActive" + plugin.PAli + "' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false' />" +
+						"<label id='PActiveLabel" + plugin.PAli + "' checked for='PActive" + plugin.PAli + "' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false' />" +
 						"</td></tr></table></td><td><table><tr>" +
 						"<td>" + plugin.PNam + "</td>" +
 						"<td class='PluginVersion'>(" + plugin.PVer + ")</td>" +
@@ -47,10 +40,13 @@
 						"</td></tr></table></td></tr></table></div></td></tr>";
 					$("#pluginsTable").append(pluginItemSource);
 
+					// TODO Get real state
+					$("#PActive" + plugin.PAli).attr("checked", "true");
 					$("#PActive" + plugin.PAli).button().click(function () {
-						$("#PActiveLabel" + plugin.PAli + " span").text($("#PActive" + plugin.PAli).attr("checked") ? "Off" : "On");
-						$("#PImage" + plugin.PAli).attr("style", "-webkit-filter:grayscale(" + ($("#PActive" + plugin.PAli).attr("checked") ? 1 : 0) + ");");
+						$("#PActiveLabel" + plugin.PAli + " span").text($("#PActive" + plugin.PAli).attr("checked") ? "On" : "Off");
+						$("#PImage" + plugin.PAli).attr("class", ($("#PActive" + plugin.PAli).attr("checked") ? " " : "Disabled"));
 					});
+					$("#PActiveLabel" + plugin.PAli + " span").text($("#PActive" + plugin.PAli).attr("checked") ? "On" : "Off");
 				});
 			});
 		</script>
@@ -72,7 +68,7 @@
 				padding:15px; 
 				
 				border-radius:10px; 
-				box-shadow: 2px 2px 15px #bbb;
+				box-shadow:2px 2px 15px #bbb;
 			}
 
 			.PluginOptions {
@@ -91,6 +87,10 @@
 
 			.PluginAuthor {
 				color:#656565;
+			}
+
+			.Disabled {
+				-webkit-filter:grayscale(1);
 			}
 
 			.AlphaFlag,
@@ -143,13 +143,12 @@
 				background-color:#ECECEC;"
 				>
 			<div style="text-overflow:ellipsis">
-				<img src="../Icons/icon128.png" />
-				<h1>Plugins</h1>
+				<h1 style="padding:5px 5px 5px 25px">Plugins manager</h1>
 			</div>
 
 			<div class="Section" style="margin:-1px">
 				<table style="margin-top:30px">
-					<tr><td style="text-align:center"><input type="text" class="FilterBar" placeholder="Filter plugins" /></td></tr>
+					<tr><td style="text-align:center"><input type="text" class="FilterBar" placeholder="Filter plugins" disabled="disabled" /></td></tr>
 					<tr><td><table id="pluginsTable" class="PluginsTable"></table></td></tr>
 				</table>
 			</div>
@@ -157,14 +156,16 @@
 			<div style="margin-left:10px; padding:5px; color:#959595;">
 				<table>
 					<tr>
-						<td>
+						<td style="width:100%;">
 							Project Axeman<br />
 							by JustBuild Development
 						</td>
 						<td>
-							<a href="https://github.com/JustBuild/Project-Axeman">Fork us on GitHub</a>
-							<a href="https://github.com/JustBuild/Project-Axeman/wiki/Support-%26-FAQ">FAQ</a>
-							<a href="mailto:justbuilddev@gmail.com?subject=Project Axeman - Plugins manager">Support</a>
+							<div style="text-align:right;">
+								<a href="https://github.com/JustBuild/Project-Axeman">GitHub</a>
+								<a href="https://github.com/JustBuild/Project-Axeman/wiki/Support-%26-FAQ">FAQ</a>
+								<a href="mailto:justbuilddev@gmail.com?subject=Project Axeman - Plugins manager">Support</a>
+							</div>
 						</td>
 					</tr>
 				</table>
