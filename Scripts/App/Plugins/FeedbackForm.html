@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Project Axeman - Feedback</title>
+		<style type="text/css">
+			body {
+				font-family:'Segoe UI';
+				font-size:85%;
+				
+				background-color:#CBF4B2;
+			}
+		</style>
+	</head>
+	<body>
+		<form method="post" action="mailto:justbuilddev@gmail.com" enctype="text/plain">
+			<table>
+				<tr><td>Name</td><td><input type="text" name="Name" /></td></tr>
+				<tr><td>Email</td><td><input type="email" name="Email" /></td></tr>
+				<tr>
+					<td>Type of feedback</td>
+					<td>
+						<select name="">
+							<optgroup label="Question">
+								<option value="" />
+								<option value="" />
+							</optgroup>			 
+							<optgroup label="Ide /a">
+								<option value="" />
+								<option value="" />
+							</optgroup>			 
+							<optgroup label="Hel /p">
+								<option value="" />
+								<option value="" />
+							</optgroup>
+						</select>
+					</td>
+				</tr>
+				<tr><td colspan="2">Feedback note</td></tr>
+				<tr><td colspan="2"><textarea name="Note" rows="8" wrap="soft"></textarea></td></tr>
+				<tr><td colspan="2"><input type="checkbox" name="ContactUser" />Would you like to be contacted regarding your feedback?</td></tr>
+			</table>
+
+			<br />
+			<input type="submit" value="Send" />
+		</form>
+	</body>
+</html>

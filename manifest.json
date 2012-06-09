@@ -3,6 +3,8 @@
     "description":      "__MSG_ExtensionInfoDescription__",
     "version":          "0.2.0.0",
 	"manifest_version": 2,
+
+	"homepage_url": "http://github.com/JustBuild/Project-Axeman",
 	    
     "default_locale": "en",
     
@@ -107,5 +109,9 @@
             "http://*.travian.com.vn/*", 
             "http://*.travian.co.za/*" 
         ]
-    } ]
+    } ],
+
+	"web_accessible_resources": [
+		"Images/Plugins/Feedback.png"
+	]
 }
