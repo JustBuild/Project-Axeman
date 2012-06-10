@@ -59,7 +59,8 @@ function DevelopmentToolbar() {
 		// Creates new development toolbar source code
 		var toolbar = this.GetNewToolbar(
  			this.GetNewLabel("Project - Axeman"),
- 			this.GetNewButton("PluginManager", Helpers.GetExtensionRootURL("/Pages/PluginsManager.html"))
+ 			this.GetNewButton("PluginManager", Helpers.GetExtensionRootURL("/Pages/PluginsManager.html")),
+			this.GetNewButton("Popup", Helpers.GetExtensionRootURL("/Pages/Popup.html"))
  		);
 
 		// Appends style and code to current page

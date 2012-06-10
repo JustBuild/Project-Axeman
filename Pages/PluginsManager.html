@@ -84,6 +84,8 @@
 				border-style:solid; 
 				border-width:1px; 
 				border-color:#BDBDBD;
+				
+				background-color:#ECECEC;
 			}
 
 			.FilterBar {
@@ -111,16 +113,19 @@
 	</head>
 	<body>
 		<div class="Section" style="width:664px; 
-				margin-left:auto; margin-right:auto; 
-				background-color:#ECECEC;"
+				margin-left:auto; margin-right:auto;"
 				>
-			<div style="text-overflow:ellipsis">
+			<div>
 				<h1 style="padding:5px 5px 5px 25px">Plugins manager</h1>
 			</div>
 
 			<div class="Section" style="margin:-1px">
 				<table style="margin-top:30px">
-					<tr><td style="text-align:center"><input type="text" class="FilterBar" placeholder="Search for available plugins" disabled="disabled" /></td></tr>
+					<tr>
+						<td style="text-align:center">
+							<input type="text" class="FilterBar" placeholder="Search for available plugins" disabled="disabled" />
+						</td>
+					</tr>
 					<tr><td><table id="pluginsTable" class="PluginsTable"></table></td></tr>
 				</table>
 			</div>

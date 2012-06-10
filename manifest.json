@@ -8,11 +8,6 @@
 	    
     "default_locale": "en",
     
-    "background": {
-		"page": "Pages/Background.html"
-	},
-    "options_page":     "Pages/Options.html",
-    
     "icons": {
         "128":  "Icons/icon128.png",
         "16":   "Icons/icon16.png",
@@ -25,7 +20,13 @@
 		"unlimitedStorage"
     ],
 
-    "page_action": {
+	"background": {
+		"page": "Pages/Background.html"
+	},
+
+    "options_page":     "Pages/PluginsManager.html",
+
+    "browser_action": {
         "default_icon": "Icons/icon48.png",
         "default_title": "Project Axeman",
         "default_popup": "Pages/Popup.html"

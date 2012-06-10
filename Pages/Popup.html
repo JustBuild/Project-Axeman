@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Game launcher</title>
+
+		<!-- jQuery scripts -->
+		<link type="text/css" href="css/styles.css" rel="stylesheet" />
+		<script type="text/javascript" src="../Scripts/jQuery.js"></script>
+		<script type="text/javascript" src="../Scripts/jQueryUI.js"></script>
+
+		<script type="text/javascript" src="../Scripts/PopupPage.js"></script>
+
+		<style type="text/css">
+			body {
+				font-family: 'Segoe UI';
+				font-size: 85%;
+				
+				width: 280px;
+				height: auto;
+			}
+			
+			.Section {
+				border-style:solid; 
+				border-width:1px; 
+				border-color:#BDBDBD;
+				
+				background-color:#ECECEC;
+			}
+			
+			
+			.SectionItem {
+				background-color:#f8f8f8; 
+				
+				margin:5px 20px;  
+				padding:15px; 
+				
+				border-radius:10px; 
+				box-shadow:2px 2px 15px #bbb;
+			}
+
+			.Modal {
+				display: none;
+				position: absolute;
+				position: fixed;
+				top: 0;
+				right: 0;
+				height: 100%;
+				z-index: 999999;    
+				width: 260px;
+				padding: 20px;    
+				background-color: #333;
+				color: #FFF;
+				-webkit-box-shadow: inset 0 0 5px 5px #222;
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- Home page -->
+		<div id="Selection">
+			<table class="Section" style="width:100%;">
+				<tr>
+					<td colspan="2">
+						<table class="SectionItem">
+							<tr>
+								<td>
+
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><button id="Plugins">Plugins manager</button></td>
+					<td><button id="AddNewServer">Add</button></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- Add new server modal -->
+		<div id="ModalNewServer" class="Modal">
+			<table>
+				<tr><td>Server</td><td><input id="NewServerAddress" type="text" placeholder="e.g. ts1.travian.com.hr" /></td></tr>
+				<tr><td>Username</td><td><input id="NewServerUsername" type="text" placeholder="e.g. ZoggyHatt" /></td></tr>
+				<tr><td>UID</td><td><input id="NewServerUID" type="text" size="5" placeholder="e.g. 2031" /></td></tr>
+				<tr><td colspan="2"><button id="ModalNewServerClose" style="margin-top:20px; width:80px; height:28px;">Add</button></td></tr>
+			</table>
+		</div>
+
+	</body>
+</html>

@@ -2,20 +2,49 @@
 
 	$((new PluginsManager()).availablePlugins).each(function (index, pluginS) {
 		var plugin = (new pluginS());
-		var pluginItemSource =
-			"<tr><td><div class='PluginItem" + (plugin.PBet ? " BetaFlag" : "") + "'><table id='samplePlugin'><tr><td class='PluginOptions'><table><tr><td>" +
-			"<img id='PImage" + plugin.PAli + "' src='" + Helpers.GetImageURL("Plugins", plugin.PImg) + "' alt='&lt;" + plugin.PNam + "&gt;' width='64' height='64' />" +
-			"</td></tr><tr><td>" +
-			"<input id='PActive" + plugin.PAli + "' type='checkbox' class='ui-helper-hidden-accessible' />" +
-			"<label id='PActiveLabel" + plugin.PAli + "' for='PActive" + plugin.PAli + "' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false' />" +
-			"</td></tr></table></td><td><table><tr>" +
-			"<td>" + plugin.PNam + "</td>" +
-			"<td class='PluginVersion'>(" + plugin.PVer + ")</td>" +
-			"</tr><tr class='PluginDescription'><td colspan='2'>" +
-			"<p>" + plugin.PDes + "</p>" +
-			"</td></tr><tr class='PluginAuthor'>" +
-			"<td>" + plugin.PAut + "</td><td><a href='&lt;" + plugin.PMIS + "&gt;'>More info...</a>" +
-			"</td></tr></table></td></tr></table></div></td></tr>";
+		var pluginItemSource = 
+			"<tr>\
+				<td>\
+					<div class='PluginItem" + (plugin.PBet ? " BetaFlag" : "") + "'>\
+						<table id='samplePlugin'>\
+							<tr>\
+								<td class='PluginOptions'>\
+									<table>\
+										<tr>\
+											<td>\
+												<img id='PImage" + plugin.PAli + "' src='" + Helpers.GetImageURL("Plugins", plugin.PImg) + "' alt='&lt;" + plugin.PNam + "&gt;' width='64' height='64' />\
+											</td>\
+										</tr>\
+										<tr>\
+											<td>\
+												<input id='PActive" + plugin.PAli + "' type='checkbox' class='ui-helper-hidden-accessible' />\
+												<label id='PActiveLabel" + plugin.PAli + "' for='PActive" + plugin.PAli + "' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false' />\
+											</td>\
+										</tr>\
+									</table>\
+								</td>\
+								<td>\
+									<table>\
+										<tr>\
+											<td>" + plugin.PNam + "</td>\
+											<td class='PluginVersion'>(" + plugin.PVer + ")</td>\
+										</tr>\
+										<tr class='PluginDescription'>\
+											<td colspan='2'>\
+												<p>" + plugin.PDes + "</p>\
+											</td>\
+										</tr>\
+										<tr class='PluginAuthor'>\
+											<td>" + plugin.PAut + "</td>\
+											<td><a href='&lt;" + plugin.PMIS + "&gt;'>More info...</a></td>\
+										</tr>\
+									</table>\
+								</td>\
+							</tr>\
+						</table>\
+					</div>\
+				</td>\
+			</tr>";
 		$("#pluginsTable").append(pluginItemSource);
 
 		// Gets active state
