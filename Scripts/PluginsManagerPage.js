@@ -6,7 +6,7 @@
 			"<tr>\
 				<td>\
 					<div class='PluginItem" + (plugin.PBet ? " BetaFlag" : "") + "'>\
-						<table id='samplePlugin'>\
+						<table style='width:100%'>\
 							<tr>\
 								<td class='PluginOptions'>\
 									<table>\
@@ -24,7 +24,7 @@
 									</table>\
 								</td>\
 								<td>\
-									<table>\
+									<table style='width:100%'>\
 										<tr>\
 											<td>" + plugin.PNam + "</td>\
 											<td class='PluginVersion'>(" + plugin.PVer + ")</td>\

@@ -70,51 +70,52 @@ function DevelopmentToolbar() {
 
 	// TODO: Comment function
 	this.GetDevelopmentToolbarStyle = function () {
-		var style = '<style type="text/css">' +
-					// Toolbar style
-					'.DTBase {' +
-						'position:fixed;' +
-						'bottom: 0px; right: 0px; left: 0px;' +
-						'padding: 5px;' +
-						'background: -webkit-gradient(linear, left top, left bottom, from(#D3D3D3), to(#919191));' +
-					'}' +
-					// Button style
-					'.DTButton:link, ' +
-					'.DTButton:hover, ' +
-					'.DTButton:visited, ' +
-					'.DTButton:active, ' +
-					'.DTButton {' +
-						'color: lightgray;' +
-						'background: -webkit-gradient(linear, left top, left bottom, from(#747474), to(#4B4B4B));' +
-						'padding: 2px 8px 2px 8px;' +
-						'border-radius: 10px;' +
-					'}' +
-					// Label style
-					'.DTLabelNormal:link, ' +
-					'.DTLabelNormal:hover, ' +
-					'.DTLabelNormal:visited, ' +
-					'.DTLabelNormal:active, ' +
-					'.DTLabelNormal {' +
-						'padding: 0px 10px;' +
-						'color: black;' +
-					'}' +
-					// InfoLabel style
-					'.DTLabelInfo:link, ' +
-					'.DTLabelInfo:hover, ' +
-					'.DTLabelInfo:visited, ' +
-					'.DTLabelInfo:active, ' +
-					'.DTLabelInfo {' +
-						'color: gray;' +
-					'}' +
-					// WarnLabel style
-					'.DTLabelWarn:link, ' +
-					'.DTLabelWarn:hover, ' +
-					'.DTLabelWarn:visited, ' +
-					'.DTLabelWarn:active, ' +
-					'.DTLabelWarn {' +
-						'color: red;' +
-					'}' +
-				'</style>';
+		var style =
+			'<style type="text/css">' +
+				// Toolbar style
+				'.DTBase {' +
+					'position:fixed;' +
+					'bottom: 0px; right: 0px; left: 0px;' +
+					'padding: 5px;' +
+					'background: -webkit-gradient(linear, left top, left bottom, from(#D3D3D3), to(#919191));' +
+				'}' +
+				// Button style
+				'.DTButton:link, ' +
+				'.DTButton:hover, ' +
+				'.DTButton:visited, ' +
+				'.DTButton:active, ' +
+				'.DTButton {' +
+					'color: lightgray;' +
+					'background: -webkit-gradient(linear, left top, left bottom, from(#747474), to(#4B4B4B));' +
+					'padding: 2px 8px 2px 8px;' +
+					'border-radius: 10px;' +
+				'}' +
+				// Label style
+				'.DTLabelNormal:link, ' +
+				'.DTLabelNormal:hover, ' +
+				'.DTLabelNormal:visited, ' +
+				'.DTLabelNormal:active, ' +
+				'.DTLabelNormal {' +
+					'padding: 0px 10px;' +
+					'color: black;' +
+				'}' +
+				// InfoLabel style
+				'.DTLabelInfo:link, ' +
+				'.DTLabelInfo:hover, ' +
+				'.DTLabelInfo:visited, ' +
+				'.DTLabelInfo:active, ' +
+				'.DTLabelInfo {' +
+					'color: gray;' +
+				'}' +
+				// WarnLabel style
+				'.DTLabelWarn:link, ' +
+				'.DTLabelWarn:hover, ' +
+				'.DTLabelWarn:visited, ' +
+				'.DTLabelWarn:active, ' +
+				'.DTLabelWarn {' +
+					'color: red;' +
+				'}' +
+			'</style>';
 
 		return style;
 	};

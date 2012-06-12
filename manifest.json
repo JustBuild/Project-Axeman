@@ -113,6 +113,7 @@
     } ],
 
 	"web_accessible_resources": [
-		"Images/Plugins/Feedback.png"
+		"Images/Plugins/Feedback.png",
+		"Pages/PAStyles.css"
 	]
 }

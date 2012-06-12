@@ -31,12 +31,18 @@ function App() {
 		var debugModeRequest = new Request("Background", "Data", "IsDebugMode", "get", null);
 		developmentModeRequest.Send(function (response) {
 			IsDevelopmentMode = (response == "true" ? "true" : "false");
+			if (IsDevelopmentMode) Helpers.Log("Development mode.");
 		});
 		debugModeRequest.Send(function (response) {
 			IsDebugMode = (response == "true" ? "true" : "false");
+			if (IsDebugMode) Helpers.Log("Debug mode.");
 		});
-		if (IsDevelopmentMode) Helpers.Log("Development mode.");
-		if (IsDebugMode) Helpers.Log("Debug mode.");
+
+		// Inject Project Axeman styles
+		$("head").append("<link href='" + Helpers.GetExtensionRootURL("Pages/PAStyles.css") + "' type='text/css' rel='stylesheet' />");
+
+		// Initialize Modal View
+		this.InitializeModalView();
 
 		// Get active page
 		this.GetActivePage();
@@ -48,14 +54,16 @@ function App() {
 		if (IsDevelopmentMode) {
 			this.TestFunction();
 		}
-	}
+
+		this.ShowModal("<button id='PAModalViewHide'>MODAL TEST</button>");
+	};
 
 	/**************************************************************************
 	 *
 	 * Gets pathnames of current page and saves it to variables
 	 *
 	 **************************************************************************/
-	this.GetActivePage = function() {
+	this.GetActivePage = function () {
 		Helpers.Log("App: Reading current page...");
 
 		var currentPath = window.location.pathname;
@@ -66,7 +74,7 @@ function App() {
 
 		ActivePage = Enums.TravianPages[currentPath];
 		ActivePageQuery = currentQuery;
-	}
+	};
 
 	/**************************************************************************
 	 *
@@ -81,5 +89,46 @@ function App() {
 		var notification = new Notification(imageURL, "Project Axeman", "Test message", 1000);
 		var request = new Request("Background", "Notification", "Simple", "Show", notification);
 		request.Send(null);
+	};
+
+
+	var isModalOpen = false;
+
+	this.InitializeModalView = function () {
+		Helpers.Log("App: Initializing ModalView");
+
+		var source = "<div id='PAModalView' class='ModalView'></div>";
+		$("body").append(source);
+
+		Helpers.Log("App: ModalView injected to the page");
+	};
+
+	this.ShowModal = function (content) {
+		if (isModalOpen == true) {
+			Helpers.DLog("App: Modal already oppened!");
+			return false;
+		}
+
+		$("#PAModalView").html(content);
+
+		$("#PAModalViewHide").click(function () {
+			// Hide ModalView function
+			if (isModalOpen == false) {
+				Helpers.DLog("App: Modal already hidden!");
+				return false;
+			}
+
+			$("#PAModalView").hide("slide", { direction: "right" }, 500);
+			//$("#PAModalView").css("display", "none");
+
+			isModalOpen = false;
+			return true;
+		});
+
+		//$("#PAModalView").css("display", "block");
+		$("#PAModalView").show("slide", { direction: "right" }, 500);
+
+		isModalOpen = true;
+		return true;
 	}
 }
