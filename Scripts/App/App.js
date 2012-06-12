@@ -94,6 +94,15 @@ function App() {
 	};
 
 
+	/**************************************************************************
+	 *
+	 * Initializes Moval View
+	 *
+	 * This function will inject modalview <div> tag onto page. This will
+	 * be used to slide in/out pages so that user can change settings
+	 * or see some additional information.
+	 *
+	 *************************************************************************/
 	this.InitializeModalView = function () {
 		Helpers.Log("App: Initializing ModalView");
 
@@ -119,13 +128,22 @@ function App() {
 		Helpers.Log("App: ModalView injected to the page");
 	};
 
+	/**************************************************************************
+	 *
+	 * Slides in ModalView if it is hidden and shows given content on it
+	 *
+	 * Returns true if modalview is successfully shown
+	 *
+	 *************************************************************************/
 	this.ShowModalView = function (content) {
 		// Return if modelview is already active
 		if (app.isModalViewActive == true) {
 			Helpers.DLog("App: Modal already oppened!");
 			return false;
 		}
-		
+
+		Helpers.DLog("App: ModalView shown");
+
 		// Changes content of modelview
 		$("#PAModalView").html(content);
 
@@ -133,8 +151,16 @@ function App() {
 		$("#PAModalView").show("slide", { direction: "right" }, 500);
 
 		app.isModalViewActive = true;
-	}
+		return true;
+	};
 
+	/**************************************************************************
+	 *
+	 * Slides out ModalView if it is shown
+	 *
+	 * Returns true if modalview is successfully hidden
+	 *
+	 *************************************************************************/
 	this.HideModalView = function () {
 		// Return if modalview is already hidden
 		if (app.isModalViewActive == false) {
@@ -142,10 +168,12 @@ function App() {
 			return false;
 		}
 
+		Helpers.DLog("App: ModalView hidden");
+
 		// Slide modal view away
 		$("#PAModalView").hide("slide", { direction: "right" }, 500);
 
 		app.isModalViewActive = false;
 		return true;
-	}
+	};
 }
