@@ -20,6 +20,7 @@ console.log("Extension URL [" + chrome.extension.getURL("/") + "]");
 console.log("Starting App...");
 
 // Create new App object and initialize
-(new App()).Initialize();
+var app = new App()
+app.Initialize();
 
 console.log("App started!");

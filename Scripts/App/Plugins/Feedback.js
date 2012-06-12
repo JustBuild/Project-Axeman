@@ -53,10 +53,9 @@ function Feedback() {
 
 		// Show popup on feedback image click
 		$("#PAFeedback").click(function () {
-			var popupWindow = window.open(Helpers.GetExtensionRootURL("Scripts/App/Plugins/FeedbackForm.html"), "name", "height=400, width=300");
-			if(window.focus) {
-				popupWindow.focus();
-			}
+			$.get(Helpers.GetExtensionRootURL("Scripts/App/Plugins/FeedbackForm.html"), function (response) {
+				(new App()).ShowModalView(response);
+			});
 		});
 	};
 }

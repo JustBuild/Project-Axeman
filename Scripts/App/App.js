@@ -38,11 +38,15 @@ function App() {
 			if (IsDebugMode) Helpers.Log("Debug mode.");
 		});
 
+		// Default settings
+		$.ajaxSetup({ cache: false });
+
 		// Inject Project Axeman styles
 		$("head").append("<link href='" + Helpers.GetExtensionRootURL("Pages/PAStyles.css") + "' type='text/css' rel='stylesheet' />");
 
 		// Initialize Modal View
 		this.InitializeModalView();
+		this.isModalViewActive = false;
 
 		// Get active page
 		this.GetActivePage();
@@ -54,8 +58,6 @@ function App() {
 		if (IsDevelopmentMode) {
 			this.TestFunction();
 		}
-
-		this.ShowModal("<button id='PAModalViewHide'>MODAL TEST</button>");
 	};
 
 	/**************************************************************************
@@ -92,43 +94,58 @@ function App() {
 	};
 
 
-	var isModalOpen = false;
-
 	this.InitializeModalView = function () {
 		Helpers.Log("App: Initializing ModalView");
 
+		// Appends modal view 
 		var source = "<div id='PAModalView' class='ModalView'></div>";
 		$("body").append(source);
+
+		// Attach function to click and keyup events
+		// so that we close modalview when user clicks
+		// outside of modalview (on document not on modalview)
+		$(document).bind('click keyup', function (e) {
+			// If this is a keyup event, let's see if it's an ESC key
+			if (e.type == "keyup" && e.keyCode != 27) return;
+
+			// Make sure it's visible, and we're not modal	    
+			if (app.isModalViewActive == true &&						// Check if modal is active
+				e.target.className != "ModalView" &&					// Check that click target is not modal view
+				$(e.target).parents().index($("#PAModalView")) < 0) {	// Check that click target are not modal view children
+				app.HideModalView();
+			}
+		});
 
 		Helpers.Log("App: ModalView injected to the page");
 	};
 
-	this.ShowModal = function (content) {
-		if (isModalOpen == true) {
+	this.ShowModalView = function (content) {
+		// Return if modelview is already active
+		if (app.isModalViewActive == true) {
 			Helpers.DLog("App: Modal already oppened!");
 			return false;
 		}
-
+		
+		// Changes content of modelview
 		$("#PAModalView").html(content);
 
-		$("#PAModalViewHide").click(function () {
-			// Hide ModalView function
-			if (isModalOpen == false) {
-				Helpers.DLog("App: Modal already hidden!");
-				return false;
-			}
-
-			$("#PAModalView").hide("slide", { direction: "right" }, 500);
-			//$("#PAModalView").css("display", "none");
-
-			isModalOpen = false;
-			return true;
-		});
-
-		//$("#PAModalView").css("display", "block");
+		// Slide modal view in
 		$("#PAModalView").show("slide", { direction: "right" }, 500);
 
-		isModalOpen = true;
+		app.isModalViewActive = true;
+	}
+
+	this.HideModalView = function () {
+		// Return if modalview is already hidden
+		if (app.isModalViewActive == false) {
+			Helpers.DLog("App: Modal already hidden!");
+			return false;
+		}
+
+		// Slide modal view away
+		$("#PAModalView").hide("slide", { direction: "right" }, 500);
+
+		app.isModalViewActive = false;
 		return true;
 	}
 }

@@ -114,6 +114,7 @@
 
 	"web_accessible_resources": [
 		"Images/Plugins/Feedback.png",
+		"Scripts/App/Plugins/FeedbackForm.html",
 		"Pages/PAStyles.css"
 	]
 }
