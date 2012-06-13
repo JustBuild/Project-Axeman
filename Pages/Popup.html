@@ -14,8 +14,12 @@
 		<script type="text/javascript" src="../Scripts/App/Helpers.js"></script>
 		<script type="text/javascript" src="../Scripts/App/Models.js"></script>
 
+		<!-- GameLaucher script -->
 		<script type="text/javascript" src="../Scripts/PopupPage.js"></script>
+
+		<!-- Extension styles -->
 		<link type="text/css" href="PAStyles.css" rel="stylesheet" />
+
 
 		<style type="text/css">
 			body {
@@ -25,15 +29,10 @@
 				width: 320px;
 				height: auto;
 			}
-			 
-			.Section {
-				border-style:solid; 
-				border-width:1px; 
-				border-color:#BDBDBD;
-				
-				background-color:#ECECEC;
-				
+			
+			.GameLauncherSection {
 				padding: 5px 15px;
+				width: 100%;
 			}
 			
 			
@@ -84,7 +83,7 @@
 
 		<!-- Home page -->
 		<div id="Selection">
-			<table class="Section" style="width:100%;">
+			<table class="PASection GameLauncherSection">
 				<tr>
 					<td>
 						<table class="SectionItem" style="width:100%;">
@@ -163,7 +162,7 @@
 				</tr>
 				<tr>
 					<td>
-						<table class="Section" style="width:320px; margin-top:5px; margin-left:-19px; margin-right:-20px; margin-bottom:-15px;">
+						<table class="PASection GameLauncherSection" style="width:320px; margin-top:5px; margin-left:-19px; margin-right:-20px; margin-bottom:-15px;">
 							<tr>
 								<td><button id="Plugins" class="PAButtonLight">Plugins manager</button></td>
 								<td><button id="AddNewServer" class="PAButtonLight">Add</button></td>
@@ -182,9 +181,9 @@
 				<tr><td>UID</td><td><input id="NewServerUID" type="text" class="PATextBoxDark" style="width:100%" size="5" placeholder="e.g. 2031" /></td></tr>
 				<tr><td>Tribe</td><td>
 					<select name="NewServerTribe">
+						<option value="Romans">Gauls</option>	
 						<option value="Romans">Romans</option>	
 						<option value="Romans">Teutons</option>	
-						<option value="Romans">Gauls</option>	
 				    </select>
 				</td></tr>
 				<tr><td colspan="2"><button id="ModalNewServerClose" class="PAButtonLight" style="margin-top:20px; width:80px; height:28px;">Add</button></td></tr>

@@ -11,6 +11,14 @@
 	-webkit-box-shadow: inset 0 0 5px 5px #222;
 }
 
+.PASection {
+	border-style:solid; 
+	border-width:1px; 
+	border-color:#BDBDBD;
+				
+	background-color:#ECECEC;
+}
+
 .PAtable {
 	background-color: transparent;
 }
