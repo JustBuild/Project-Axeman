@@ -19,8 +19,6 @@ function StorageDetails() {
 
 				root.append(item);
 			}
-
-			//$("#LocalStorageTree").treeview();
 		}
 	};
 };

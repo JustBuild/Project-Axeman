@@ -85,7 +85,7 @@ Models.VillageModel = function () {
  * Profile model
  *
  *****************************************************************************/
-Model.Profile = function () {
+Models.Profile = function () {
 	this.Name = "Default";
 	this.UID = 0;
 	this.ServerAddress = "travian.com";

@@ -26,14 +26,17 @@ function PopupPage() {
 		$(".SectionItem").click(function () {
 			chrome.tabs.create({ url: ("http://" + $(this).find(".AccountServer").text()), active: true });
 		});
+
+		this.RefreshServers();
 	};
 
 	this.AddNewServer = function(server, username, uid) {
-
+		
 	};
 
 	this.RefreshServers = function() {
-
+		var profiles = JSON.parse(localStorage["Profiles"]);
+		console.log(profiles);
 	};
 
 	this.GetServers = function() {
