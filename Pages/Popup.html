@@ -8,34 +8,60 @@
 		<script type="text/javascript" src="../Scripts/jQuery.js"></script>
 		<script type="text/javascript" src="../Scripts/jQueryUI.js"></script>
 
+		<!-- Extsnions classes -->
+		<script type="text/javascript" src="../Scripts/App/Enums.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Variables.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Helpers.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Models.js"></script>
+
 		<script type="text/javascript" src="../Scripts/PopupPage.js"></script>
+		<link type="text/css" href="PAStyles.css" rel="stylesheet" />
 
 		<style type="text/css">
 			body {
 				font-family: 'Segoe UI';
 				font-size: 85%;
 				
-				width: 280px;
+				width: 320px;
 				height: auto;
 			}
-			
+			 
 			.Section {
 				border-style:solid; 
 				border-width:1px; 
 				border-color:#BDBDBD;
 				
 				background-color:#ECECEC;
+				
+				padding: 5px 15px;
 			}
 			
 			
 			.SectionItem {
 				background-color:#f8f8f8; 
 				
-				margin:5px 20px;  
-				padding:15px; 
+				margin: 5px 0px;
+				padding: 0 10px 0 0; 
 				
 				border-radius:10px; 
-				box-shadow:2px 2px 15px #bbb;
+				-webkit-box-shadow:2px 2px 15px #bbb;
+			}
+			.SectionItem:hover {
+				-webkit-box-shadow:2px 2px 20px #888;
+			}
+			
+			.AccountServer {
+				text-align:right; 
+				color:#353535;
+			}
+
+			.AccountUID {
+				text-align:right; 
+				color:#959595;
+			}
+
+			.AccountDetail {
+				color:#959595;
 			}
 
 			.Modal {
@@ -46,7 +72,7 @@
 				right: 0;
 				height: 100%;
 				z-index: 999999;    
-				width: 260px;
+				width: 300px;
 				padding: 20px;    
 				background-color: #333;
 				color: #FFF;
@@ -60,30 +86,108 @@
 		<div id="Selection">
 			<table class="Section" style="width:100%;">
 				<tr>
-					<td colspan="2">
-						<table class="SectionItem">
+					<td>
+						<table class="SectionItem" style="width:100%;">
 							<tr>
+								<td style="width:64px">
+									<img id="Img2" src="http://ts5.travian.com.hr/hero_image.php?uid=236" width="64" height="73" class="heroImage" alt="Heroj" />
+								</td>
 								<td>
-
+									<table style="width:100%">
+										<tr>
+											<td>
+												<div>AleksandarDev</div>
+											</td>
+											<td>
+												<div class="AccountUID">236</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<div class="AccountDetail" style="margin-top:10px">1 village(s)</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<div class="AccountDetail" style="margin-bottom:10px">106 population</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<div class="AccountServer">ts5.travian.com.hr</div>
+											</td>
+										</tr>
+									</table>
 								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 				<tr>
-					<td><button id="Plugins">Plugins manager</button></td>
-					<td><button id="AddNewServer">Add</button></td>
+					<td>
+						<table class="SectionItem" style="width:100%;">
+							<tr>
+								<td style="width:64px">
+									<img id="Img1" src="http://ts5.travian.com.hr/hero_image.php?uid=236" width="64" height="73" class="heroImage" alt="Heroj" />
+								</td>
+								<td>
+									<table style="width:100%">
+										<tr>
+											<td>
+												<div>AleksandarDev</div>
+											</td>
+											<td>
+												<div class="AccountUID">236</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<div class="AccountDetail" style="margin-top:10px">1 village(s)</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<div class="AccountDetail" style="margin-bottom:10px">106 population</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<div class="AccountServer">ts1.travian.com.hr</div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="Section" style="width:320px; margin-top:5px; margin-left:-19px; margin-right:-20px; margin-bottom:-15px;">
+							<tr>
+								<td><button id="Plugins" class="PAButtonLight">Plugins manager</button></td>
+								<td><button id="AddNewServer" class="PAButtonLight">Add</button></td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 			</table>
 		</div>
 
 		<!-- Add new server modal -->
 		<div id="ModalNewServer" class="Modal">
-			<table>
-				<tr><td>Server</td><td><input id="NewServerAddress" type="text" placeholder="e.g. ts1.travian.com.hr" /></td></tr>
-				<tr><td>Username</td><td><input id="NewServerUsername" type="text" placeholder="e.g. ZoggyHatt" /></td></tr>
-				<tr><td>UID</td><td><input id="NewServerUID" type="text" size="5" placeholder="e.g. 2031" /></td></tr>
-				<tr><td colspan="2"><button id="ModalNewServerClose" style="margin-top:20px; width:80px; height:28px;">Add</button></td></tr>
+			<table style="width:100%">
+				<tr><td>Server</td><td><input id="NewServerAddress" class="PATextBoxDark" style="width:100%" type="text" placeholder="e.g. ts1.travian.com.hr" /></td></tr>
+				<tr><td>Username</td><td><input id="NewServerUsername" class="PATextBoxDark" style="width:100%" type="text" placeholder="e.g. ZoggyHatt" /></td></tr>
+				<tr><td>UID</td><td><input id="NewServerUID" type="text" class="PATextBoxDark" style="width:100%" size="5" placeholder="e.g. 2031" /></td></tr>
+				<tr><td>Tribe</td><td>
+					<select name="NewServerTribe">
+						<option value="Romans">Romans</option>	
+						<option value="Romans">Teutons</option>	
+						<option value="Romans">Gauls</option>	
+				    </select>
+				</td></tr>
+				<tr><td colspan="2"><button id="ModalNewServerClose" class="PAButtonLight" style="margin-top:20px; width:80px; height:28px;">Add</button></td></tr>
 			</table>
 		</div>
 
