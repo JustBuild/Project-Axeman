@@ -33,8 +33,9 @@
 			.GameLauncherSection {
 				padding: 5px 15px;
 				width: 100%;
-			}
-			
+				
+				vertical-align:top;
+			}		
 			
 			.SectionItem {
 				background-color:#f8f8f8; 
@@ -77,95 +78,34 @@
 				color: #FFF;
 				-webkit-box-shadow: inset 0 0 5px 5px #222;
 			}
+
+			.DeleteButton {
+				font-family:Webdings; 
+				font-size:85%; 
+				color:#ddd;
+				
+				cursor:default;
+				
+				float:left; 
+				margin-top:-15px; 
+				margin-left:5px;
+			}
+			.DeleteButton:hover {
+				color:#222;
+			}
 		</style>
 	</head>
 	<body>
 
 		<!-- Home page -->
 		<div id="Selection">
-			<table class="PASection GameLauncherSection">
-				<tr>
-					<td>
-						<table class="SectionItem" style="width:100%;">
-							<tr>
-								<td style="width:64px">
-									<img id="Img2" src="http://ts5.travian.com.hr/hero_image.php?uid=236" width="64" height="73" class="heroImage" alt="Heroj" />
-								</td>
-								<td>
-									<table style="width:100%">
-										<tr>
-											<td>
-												<div>AleksandarDev</div>
-											</td>
-											<td>
-												<div class="AccountUID">236</div>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<div class="AccountDetail" style="margin-top:10px">1 village(s)</div>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<div class="AccountDetail" style="margin-bottom:10px">106 population</div>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<div class="AccountServer">ts5.travian.com.hr</div>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<table class="SectionItem" style="width:100%;">
-							<tr>
-								<td style="width:64px">
-									<img id="Img1" src="http://ts5.travian.com.hr/hero_image.php?uid=236" width="64" height="73" class="heroImage" alt="Heroj" />
-								</td>
-								<td>
-									<table style="width:100%">
-										<tr>
-											<td>
-												<div>AleksandarDev</div>
-											</td>
-											<td>
-												<div class="AccountUID">236</div>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<div class="AccountDetail" style="margin-top:10px">1 village(s)</div>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<div class="AccountDetail" style="margin-bottom:10px">106 population</div>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2">
-												<div class="AccountServer">ts1.travian.com.hr</div>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
+			<table id="ProfilesTable" class="PASection GameLauncherSection">
 				<tr>
 					<td>
 						<table class="PASection GameLauncherSection" style="width:320px; margin-top:5px; margin-left:-19px; margin-right:-20px; margin-bottom:-15px;">
 							<tr>
 								<td><button id="Plugins" class="PAButtonLight">Plugins manager</button></td>
-								<td><button id="AddNewServer" class="PAButtonLight">Add</button></td>
+								<td><button id="AddNewProfile" class="PAButtonLight">Add</button></td>
 							</tr>
 						</table>
 					</td>
@@ -174,19 +114,19 @@
 		</div>
 
 		<!-- Add new server modal -->
-		<div id="ModalNewServer" class="Modal">
+		<div id="ModalNewProfile" class="Modal">
 			<table style="width:100%">
 				<tr><td>Server</td><td><input id="NewServerAddress" class="PATextBoxDark" style="width:100%" type="text" placeholder="e.g. ts1.travian.com.hr" /></td></tr>
-				<tr><td>Username</td><td><input id="NewServerUsername" class="PATextBoxDark" style="width:100%" type="text" placeholder="e.g. ZoggyHatt" /></td></tr>
-				<tr><td>UID</td><td><input id="NewServerUID" type="text" class="PATextBoxDark" style="width:100%" size="5" placeholder="e.g. 2031" /></td></tr>
+				<tr><td>Username</td><td><input id="NewProfileUsername" class="PATextBoxDark" style="width:100%" type="text" placeholder="e.g. ZoggyHatt" /></td></tr>
+				<tr><td>UID</td><td><input id="NewProfileUID" type="text" class="PATextBoxDark" style="width:100%" size="5" placeholder="e.g. 2031" /></td></tr>
 				<tr><td>Tribe</td><td>
-					<select name="NewServerTribe">
+					<select name="NewProfileTribe">
 						<option value="Romans">Gauls</option>	
 						<option value="Romans">Romans</option>	
 						<option value="Romans">Teutons</option>	
 				    </select>
 				</td></tr>
-				<tr><td colspan="2"><button id="ModalNewServerClose" class="PAButtonLight" style="margin-top:20px; width:80px; height:28px;">Add</button></td></tr>
+				<tr><td colspan="2"><button id="ModalNewProfileClose" class="PAButtonLight" style="margin-top:20px; width:80px; height:28px;">Add</button></td></tr>
 			</table>
 		</div>
 
