@@ -1,39 +1,62 @@
 {
     "name":             "Project Axeman",
     "description":      "__MSG_ExtensionInfoDescription__",
-    "version":          "0.2.0",
-    
+    "version":          "0.2.0.0",
+	"manifest_version": 2,
+
+	"homepage_url": "http://github.com/JustBuild/Project-Axeman",
+	    
     "default_locale": "en",
     
-    "background_page":  "Pages/Background.html",
-    "options_page":     "Pages/Options.html",
-    
-    "page_action": {
-        "default_icon": "Icons/icon48.png",
-        "default_title": "Project Axeman",
-        "default_popup": "Pages/Popup.html"
-    },
-    
-	"permissions": [
-    	"notifications"
-  	],
-
     "icons": {
         "128":  "Icons/icon128.png",
         "16":   "Icons/icon16.png",
         "48":   "Icons/icon48.png"
     },
 
+    "permissions": [
+        "notifications",
+		"storage",
+		"unlimitedStorage",
+		"tabs"
+    ],
+
+	"background": {
+		"page": "Pages/Background.html"
+	},
+
+    "options_page":     "Pages/PluginsManager.html",
+
+    "browser_action": {
+        "default_icon": "Icons/icon48.png",
+        "default_title": "Project Axeman",
+        "default_popup": "Pages/Popup.html"
+    },
+    
     "content_scripts": [ {
         "run_at": "document_end",
         "js": [ 
             "Scripts/jQuery.js", 
             "Scripts/jQueryUI.js",
-            "Scripts/ExtensionId.js",
-            "Scripts/ContentScript.js"
+
+            "Scripts/App/Enums.js",
+            "Scripts/App/Variables.js",
+            "Scripts/App/Helpers.js",
+            "Scripts/App/Models.js",
+
+            "Scripts/App/RequestManager.js",
+            "Scripts/App/NotificationManager.js",
+			"Scripts/App/PluginsManager.js",
+
+            "Scripts/App/Plugins/DevelopmentToolbar.js",
+			"Scripts/App/Plugins/Feedback.js",
+
+            "Scripts/App/App.js",
+            "Scripts/App/AppLauncher.js"
         ],
         "matches": [ 
             "http://*.travian.ae/*", 
+            "http://*.travian.asia/*",
             "http://*.travian.com.au/*", 
             "http://*.travian.ba/*", 
             "http://*.travian.bg/*", 
@@ -88,5 +111,11 @@
             "http://*.travian.com.vn/*", 
             "http://*.travian.co.za/*" 
         ]
-    } ]
+    } ],
+
+	"web_accessible_resources": [
+		"Images/Plugins/Feedback.png",
+		"Scripts/App/Plugins/FeedbackForm.html",
+		"Pages/PAStyles.css"
+	]
 }

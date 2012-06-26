@@ -1,153 +1,88 @@
-/*
+/******************************************************************************
+ * BackgroundScript.js
+ *
+ * Author:
+ *		Aleksandar Toplek
+ *
+ * Created on:
+ *		26.02.2012.
+ *
+ *****************************************************************************/
 
-    BackgroundScript.json
+ // Public Definition
+var BackgroundScript = {
+	"Initialize": 		Initialize
+};
 
-    by
-    Aleksandar Toplek,
-    JustBuild 2011.
+// Variables
+notificationManager = new NotificationManager();
+requestManager = new RequestManager();
 
-    LICENSE: 
 
-        Copyright 2011 JustBuild Development. All rights reserved.
+// This is called since there is no launcher
+// as there is for App script
+BackgroundScript.Initialize();
 
-        Redistribution and use in source and binary forms, with or without 
-        modification, are permitted provided that the following conditions 
-        are met:
+// TODO: Comment function 
+function Initialize() {
+	//if (typeof(localStorage) == 'undefined') {
+	//	alert('Your browser does not support HTML5 localStorage. Try upgrading.');
+	//}
 
-            1. Redistributions of source code must retain the above copyright 
-               notice, this list of conditions and the following disclaimer.
-
-            2. Redistributions in binary form must reproduce the above copyright 
-               notice, this list of conditions and the following disclaimer in 
-               the documentation and/or other materials provided with the 
-               distribution.
-
-        THIS SOFTWARE IS PROVIDED BY JUSTBUILD DEVELOPMENT ''AS IS'' AND ANY 
-        EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
-        PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JUSTBUILD DEVELOPMENT OR
-        CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-        EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
-        PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-        PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-        LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-        NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
-        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-        The views and conclusions contained in the software and documentation 
-        are those of the authors and should not be interpreted as representing 
-        official policies, either expressed or implied, of JustBuild Development
-
-*/
-
-var notificationTimeout = 5000;
-
-init();
-
-function init() {
-	chrome.extension.onRequest.addListener(gotRequest);
+	requestManager.Recieve("Background", GotRequest);
 }
 
-function gotRequest(request, sender, sendResponse) {
-	console.log("gotRequest - request: { Category: " + request.Category + ", Name: " + request.Name + ", Action: " + request.Action + ", Data: " + request.Data + " }");
-	
-    if (request.Category === "Extension") {
-    	requestExtension(request.Name, request.Action, { Data: request.Data, Sender: sender }, sendResponse);
-    }
-    else if (request.Category === "Data") {
-        requestData(request.Name, request.Action, request.Data, sendResponse);
-    }
-    else if (request.Category === "Session") {
-    	requestData(request.Name, request.Action, request.Data, sendResponse, sessionStorage);
-    }
-    else if (request.Category === "Travian") {
-    	requestTravian(request.Name, request.Action, request.Data, sendResponse);
-    }
-    else console.warn("Unknown category!");
-}
 
-function requestExtension(name, action, data, callback) {
-	if (name === "ShowActionPage") {
-		chrome.pageAction.show(data.Sender.tab.id);
-		callback("ActionPageShown");
-	}
-	else if (name === "ShowNotification") {
-		createNotifiSimple(data.Data.Image, data.Data.Title, data.Data.Message, notificationTimeout);
-	}
-	else if (name === "ShowNotificationHTML") {
-		createNotifiHTML(data.Data.href, notificationTimeout);
-	}
-}
+// TODO: Comment function
+function GotRequest(request, sender, sendResponse) {
+	Helpers.DLog("Got request { requestSign: " + request.requestSign + ", requestCategory: " + request.requestCategory + ", requestName: " + request.requestName + ", actionName: " + request.actionName + ", requestData: " + request.requestData + " }");
 
-function createNotifiSimple(image, title, message, timeout) {
-	var notification = webkitNotifications.createNotification(resolveImage(image), title, message);
-	
-	notification.show();
-	
-	setTimeout(function () {
-		notification.cancel();
-	}, timeout || 5000);
-}
-
-function resolveImage(name) {
-	switch (name) {
-		case "WoodResource":
-			return "../Images/WoodResource.png";
-		case "ClayResource":
-			return "../Images/ClayResource.png";
-		case "IronResource":
-			return "../Images/IronResource.png";
-		case "CropResource":
-			return "../Images/CropResource.png";
+	// Supports following categories
+	//		Notification
+	//		Data
+	switch (request.requestCategory) {
+		case "Notification": GotNotificationRequest(request); break;
+		case "Data": GotDataRequest(request, sendResponse); break;
 		default:
-			return "../Images/ProjectAxeman.png";
+			console.error("BackgroundScript: Unknown category!", request);
+			break;
 	}
 }
 
-function createNotifiHTML(pageURL, timeout) {
-	var notification = webkitNotifications.createHTMLNotification(pageURL);
+// TODO: Comment function
+function GotNotificationRequest(request) {
+	Helpers.DLog("BackgroundScript: Got Notification request.");
 
-	notification.show();
-	
-	setTimeout(function () {
-		notification.cancel();
-	}, timeout || 5000);
-}
-
-function requestTravian(name, action, data, callback) {
-	
-}
-
-function requestData(name, action, data, callback, source) {
-	if (action === "set") {
-		var success = _setVariable(name, data, source || localStorage);
-		callback(success);
-	}
-	else {
-		var response = _getVariable(name, source || localStorage);
-		callback(response);
+	if (request.actionName == "Show") {
+		notificationManager.Show(request.requestData);
 	}
 }
 
-function _getVariable(name, source) {
-	var returnValue = source.getItem(name);
-    console.log("_getVariable - Data " + name + " GET [" + returnValue + "]");
-    return returnValue;
-}
+function GotDataRequest(request, response) {
+	Helpers.DLog("BackgroundScript: Got Data request.");
 
-function _setVariable(name, value, source) {
-	try {
-        source.setItem(name, value);
-        console.log("_setVariable - Data " + name + " SET [" + value + "]");
-        
-        return true;
-    } catch (e) {
-        if (e == QUOTA_EXCEEDED_ERR) {
-        	//data wasnt successfully saved due to quota exceed so throw an error
-            console.error("_setVariable - Quota exceeded!"); 
-        }
-        else console.error("_setVariable - Unknown error!");
-        
-        return false;
-    }
+	if (request.actionName == "get") {
+		var data = localStorage.getItem(request.requestName);
+
+		Helpers.Log("BackgroundScript: Data '" + request.requestName + "' GET [" + data + "]");
+
+		response(data);
+	}
+	else if (request.actionName == "set") {
+		try {
+			localStorage.setItem(reque.requestName, request.requestData);
+			Helpers.Log("BackgroundScript: Data '" + request.requestName + "' SET [" + request.requestData + "]");
+		} catch (e) {
+			if (e != null) {
+				// Data wasnt successfully saved due to quota exceed so throw an error
+				Helpers.Error("BackgroundScript:  Quota exceeded!");
+				Helpers.Warn("BackgroundScript: " + localStorage.length);
+				alert("Quota exceded! Can't save any changes for Project Axeman");
+			}
+			else {
+				Helpers.Error("BackgroundScript:  Unknown error!");
+				alert("Unknown error! Can't save any changes for Projrct Axeman");
+			}
+		}
+	}
 }

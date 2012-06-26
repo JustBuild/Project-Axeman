@@ -1,59 +1,132 @@
-<!--
-
-    Popup.html
-
-    by
-    Aleksandar Toplek,
-    JustBuild 2011.
-
-    LICENSE: 
-
-        Copyright 2011 JustBuild Development. All rights reserved.
-
-        Redistribution and use in source and binary forms, with or without 
-        modification, are permitted provided that the following conditions 
-        are met:
-
-            1. Redistributions of source code must retain the above copyright 
-               notice, this list of conditions and the following disclaimer.
-
-            2. Redistributions in binary form must reproduce the above copyright 
-               notice, this list of conditions and the following disclaimer in 
-               the documentation and/or other materials provided with the 
-               distribution.
-
-        THIS SOFTWARE IS PROVIDED BY JUSTBUILD DEVELOPMENT ''AS IS'' AND ANY 
-        EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
-        PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JUSTBUILD DEVELOPMENT OR
-        CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-        EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
-        PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
-        PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
-        LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-        NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
-        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-        The views and conclusions contained in the software and documentation 
-        are those of the authors and should not be interpreted as representing 
-        official policies, either expressed or implied, of JustBuild Development
-
--->
-
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- Currently not used
-        <link type="text/css" href="ui-css/jquery-ui-styles.css" rel="stylesheet" />
-        <script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
-        <script type="text/javascript" src="js/jquery-ui-1.8.14.custom.min.js"></script>
-        -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Game launcher</title>
 
-        <title>Project Axeman - Actions</title>
-    </head>
-    <body>
+		<!-- jQuery scripts -->
+		<link type="text/css" href="css/styles.css" rel="stylesheet" />
+		<script type="text/javascript" src="../Scripts/jQuery.js"></script>
+		<script type="text/javascript" src="../Scripts/jQueryUI.js"></script>
 
-        <a href="options.html" target="_blank">Settings</a>
+		<!-- Extsnions classes -->
+		<script type="text/javascript" src="../Scripts/App/Enums.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Variables.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Helpers.js"></script>
+		<script type="text/javascript" src="../Scripts/App/Models.js"></script>
 
-    </body>
+		<!-- GameLaucher script -->
+		<script type="text/javascript" src="../Scripts/PopupPage.js"></script>
+
+		<!-- Extension styles -->
+		<link type="text/css" href="PAStyles.css" rel="stylesheet" />
+
+
+		<style type="text/css">
+			body {
+				font-family: 'Segoe UI';
+				font-size: 85%;
+				
+				width: 320px;
+				height: auto;
+			}
+			
+			.GameLauncherSection {
+				padding: 5px 15px;
+				width: 100%;
+			}		
+			
+			.SectionItem {
+				background-color:#f8f8f8; 
+				
+				margin: 5px 0px;
+				padding: 0 10px 0 0; 
+				
+				border-radius:10px; 
+				-webkit-box-shadow:2px 2px 15px #bbb;
+			}
+			.SectionItem:hover {
+				-webkit-box-shadow:2px 2px 20px #888;
+			}
+			
+			.AccountServer {
+				text-align:right; 
+				color:#353535;
+			}
+
+			.AccountUID {
+				text-align:right; 
+				color:#959595;
+			}
+
+			.AccountDetail {
+				color:#959595;
+			}
+
+			.Modal {
+				display: none;
+				position: absolute;
+				position: fixed;
+				top: 0;
+				right: 0;
+				height: 100%;
+				z-index: 999999;    
+				width: 300px;
+				padding: 20px;    
+				background-color: #333;
+				color: #FFF;
+				-webkit-box-shadow: inset 0 0 5px 5px #222;
+			}
+
+			.DeleteButton {
+				font-family:Webdings; 
+				font-size:85%; 
+				color:#ddd;
+				
+				cursor:default;
+				
+				float:left; 
+				margin-top:-15px; 
+				margin-left:5px;
+			}
+			.DeleteButton:hover {
+				color:#222;
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- Home page -->
+		<div id="Selection">
+			<table id="ProfilesTable" class="PASection GameLauncherSection">
+				<tr>
+					<td>
+						<table class="PASection GameLauncherSection" style="width:320px; margin-top:5px; margin-left:-19px; margin-right:-20px; margin-bottom:-15px;">
+							<tr>
+								<td><button id="Plugins" class="PAButtonLight">Plugins manager</button></td>
+								<td><button id="AddNewProfile" class="PAButtonLight">Add</button></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- Add new server modal -->
+		<div id="ModalNewProfile" class="Modal">
+			<table style="width:100%">
+				<tr><td>Server</td><td><input id="NewServerAddress" class="PATextBoxDark" style="width:100%" type="text" placeholder="e.g. ts1.travian.com.hr" /></td></tr>
+				<tr><td>Username</td><td><input id="NewProfileUsername" class="PATextBoxDark" style="width:100%" type="text" placeholder="e.g. ZoggyHatt" /></td></tr>
+				<tr><td>UID</td><td><input id="NewProfileUID" type="text" class="PATextBoxDark" style="width:100%" size="5" placeholder="e.g. 2031" /></td></tr>
+				<tr><td>Tribe</td><td>
+					<select name="NewProfileTribe">
+						<option value="Romans">Gauls</option>	
+						<option value="Romans">Romans</option>	
+						<option value="Romans">Teutons</option>	
+				    </select>
+				</td></tr>
+				<tr><td colspan="2"><button id="ModalNewProfileClose" class="PAButtonLight" style="margin-top:20px; width:80px; height:28px;">Add</button></td></tr>
+			</table>
+		</div>
+
+	</body>
 </html>

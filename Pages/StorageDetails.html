@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Project Axeman - Storage Details</title>
+
+		<!-- jQuery scripts -->
+		<link type="text/css" href="css/styles.css" rel="stylesheet" />
+		<script type="text/javascript" src="../Scripts/jQuery.js"></script>
+		<script type="text/javascript" src="../Scripts/jQueryUI.js"></script>
+
+		<!-- GameLaucher script -->
+		<script type="text/javascript" src="../Scripts/StorageDetailsScript.js"></script>
+
+		<!-- Extension styles -->
+		<link type="text/css" href="PAStyles.css" rel="stylesheet" />
+
+		<style type="text/css">
+			body {
+				font-family: 'Segoe UI';
+				font-size: 85%;
+			}
+		</style>
+
+	</head>
+	<body>
+		<table class="PASection" style="padding:20px; margin-left:auto; margin-right:auto; min-width: 600px;">
+			<tr>
+				<td>
+					<h2>Local Storage</h2>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<ul id="LocalStorageTree" class="treeview">
+						<li id="NoDataSign"><b>No Data</b></li>
+					</ul>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<button id="ClearLocalStorage" class="PAButtonLight" style="margin-top:20px">Clear localStorage</button>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
