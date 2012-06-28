@@ -25,32 +25,16 @@
 function DevelopmentToolbar() {
 	/**************************************************************************
 	 *
-	 * Plugin header
-	 *
-	 *************************************************************************/
-	this.PAli = "DevelopmentToolbar";
-	this.PCat = "Development";
-	this.PImg = "DevelopmentToolbar.png";
-	this.PNam = "Development Toolbar";
-	this.PVer = "0.0.2.1";
-	this.PDes = "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script";
-	this.PAut = "JustBuild Development";
-	this.PMIS = "https://github.com/JustBuild/Project-Axeman";
-	this.PFea = false;
-	this.PBet = true;
-
-	/**************************************************************************
-	 *
 	 * Registers Developer toolbar plugin
 	 *
 	 *************************************************************************/
 	this.Register = function () {
 		Helpers.Log("DevelopmentToolbar: Registering DevelopmentToolbar plugin...");
 
-		// Check if plugin needs to be activated
+		// Check if plugin can be active
 		if (IsDevelopmentMode == false) {
-			var developmentModeRequest = new Request("Background", "Data", "IsDevelopmentMode", "set", "true");
-			developmentModeRequest.Send(null);
+			Helpers.Log("DevelopmentToolbar: Not in development mode");
+			return;
 		}
 
 		// Activate plugin message
@@ -162,3 +146,31 @@ function DevelopmentToolbar() {
 		return '<a class="DTButton" target="_blank" href="' + reference + '">' + content + '</a>&nbsp;&nbsp;&nbsp;&nbsp;'
 	};
 }
+
+// Metadata for this plugin (DevelopmentToolbar)
+var DevelopmentToolbarMetadata = {
+	Name: "DevelopmentToolbar",
+	Alias: "Development Toolbar",
+	Category: "Development",
+	Version: "0.2.1.1",
+	Description: "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script.",
+	Author: "JustBuild Development",
+	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
+
+	Settings: {
+		HasSettings: false,
+		SourceURL: ""
+	},
+
+	Flags: {
+		Internal: false,
+		Alpha: false,
+		Beta: true,
+		Featured: false
+	},
+
+	Class: DevelopmentToolbar
+};
+
+// Adds this plugin to global list of available plugins
+GlobalPluginsList[GlobalPluginsList.length] = DevelopmentToolbarMetadata;

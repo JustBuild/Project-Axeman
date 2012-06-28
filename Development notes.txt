@@ -1,5 +1,7 @@
 RELEASE TODO LIST
 	(1)		Variables.js > IsDevelopmentMode => false
+	(2)		Variables.js > IsDebugMode => falsež
+	(3)		Changes log
 
 
 LIBRARIES USED
@@ -29,6 +31,10 @@ USING AND LAUNCHING APP
 		Scripts/App/NotificationManager.js
 		Scripts/App/PluginsManager.js
 
+
+		<PLUGINS GO HERE>
+
+
 	To launch app include all above stated scripts plus two: 
 		(in that order)
 		
@@ -37,17 +43,15 @@ USING AND LAUNCHING APP
 
 AVAILABLE PLUGINS
 	To add new plugin, you need to specify name and location of plugin script
-	on three places. On place is in manifest.json, you need to put your script 
-	filename including path to list of extension scripts. Then to automaticaly
-	register that script on extension start you need to put plugin class name
-	under available scripts list in PluginsManager.js script. Third is in
-	PluginsManager page.
+	on two places. On place is in manifest.json, you need to put your script 
+	filename including path to list of extension scripts. And here below.
 
-	Total: (1)
+	Total: (3)
 
-	DevelopmentToolbar 		(Scripts/App/DevelopmentToolbar.js)
+	Services				(Plugins/Core/Services/Services.js)
+	DevelopmentToolbar 		(Plugins/Development/DevelopmentToolbar/DevelopmentToolbar.js)
+	Feedback				(Plugins/Support/Feedback/Feedback.js)
 
 
 TODO LIST (AleksandarDev)
 	- HelpPlugin (Insert FAQ of extensions to help.php)
-	- PluginManager

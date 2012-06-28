@@ -10,8 +10,8 @@
  *****************************************************************************/
 
 // Development and debuging variables
-var IsDevelopmentMode = false
-var IsDebugMode = false;
+var IsDevelopmentMode = true;
+var IsDebugMode = true;
 
 // Active page variables
 var ActivePage = "/";

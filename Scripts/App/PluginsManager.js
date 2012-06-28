@@ -9,19 +9,21 @@
  *
  *****************************************************************************/
 
+// Global list of available plugins this list is used for registering 
+// all plugins so that developer doesn't have to write script path to
+// a lot of places (Only in manifest.json and Development notes.txt)
+//
+// ADD METADATA TO THIS LIST, DO NOT ADD PLUGIN CLASS
+//
+var GlobalPluginsList = new Array();
+
+
 function PluginsManager() {
-	// List of available plugins
-	this.availablePlugins = [
-		DevelopmentToolbar,
-		Feedback
-	];
-
-
 	// TODO comment
 	this.Initialize = function () {
 		Helpers.Log("PluginsManager: Initializing...");
 
-		this.RegisterPlugins(this.availablePlugins);
+		this.RegisterPlugins(GlobalPluginsList);
 	}
 
 
@@ -32,25 +34,35 @@ function PluginsManager() {
 	 *
 	 *************************************************************************/
 	this.RegisterPlugins = function (pluginsToRegister) {
-		Helpers.DLog("App: Registering [" + pluginsToRegister.length + "] plugins");
-		for (var index in pluginsToRegister) {
-			var plugin = new pluginsToRegister[index]();
-			RegisterPlugin(plugin);	
-		}
+		Helpers.DLog("PluginsManager: Registering [" + pluginsToRegister.length + "] plugins");
+
+		$.each(
+			pluginsToRegister,
+			function (index, obj) {
+				RegisterPlugin(obj);
+			}
+		);
 	};
 
-	var RegisterPlugin = function (plugin) {
-		var activeStateRequest = new Request("Background", "Data", "PActive" + plugin.PAli, "get", null);
+	var RegisterPlugin = function (pluginMetadata) {
+		var activeStateRequest = new Request("Background", "Data", "PluginActive" + pluginMetadata.Name, "get", null);
 		var isLoaded = false;
-		activeStateRequest.Send(function (response) {
-			if (response == "On") {
-				Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is active... Registering");
-				plugin.Register();
-			}
-			else Helpers.Log("PluginsManager: Plugin '" + plugin.PAli + "' is NOT active!");
 
-			var isLoaded = true;
-		});
+		// Send request and handle callback
+		activeStateRequest.Send(
+			function (response) {
+				if (response == "On" || !response) {
+					Helpers.Log("PluginsManager: Plugin '" + pluginMetadata.Name + "' is active...");
+					Helpers.Log("PluginsManager: Registering '" + pluginMetadata.Name + "'");
+
+					var pluginObject = new pluginMetadata.Class();
+					pluginObject.Register();
+				}
+				else Helpers.Log("PluginsManager: Plugin '" + pluginMetadata.Name + "' is NOT active!");
+
+				var isLoaded = true;
+			}
+		);
 	};
 }
 

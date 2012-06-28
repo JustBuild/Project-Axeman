@@ -46,10 +46,12 @@
 
             "Scripts/App/RequestManager.js",
             "Scripts/App/NotificationManager.js",
+
 			"Scripts/App/PluginsManager.js",
 
-            "Scripts/App/Plugins/DevelopmentToolbar.js",
-			"Scripts/App/Plugins/Feedback.js",
+			"Plugins/Development/DevelopmentToolbar/DevelopmentToolbar.js",
+			"Plugins/Support/Feedback/Feedback.js",
+			"Plugins/Core/Services/Services.js",
 
             "Scripts/App/App.js",
             "Scripts/App/AppLauncher.js"
@@ -114,8 +116,8 @@
     } ],
 
 	"web_accessible_resources": [
-		"Images/Plugins/Feedback.png",
-		"Scripts/App/Plugins/FeedbackForm.html",
+		"Plugins/Support/Feedback/Image.png",
+		"Plugins/Support/Feedback/FeedbackForm.html",
 		"Pages/PAStyles.css"
 	]
 }

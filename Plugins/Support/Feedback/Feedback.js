@@ -5,7 +5,7 @@
  * 		Aleksandar Toplek (AleksandarDev)
  *
  * Created on:
- * 		<08.06.2012.>
+ * 		08.06.2012.
  *
  * Notes:
  *			This plugin allows user to send feedback for Project Axeman 
@@ -21,28 +21,12 @@
 function Feedback() {
 	/**************************************************************************
 	 *
-	 * Plugin header
-	 *
-	 *************************************************************************/
-	this.PAli = "Feedback";
-	this.PCat = "Support";			
-	this.PImg = "Feedback.png";		
-	this.PNam = "Feedback";			
-	this.PVer = "0.1.0.0";			
-	this.PDes = "Send us some feedback so we can quickly respond to any problems or ideas.";	
-	this.PAut = "JustBuild Development";	
-	this.PMIS = "https://github.com/JustBuild/Project-Axeman";	
-	this.PFea = false;				
-	this.PBet = true;				
-
-	/**************************************************************************
-	 *
 	 * Registers Feedback plugin
 	 *
 	 *************************************************************************/
 	this.Register = function () {
 		// Insert feedback image
-		$("#logo").after("<div style='margin:24px 31px 0 0;width:44px;height:33px;float:left;'><img id='PAFeedback' src='" + Helpers.GetImageURL("Plugins", "Feedback.png") + "' width='43px' height='43px' style='-webkit-filter:grayscale(1);' /></div>");
+		$("#logo").after("<div style='margin:24px 31px 0 0;width:44px;height:33px;float:left;'><img id='PAFeedback' src='" + Helpers.GetExtensionRootURL("Plugins/Support/Feedback/Image.png") + "' width='43px' height='43px' style='-webkit-filter:grayscale(1);' /></div>");
 
 		// Remove spacer
 		// TODO check if this  spacer means anything cause it has its own id maybe only for styling
@@ -53,9 +37,37 @@ function Feedback() {
 
 		// Show popup on feedback image click
 		$("#PAFeedback").click(function () {
-			$.get(Helpers.GetExtensionRootURL("Scripts/App/Plugins/FeedbackForm.html"), function (response) {
+			$.get(Helpers.GetExtensionRootURL("Plugins/Support/Feedback/FeedbackForm.html"), function (response) {
 				(new App()).ShowModalView(response);
 			});
 		});
 	};
 }
+
+// Metadata for this plugin (Feedback)
+var FeedbackMetadata = {
+	Name: "Feedback",
+	Alias: "Feedback",
+	Category: "Support",
+	Version: "0.1.1.1",
+	Description: "Send us some feedback so we can quickly respond to any problems or ideas.",
+	Author: "JustBuild Development",
+	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
+
+	Settings: {
+		HasSettings: false,
+		SourceURL: ""
+	},
+
+	Flags: {
+		Internal: false,
+		Alpha: false,
+		Beta: true,
+		Featured: false
+	},
+
+	Class: Feedback
+};
+
+// Adds this plugin to global list of available plugins
+GlobalPluginsList[GlobalPluginsList.length] = FeedbackMetadata;
