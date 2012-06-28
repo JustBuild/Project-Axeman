@@ -41,7 +41,7 @@ var ServicesMetadata = {
 
 	Flags: {
 		Internal: false,
-		Alpha: false,
+		Alpha: true,
 		Beta: false,
 		Featured: false
 	},

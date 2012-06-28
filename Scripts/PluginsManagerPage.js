@@ -6,7 +6,7 @@
 			var pluginItemSource = 
 				"<tr>\
 					<td>\
-						<div class='PluginItem'>\
+						<div class='PluginItem" + (obj.Flags.Alpha ? " AlphaFlag" : "") + (obj.Flags.Beta ? " BetaFlag" : "") + "'>\
 							<table style='width:100%'>\
 								<tr>\
 									<td class='PluginOptions'>\
@@ -49,8 +49,9 @@
 			$("#PluginsTable").append(pluginItemSource);
 
 			// Sets flags
-			console.log($("#PluginItem"));
-			if (obj.Flags.Beta == true) $("#PluginItem").addClass("Beta");
+			// NOTE Not yet supported
+			//if (obj.Flags.Internal == true) $("#PluginItem").addClass("InternalFlag");
+			//if (obj.Flags.Featured == true) $("#PluginItem").addClass("FeaturedFlag");
 
 			// Gets active state
 			var activeState = localStorage.getItem("PluginActive" + obj.Name);
