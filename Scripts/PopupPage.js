@@ -12,7 +12,7 @@ function PopupPage() {
 		});
 
 		$("#ModalNewProfileClose").click(function () {
-			popupPage.AddNewProfile($("#NewServerAddress").val(), $("#NewProfileUsername").val(), $("#NewProfileUID").val());
+			popupPage.AddNewProfile($("#NewServerAddress").val(), $("#NewProfileUsername").val(), $("#NewProfileUID").val(), $("#NewProfileTribe").val());
 			location.reload();
 
 			$("body").css("height", "auto");
@@ -29,66 +29,87 @@ function PopupPage() {
 		this.RefreshProfiles();
 	};
 
-	this.AddNewProfile = function (Profile, username, uid) {
+	this.AddNewProfile = function (server, username, uid, tribe) {
 		Helpers.Log("PopupPage: Adding new user.");
 
+		// Create profile and populate fields
 		var profile = new Models.Profile();
 		profile.Name = username;
 		profile.UID = uid;
-		profile.ServerAddress = Profile;
+		profile.ServerAddress = server;
+		profile.Tribe = tribe;
 
 		Helpers.DLog("PopupPage: User created [" + profile + "]");
 
+		// Check if that profile (Server + UID) 
+		// already exists if so return
 		var existingProfiles = this.GetProfiles();
-
 		for (var index in existingProfiles) {
-			if (existingProfiles[index].UID == uid) {
+			if (existingProfiles[index].ServerAddress == server &&
+				existingProfiles[index].UID == uid) {
 				Helpers.Warn("PopupPage: Profile already exists");
 				return false;
 			}
 		}
 
+		// Insert profile to list
 		existingProfiles[existingProfiles.length] = profile;
 		Helpers.DLog("PopupPage: New user added to array. New array [" + existingProfiles + "]");
 
-		localStorage.setItem("Profiles", JSON.stringify(existingProfiles));
+		// Update list in storage
+		this.UpdateProfiles(existingProfiles);
 		Helpers.Log("PopupPage: New list saved.");
 	};
 
-	this.RefreshProfiles = function() {
+	this.RefreshProfiles = function () {
+		// Get a list of available profiles
 		var profiles = this.GetProfiles();
 
+		// Generates and prepends all profiles from list
 		for (var index in profiles) {
 			var profile = profiles[index];
 
 			$("#ProfilesTable").prepend(this.GenerateView(profile));
 		}
 		
-		$(".SectionItem").click(function () {
-			chrome.tabs.create({ url: ("http://" + $(this).find(".AccountServer").text()), active: true });
+		// Open new tab on profile click
+		$(".SectionItem").click(function (e) {
+			if (e.srcElement.className != "DeleteButton") {
+				chrome.tabs.create({ url: ("http://" + $(this).find(".AccountServer").text()), active: true });
+			}
 		});
 		
+		// Remove profile from list on click and 
+		// reloads page to get list without deleted profile
 		$(".DeleteButton").click(function () {
-			popupPage.RemoveProfile($(this).parents().find(".AccountUID").first().text());
+			var server = $(this).parents().find(".AccountServer").first().text();
+			var uid = $(this).parents().find(".AccountUID").first().text();
+
+			popupPage.RemoveProfile(server, uid);
 			location.reload();
 		});
 
 		Helpers.Log("PopupPage: Profiles refreshed!");
 	};
 
-	this.RemoveProfile = function (uid) {
+	this.RemoveProfile = function (server, uid) {
+		// Get a list of available profiles
 		var profiles = this.GetProfiles();
 		var newProfiles = new Array();
 
+		// Go through all available profiles and check
+		// if that profile is matching with given 
+		// parameters (server and UID)
 		for (var index in profiles) {
 			var profile = profiles[index];
 
-			if (profile.UID != uid) {
+			if (profile.ServerAddress == server &&
+				profile.UID != uid) {
 				newProfiles[newProfiles.length] = profile;
 			}
 		}
 
-		localStorage.setItem("Profiles", JSON.stringify(newProfiles));
+		this.UpdateProfiles(newProfiles);
 	};
 
 	this.GenerateView = function (profile) {
@@ -138,7 +159,13 @@ function PopupPage() {
 		return source;
 	};
 
+	this.UpdateProfiles = function (value) {
+		localStorage.setItem("Profiles", JSON.stringify(value));
+	}
+
 	this.GetProfiles = function () {
+		// Dont use requests, this is faster
+		// This is not ContentScript so there is no need to use Requests
 		var profilesString = localStorage.getItem("Profiles");
 		if (profilesString != null && profilesString.length > 0) {
 			return JSON.parse(profilesString);

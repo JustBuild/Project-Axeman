@@ -70,5 +70,4 @@
 		$("#PActiveLabel" + plugin.PAli + " span").text(activeState == "On" ? "On" : "Off");
 		$("#PImage" + plugin.PAli).attr("class", (activeState == "On" ? " " : "Disabled"));
 	});
-
 });

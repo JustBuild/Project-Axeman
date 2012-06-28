@@ -86,9 +86,11 @@ Models.VillageModel = function () {
  *
  *****************************************************************************/
 Models.Profile = function () {
+	this.ServerAddress = "travian.com";
+
 	this.Name = "Default";
 	this.UID = 0;
-	this.ServerAddress = "travian.com";
+	this.Tribe = "Romans";
 
 	this.Population = 0;
 	this.Villages = [];
