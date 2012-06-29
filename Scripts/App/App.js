@@ -18,6 +18,9 @@
  *
  *****************************************************************************/
 function App() {
+	var loadNumber = 1;
+	var currentLoad = 0;
+
 	this.pluginsManager = new PluginsManager();
 
 	/**************************************************************************
@@ -26,6 +29,8 @@ function App() {
 	 * 
 	 *************************************************************************/
 	this.Initialize = function () {
+		Helpers.Log("App: Initialization started...");
+
 		// Default settings
 		$.ajaxSetup({ cache: false });
 
@@ -39,14 +44,64 @@ function App() {
 		// Get active page
 		this.GetActivePage();
 
+		this.Load();
+	};
+
+	this.Load = function () {
+		/// <summary>
+		/// Loads all variables needed for further initialization
+		/// </summary>
+		
+		Helpers.Log("App: Loading...");
+
+		// Loading available user profiles
+		Helpers.DLog("App: Requesting profiles list...");
+		var profilesRequest = new Request("Background", "Data", "Profiles", "get", null);
+		profilesRequest.Send(function (response) {
+			// Check if response is valid
+			if (response != null && response.length > 0) {
+				// Parse response
+				var profilesParsed = JSON.parse(response);
+				AvailableProfiles = profilesParsed || new Array();
+
+				Helpers.DLog("App: Recieved [" + profilesParsed.length + "] profile(s)");
+
+				if (AvailableProfiles.length == 0) {
+					// TODO First start - creating profile
+					Helpers.Error("App: No profiles found. Try creating one!");
+				}
+				else {
+					CheckFinishedLoading();
+				}
+			}
+			else Helpers.Error("App: No profiles found. Try creating one!");
+		});
+	}
+
+	var CheckFinishedLoading = function () {
+		/// <summary>
+		/// Increments number of current loads and checks if it is equal 
+		/// to needed loads, if so calls initialization finalization
+		/// </summary>
+
+		Helpers.DLog("App: Loaded [" + (currentLoad + 1) + " of " + loadNumber + "]");
+
+		if (++currentLoad >= loadNumber) {
+			// If loading finished, finalize initialization
+			app.InitializeFinalize();
+		}
+	}
+
+	this.InitializeFinalize = function () {
+		/// <summary>
+		/// Finazlizes initialization process
+		/// </summary>
+
+		Helpers.Log("App: Finalizing initialization...");
+
 		// Register plugins
 		this.pluginsManager.Initialize();
-
-		// Call test function if in development mode
-		if (IsDevelopmentMode) {
-			this.TestFunction();
-		}
-	};
+	}
 
 	/**************************************************************************
 	 *
@@ -56,13 +111,16 @@ function App() {
 	this.GetActivePage = function () {
 		Helpers.Log("App: Reading current page...");
 
+		var currentAddress = window.location.hostname;
 		var currentPath = window.location.pathname;
 		var currentQuery = window.location.search;
 
+		Helpers.DLog("App: Current page address [" + currentAddress + "]");
 		Helpers.DLog("App: Current page pathname [" + currentPath + "]");
 		Helpers.DLog("App: Current page query [" + currentQuery + "]");
 
-		ActivePage = Enums.TravianPages[currentPath];
+		ActiveServerAddress = currentAddress;
+		ActivePage = Helpers.GetKeyByValue(Enums.TravianPages, currentPath);
 		ActivePageQuery = currentQuery;
 	};
 

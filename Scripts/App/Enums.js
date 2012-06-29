@@ -38,6 +38,8 @@ var Enums = {
 		Reports: "/berichte.php",
 		Messages: "/nachrichten.php",
 
+		Alliance: "/allianz.php",
+
 		HeroLook: "/hero.php",
 		HeroInventory: "/hero_inventory.php",
 		HeroAdventures: "/hero_adventure.php",
