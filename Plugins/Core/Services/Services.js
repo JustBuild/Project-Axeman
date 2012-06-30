@@ -54,6 +54,7 @@ function Services() {
 		if (!Helpers.IsLogedIn()) { Helpers.Error("Services: User is loged out..."); return; }
 
 		// TODO Reports
+		CrawlReports();
 		// TODO Messages
 		// TODO Village list
 		// TODO VID
@@ -79,6 +80,16 @@ function Services() {
 		if (!Helpers.IsLogedIn()) { Helpers.Error("Services: User is loged out..."); return; }
 
 
+	};
+
+	var CrawlReports = function () {
+		var previousReportsCount = ActiveProfile.Reports.length || 0;
+		var currentReportsCount = parseInt($(".reports .bubble-content").text()) || 0;
+		var reportsDelta = currentReportsCount - previousReportsCount;
+
+		
+
+		Helpers.DLog("Services: CrawlReports found [" + reportsDelta + "] new reports");
 	};
 
 	var GetActiveProfile = function () {

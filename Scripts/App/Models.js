@@ -93,5 +93,26 @@ Models.Profile = function () {
 	this.Tribe = "unknown";
 
 	this.Population = "unknown";
-	this.Villages = [];
+	this.Villages = new Array();
+
+	this.Messages = new Array();
+	this.Reports = new Models.ReportCollection();
+};
+
+Models.ReportCollection = function () {
+	this.New = 0;
+
+	this.ReadReports = new Array();
+	this.UnreadReports = new Array();
+};
+
+Models.Report = function () {
+	this.IsRead = false;
+	this.RID = "unknown";
+	this.Type = "unknown";
+	this.FromX = 0;
+	this.FromY = 0;
+	this.ToX = 0;
+	this.Toy = 0;
+	this.Date = "unknown";
 };

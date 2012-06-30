@@ -100,3 +100,15 @@ function GetKeyByValue(obj, value) {
 		}
 	}
 };
+
+function ArrayAdd(array, obj) {
+	/// <summary>
+	/// Adds object to end of array
+	/// </summary>
+	/// <param name="array">Array to which to add object to</param>
+	/// <param name="obj">Object to add</param>
+
+	if (!array) return;
+
+	array[array.length] = obj;
+};
