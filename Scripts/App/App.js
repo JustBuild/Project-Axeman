@@ -18,7 +18,7 @@
  *
  *****************************************************************************/
 function App() {
-	var loadNumber = 1;
+	var loadNumber = 2;
 	var currentLoad = 0;
 
 	this.pluginsManager = new PluginsManager();
@@ -47,6 +47,33 @@ function App() {
 		this.Load();
 	};
 
+	this.Load = function () {
+		/// <summary>
+		/// Loads all variables needed for further initialization
+		/// </summary>
+
+		Log("App: Loading...");
+
+		// Loading available user profiles
+		LoadIsFirstPlay();
+		LoadProfiles();
+	};
+
+	var LoadIsFirstPlay = function () {
+		var isFirstPlayRequest = new Request("Background", "Data", "IsFirstPlay", "get", null);
+		isFirstPlayRequest.Send(function (response) {
+			console.warn(response);
+
+			if (IsNullOrEmpty(response)) {
+				var setFirstPlayRequest = new Request("Background", "Data", "IsFirstPlay", "set", "true");
+				setFirstPlayRequest.Send();
+			}
+
+			// Calls for loading finished for this request
+			CheckFinishedLoading();
+		});
+	};
+
 	var LoadProfiles = function () {
 		/// <summary>
 		/// Sends request and loads available user profiles
@@ -73,17 +100,6 @@ function App() {
 			// Calls for loading finished for this request
 			CheckFinishedLoading();
 		});
-	};
-
-	this.Load = function () {
-		/// <summary>
-		/// Loads all variables needed for further initialization
-		/// </summary>
-
-		Log("App: Loading...");
-
-		// Loading available user profiles
-		LoadProfiles();
 	};
 
 	var CheckFinishedLoading = function () {
