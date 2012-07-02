@@ -10,42 +10,36 @@
  *
  *****************************************************************************/
 
-var Helpers = {
-	"GetKeyByValue": GetKeyByValue,
-	"MatchPages": MatchPages,
-	"IsLogedIn": IsLogedIn,
-	"GetImageURL": 			GetImageURL,
-	"GetExtensionRootURL": GetExtensionRootURL,
-	"GetPluginImage": GetPluginImage,
-	"Error": 				Error,
-	"Warn": 				Warn,
-	"Log": 					Log,
-	"DLog":  				DLog
-};
 
-
-function IsLogedIn() {
-	return $(".signLink") != null;
-};
-
-// TODO: Comment function
 function GetImageURL(category, filename) {
-	return GetExtensionRootURL("Images/" + category + "/" + filename);
+	/// <summary>
+	/// Gets chrome extension URL of given image filename and category
+	/// </summary>
+	/// <param name="category">Category of image</param>
+	/// <param name="filename">Filename of image (must include extension)</param>
+	/// <returns>String URL of image with given filename in given category</returns>
+
+	return GetURL("Images/" + category + "/" + filename);
 };
 
-// TODO: Comment function
-function GetExtensionRootURL(path) {
+function GetURL(path) {
+	/// <summary>
+	/// Gets chrome extension URL of given path
+	/// </summary>
+	/// <param name="path">Path of URL</param>
+	/// <returns>String URL to given path</returns>
+
 	return chrome.extension.getURL(path);
 };
 
 function GetPluginImage(metadata) {
 	/// <summary>
-	/// Gets specified plugin image
+	/// Gets specified plugin image URL
 	/// </summary>
 	/// <param name="metadata">Metadata of plugin</param>
-	/// <returns>URL of image for specified plugin</returns>
+	/// <returns>String URL of image for specified plugin</returns>
 
-	return GetExtensionRootURL("Plugins/" + metadata.Category + "/" + metadata.Name + "/Image.png");
+	return GetURL("Plugins/" + metadata.Category + "/" + metadata.Name + "/Image.png");
 };
 
 function MatchPages() {
@@ -63,29 +57,49 @@ function MatchPages() {
 	return false;
 };
 
-// TODO: Comment function
 function Error(message) {
+	/// <summary>
+	/// Writes console error message
+	/// This only works if development mode is set to true
+	/// </summary>
+	/// <param name="message">Message to write</param>
+
 	if (IsDevelopmentMode) {
 		console.error(message);
 	}
 };
 
-// TODO: Comment function
 function Warn(message) {
+	/// <summary>
+	/// Writes console warning message
+	/// This only works if development mode is set to true
+	/// </summary>
+	/// <param name="message">Message to write</param>
+
 	if (IsDevelopmentMode) {
 		console.warn(message);
 	}
 };
 
-// TODO: Comment function
 function Log(message) {
+	/// <summary>
+	/// Writes console message
+	/// This only works if development mode is set to true
+	/// </summary>
+	/// <param name="message">Message to write</param>
+
 	if (IsDevelopmentMode) {
 		console.log(message);
 	}
 };
 
-// TODO: Comment function
 function DLog(message) {
+	/// <summary>
+	/// Writes console Debug message
+	/// This only works if debug and development modes are set to true
+	/// </summary>
+	/// <param name="message">Message to write</param>
+
 	if (IsDebugMode == true && IsDevelopmentMode == true) {
 		console.log(message);
 	}
@@ -93,6 +107,13 @@ function DLog(message) {
 
 
 function GetKeyByValue(obj, value) {
+	/// <summary>
+	/// Gets key by searching for given value in array/object
+	/// </summary>
+	/// <param name="obj">Objetct or Array to get keys and values from</param>
+	/// <param name="value">First value for which to find key</param>
+	/// <returns>Object representing key of given value</returns>
+
 	for (var prop in obj) {
 		if (obj.hasOwnProperty(prop)) {
 			if (obj[prop] === value)
@@ -111,4 +132,14 @@ function ArrayAdd(array, obj) {
 	if (!array) return;
 
 	array[array.length] = obj;
+};
+
+function IsNullOrEmpty(obj) {
+	/// <summary>
+	/// Checks if object is null or empty
+	/// </summary>
+	/// <param name="obj">Object to check</param>
+	/// <returns>True of object eveluetes as null or empty (obj.length == 0)</returns>
+
+	return obj == null || !obj || obj.length == 0;
 };

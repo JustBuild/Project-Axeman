@@ -8,7 +8,7 @@ $(document).ready(function () {
 function PopupPage() {
 	this.Initialize = function () {
 		$("#Plugins").click(function () {
-			chrome.tabs.create({ url: Helpers.GetExtensionRootURL("Pages/PluginsManager.html"), active: true });
+			chrome.tabs.create({ url: GetURL("Pages/PluginsManager.html"), active: true });
 		});
 
 		$("#ModalNewProfileClose").click(function () {
@@ -30,7 +30,7 @@ function PopupPage() {
 	};
 
 	this.AddNewProfile = function (server, username, uid, tribe) {
-		Helpers.Log("PopupPage: Adding new user.");
+		Log("PopupPage: Adding new user.");
 
 		// Create profile and populate fields
 		var profile = new Models.Profile();
@@ -39,7 +39,7 @@ function PopupPage() {
 		profile.ServerAddress = server;
 		profile.Tribe = tribe;
 
-		Helpers.DLog("PopupPage: User created [" + profile + "]");
+		DLog("PopupPage: User created [" + profile + "]");
 
 		// Check if that profile (Server + UID) 
 		// already exists if so return
@@ -47,18 +47,18 @@ function PopupPage() {
 		for (var index in existingProfiles) {
 			if (existingProfiles[index].ServerAddress == server &&
 				existingProfiles[index].UID == uid) {
-				Helpers.Warn("PopupPage: Profile already exists");
+				Warn("PopupPage: Profile already exists");
 				return false;
 			}
 		}
 
 		// Insert profile to list
 		existingProfiles[existingProfiles.length] = profile;
-		Helpers.DLog("PopupPage: New user added to array. New array [" + existingProfiles + "]");
+		DLog("PopupPage: New user added to array. New array [" + existingProfiles + "]");
 
 		// Update list in storage
 		this.UpdateProfiles(existingProfiles);
-		Helpers.Log("PopupPage: New list saved.");
+		Log("PopupPage: New list saved.");
 	};
 
 	this.RefreshProfiles = function () {
@@ -89,7 +89,7 @@ function PopupPage() {
 			location.reload();
 		});
 
-		Helpers.Log("PopupPage: Profiles refreshed!");
+		Log("PopupPage: Profiles refreshed!");
 	};
 
 	this.RemoveProfile = function (server, uid) {

@@ -29,13 +29,13 @@ function App() {
 	 * 
 	 *************************************************************************/
 	this.Initialize = function () {
-		Helpers.Log("App: Initialization started...");
+		Log("App: Initialization started...");
 
 		// Default settings
 		$.ajaxSetup({ cache: false });
 
 		// Inject Project Axeman styles
-		$("head").append("<link href='" + Helpers.GetExtensionRootURL("Pages/PAStyles.css") + "' type='text/css' rel='stylesheet' />");
+		$("head").append("<link href='" + GetURL("Pages/PAStyles.css") + "' type='text/css' rel='stylesheet' />");
 
 		// Initialize Modal View
 		this.InitializeModalView();
@@ -47,36 +47,44 @@ function App() {
 		this.Load();
 	};
 
+	var LoadProfiles = function () {
+		/// <summary>
+		/// Sends request and loads available user profiles
+		/// </summary>
+
+		DLog("App: Requesting profiles list...");
+
+		var profilesRequest = new Request("Background", "Data", "Profiles", "get", null);
+		profilesRequest.Send(function (response) {
+			// Check if response is valid
+			if (IsNullOrEmpty(response)) {
+				DLog("App: No profiles found...");
+				DLog("App: Creating new profiles list...");
+
+				AvailableProfiles = new Array();
+			}
+			else {
+				// Parse response
+				AvailableProfiles = JSON.parse(response) || new Array();
+
+				DLog("App: Recieved [" + AvailableProfiles.length + "] profile(s)");
+			}
+
+			// Calls for loading finished for this request
+			CheckFinishedLoading();
+		});
+	};
+
 	this.Load = function () {
 		/// <summary>
 		/// Loads all variables needed for further initialization
 		/// </summary>
-		
-		Helpers.Log("App: Loading...");
+
+		Log("App: Loading...");
 
 		// Loading available user profiles
-		Helpers.DLog("App: Requesting profiles list...");
-		var profilesRequest = new Request("Background", "Data", "Profiles", "get", null);
-		profilesRequest.Send(function (response) {
-			// Check if response is valid
-			if (response != null && response.length > 0) {
-				// Parse response
-				var profilesParsed = JSON.parse(response);
-				AvailableProfiles = profilesParsed || new Array();
-
-				Helpers.DLog("App: Recieved [" + profilesParsed.length + "] profile(s)");
-
-				if (AvailableProfiles.length == 0) {
-					// TODO First start - creating profile
-					Helpers.Error("App: No profiles found. Try creating one!");
-				}
-				else {
-					CheckFinishedLoading();
-				}
-			}
-			else Helpers.Error("App: No profiles found. Try creating one!");
-		});
-	}
+		LoadProfiles();
+	};
 
 	var CheckFinishedLoading = function () {
 		/// <summary>
@@ -84,24 +92,24 @@ function App() {
 		/// to needed loads, if so calls initialization finalization
 		/// </summary>
 
-		Helpers.DLog("App: Loaded [" + (currentLoad + 1) + " of " + loadNumber + "]");
+		DLog("App: Loaded [" + (currentLoad + 1) + " of " + loadNumber + "]");
 
 		if (++currentLoad >= loadNumber) {
 			// If loading finished, finalize initialization
 			app.InitializeFinalize();
 		}
-	}
+	};
 
 	this.InitializeFinalize = function () {
 		/// <summary>
 		/// Finazlizes initialization process
 		/// </summary>
 
-		Helpers.Log("App: Finalizing initialization...");
+		Log("App: Finalizing initialization...");
 
 		// Register plugins
 		this.pluginsManager.Initialize();
-	}
+	};
 
 	/**************************************************************************
 	 *
@@ -109,18 +117,18 @@ function App() {
 	 *
 	 **************************************************************************/
 	this.GetActivePage = function () {
-		Helpers.Log("App: Reading current page...");
+		Log("App: Reading current page...");
 
 		var currentAddress = window.location.hostname;
 		var currentPath = window.location.pathname;
 		var currentQuery = window.location.search;
 
-		Helpers.DLog("App: Current page address [" + currentAddress + "]");
-		Helpers.DLog("App: Current page pathname [" + currentPath + "]");
-		Helpers.DLog("App: Current page query [" + currentQuery + "]");
+		DLog("App: Current page address [" + currentAddress + "]");
+		DLog("App: Current page pathname [" + currentPath + "]");
+		DLog("App: Current page query [" + currentQuery + "]");
 
 		ActiveServerAddress = currentAddress;
-		ActivePage = Helpers.GetKeyByValue(Enums.TravianPages, currentPath);
+		ActivePage = GetKeyByValue(Enums.TravianPages, currentPath);
 		ActivePageQuery = currentQuery;
 	};
 
@@ -133,7 +141,7 @@ function App() {
 	 *************************************************************************/
 	this.TestFunction = function () {
 		// NotificationManager test
-		var imageURL = Helpers.GetImageURL("Notifications", "ProjectAxeman.png");
+		var imageURL = GetImageURL("Notifications", "ProjectAxeman.png");
 		var notification = new Notification(imageURL, "Project Axeman", "Test message", 1000);
 		var request = new Request("Background", "Notification", "Simple", "Show", notification);
 		request.Send(null);
@@ -150,7 +158,7 @@ function App() {
 	 *
 	 *************************************************************************/
 	this.InitializeModalView = function () {
-		Helpers.Log("App: Initializing ModalView");
+		Log("App: Initializing ModalView");
 
 		// Appends modal view 
 		var source = "<div id='PAModalView' class='ModalView'></div>";
@@ -171,7 +179,7 @@ function App() {
 			}
 		});
 
-		Helpers.Log("App: ModalView injected to the page");
+		Log("App: ModalView injected to the page");
 	};
 
 	/**************************************************************************
@@ -184,11 +192,11 @@ function App() {
 	this.ShowModalView = function (content) {
 		// Return if modelview is already active
 		if (app.isModalViewActive == true) {
-			Helpers.DLog("App: Modal already oppened!");
+			DLog("App: Modal already oppened!");
 			return false;
 		}
 
-		Helpers.DLog("App: ModalView shown");
+		DLog("App: ModalView shown");
 
 		// Changes content of modelview
 		$("#PAModalView").html(content);
@@ -210,11 +218,11 @@ function App() {
 	this.HideModalView = function () {
 		// Return if modalview is already hidden
 		if (app.isModalViewActive == false) {
-			Helpers.DLog("App: Modal already hidden!");
+			DLog("App: Modal already hidden!");
 			return false;
 		}
 
-		Helpers.DLog("App: ModalView hidden");
+		DLog("App: ModalView hidden");
 
 		// Slide modal view away
 		$("#PAModalView").hide("slide", { direction: "right" }, 500);

@@ -19,5 +19,7 @@ var ActivePage = "/";
 var ActivePageQuery = "";
 
 // Current profile
+var IsLogedIn = false;
 var AvailableProfiles = new Array();
 var ActiveProfile = function () { };
+var ActiveVillageIndex = 0;

@@ -21,7 +21,7 @@ var GlobalPluginsList = new Array();
 function PluginsManager() {
 	// TODO comment
 	this.Initialize = function () {
-		Helpers.Log("PluginsManager: Initializing...");
+		Log("PluginsManager: Initializing...");
 
 		this.RegisterPlugins(GlobalPluginsList);
 	}
@@ -34,7 +34,7 @@ function PluginsManager() {
 	 *
 	 *************************************************************************/
 	this.RegisterPlugins = function (pluginsToRegister) {
-		Helpers.DLog("PluginsManager: Registering [" + pluginsToRegister.length + "] plugins");
+		DLog("PluginsManager: Registering [" + pluginsToRegister.length + "] plugins");
 
 		$.each(
 			pluginsToRegister,
@@ -52,13 +52,13 @@ function PluginsManager() {
 		activeStateRequest.Send(
 			function (response) {
 				if (response == "On" || !response) {
-					Helpers.Log("PluginsManager: Plugin '" + pluginMetadata.Name + "' is active...");
-					Helpers.Log("PluginsManager: Registering '" + pluginMetadata.Name + "'");
+					Log("PluginsManager: Plugin '" + pluginMetadata.Name + "' is active...");
+					Log("PluginsManager: Registering '" + pluginMetadata.Name + "'");
 
 					var pluginObject = new pluginMetadata.Class();
 					pluginObject.Register();
 				}
-				else Helpers.Log("PluginsManager: Plugin '" + pluginMetadata.Name + "' is NOT active!");
+				else Log("PluginsManager: Plugin '" + pluginMetadata.Name + "' is NOT active!");
 
 				var isLoaded = true;
 			}

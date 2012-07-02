@@ -13,7 +13,7 @@
 										<table>\
 											<tr>\
 												<td>\
-													<img id='PluginImage" + obj.Name + "' src='" + Helpers.GetPluginImage(obj) + "' alt='&lt;" + obj.Alias + "&gt;' width='64' height='64' />\
+													<img id='PluginImage" + obj.Name + "' src='" + GetPluginImage(obj) + "' alt='&lt;" + obj.Alias + "&gt;' width='64' height='64' />\
 												</td>\
 											</tr>\
 											<tr>\
@@ -37,7 +37,7 @@
 											</tr>\
 											<tr class='PluginAuthor'>\
 												<td>" + obj.Author + "</td>\
-												<td><a href='&lt;" + obj.Site + "&gt;'>More info...</a></td>\
+												<td><a target='_blank' href='" + obj.Site + "'>More info...</a></td>\
 											</tr>\
 										</table>\
 									</td>\

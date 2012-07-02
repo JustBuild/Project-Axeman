@@ -17,7 +17,9 @@ var Models = {};
  * Village model
  *
  *****************************************************************************/
-Models.VillageModel = function () {
+Models.Village = function () {
+	this.IsActive = false;
+
 	// Note: On any *.travian.*/... page (except help)
 	this.VID = 0;
 	this.Name = "<NameNotDefined>";
@@ -33,15 +35,13 @@ Models.VillageModel = function () {
 
 	// Note: On any *.travian.*/... page (except help)
 	this.Resources = {
-		LastUpdated: 0,
-
 		Storage: [0, 0],
 		Stored: [0, 0, 0, 0],
 
 		Production: [0, 0, 0, 0],
 
 		TotalCropProduction: 0,
-		Cosumption: 0
+		Consumption: 0
 	};
 
 	// Note: On dorf1.php page
@@ -95,15 +95,29 @@ Models.Profile = function () {
 	this.Population = "unknown";
 	this.Villages = new Array();
 
-	this.Messages = new Array();
-	this.Reports = new Models.ReportCollection();
+	this.Messages = new Models.MessagesCollection();
+	this.Reports = new Models.ReportsCollection();
 };
 
-Models.ReportCollection = function () {
-	this.New = 0;
+Models.MessagesCollection = function () {
+	this.UnreadCount = 0;
 
-	this.ReadReports = new Array();
-	this.UnreadReports = new Array();
+	this.Unread = new Array();
+};
+
+Models.Message = function () {
+	this.IsRead = false;
+	this.MID = "unknown";
+	this.Subject = "unknown";
+	this.From = "unknown";
+	//this.FromUID = 0;
+	this.Date = "unknown";
+};
+
+Models.ReportsCollection = function () {
+	this.UnreadCount = 0;
+
+	this.Unread = new Array();
 };
 
 Models.Report = function () {
