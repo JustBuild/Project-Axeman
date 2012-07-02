@@ -143,3 +143,53 @@ function IsNullOrEmpty(obj) {
 
 	return obj == null || !obj || obj.length == 0;
 };
+
+/**
+ * Transforms given time string into hours number
+ *
+ * @author Aleksandar Toplek
+ *
+ * @param {String} time     Time as string
+ *
+ * @return {Number} Hours as number
+ *                  For input [02:19:59] output would be [2.333055555555556]
+ */
+function ConvertTimeToHours(time) {
+	var split = time.split(":");
+
+	var hours = parseInt(split[0], 10) + (parseInt(split[1], 10) / 60) + (parseInt(split[2], 10) / 3600);
+
+	return hours;
+}
+
+/**
+ * Transforms given hours number to time string
+ *
+ * @author Aleksandar Toplek
+ *
+ * @param {Number} hours    Number representing hours (e.g. 1.253343333, ...)
+ *
+ * @return {String} Time as string
+ *                  For input [2.333055555555556] output would be [02:19:59]
+ *
+ * @private
+ */
+function ConvertHoursToTime(hours) {
+
+	var _hours = hours;
+	_hours = Math.floor(_hours);
+	hours -= _hours;
+	hours *= 60;
+
+	var _minutes = hours;
+	_minutes = Math.floor(_minutes);
+	hours -= _minutes;
+	hours *= 60;
+
+	var _seconds = parseInt(hours, 10);
+	//_seconds = Math.floor(_seconds);
+
+	return (_hours < 10 ? '0' + _hours : _hours) + ":" +
+    (_minutes < 10 ? '0' + _minutes : _minutes) + ":" +
+    (_seconds < 10 ? '0' + _seconds : _seconds);
+}

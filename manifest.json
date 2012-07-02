@@ -52,6 +52,8 @@
 			"Plugins/Core/Services/Services.js",
 			"Plugins/Development/DevelopmentToolbar/DevelopmentToolbar.js",
 			"Plugins/Support/Feedback/Feedback.js",
+			"Plugins/Economy/ResourceIndicator/ResourceIndicator.js",
+			"Plugins/Economy/ResourceCalculator/ResourceCalculator.js",
 
             "Scripts/App/App.js",
             "Scripts/App/AppLauncher.js"

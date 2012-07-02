@@ -25,7 +25,7 @@ function Services() {
 		Log("Services: Initializing...");
 
 		// Call service methods
-		GetIsLogedIn();
+		ProcessIsLogedIn();
 		ProcessProfiles();
 		CrawlPage();
 		UpdateProfile();
@@ -44,50 +44,69 @@ function Services() {
 		Log("Services: Crawling page...");
 
 		// Call appropriate crawl functions
-		if (MatchPages(Enums.TravianPages.VillageOut))
-			CrawlVillageOut();
-		else if (MatchPages(Enums.TravianPages.VillageIn))
-			CrawlVillageIn();
-		else Warn("Services: Page not implemented for crawling!");
-	};
-
-	var CrawlVillageOut = function () {
-		/// <summary>
-		/// Crawls for village out data
-		/// </summary>
-
-		Log("Services: Crawling VillageOut...");
+		//if (MatchPages(Enums.TravianPages.VillageOut))
+		//	CrawlVillageOut();
+		//else if (MatchPages(Enums.TravianPages.VillageIn))
+		//	CrawlVillageIn();
+		//else Warn("Services: Page not implemented for crawling!");
 
 		CrawlReports();
 		CrawlMessages();
 		CrawlVillageList();
-		// CHEK WHAT THIS MEANS >>> // TODO VID  <<<
-		// CANT DO THIS >>> // TODO Position <<<
-		// DONE IN VILLAGE LIST >>> // TODO Name <<<
 		CrawlLoyalty();
 		CrawlProduction();
 		CrawlStorage();
-		// TODO Village type
-		// TODO Fields
-		// TODO Tasks
-		// TODO Military Units
-		// TODO Movements
 	};
 
-	var CrawlVillageIn = function () {
-		/// <summary>
-		/// Crawls for village in data
-		/// </summary>
+	//var CrawlVillageOut = function () {
+	//	/// <summary>
+	//	/// Crawls for village out data
+	//	/// </summary>
 
-		Log("Services: Crawling VillageIn...");
+	//	Log("Services: Crawling VillageOut...");
 
+	//	CrawlReports();
+	//	CrawlMessages();
+	//	CrawlVillageList();
+	//	CrawlLoyalty();
+	//	CrawlProduction();
+	//	CrawlStorage();
+	//	// TODO Village type
+	//	// TODO Fields
+	//	// TODO Tasks
+	//	// TODO Military Units
+	//	// TODO Movements
+	//};
 
-	};
+	//var CrawlVillageIn = function () {
+	//	/// <summary>
+	//	/// Crawls for village in data
+	//	/// </summary>
+
+	//	Log("Services: Crawling VillageIn...");
+
+	//	CrawlReports();
+	//	CrawlMessages();
+	//	CrawlVillageList();
+	//	CrawlLoyalty();
+	//	CrawlProduction();
+	//	CrawlStorage();
+	//	// TODO Village type
+	//	// TODO Fields
+	//	// TODO Tasks
+	//};
 
 	var CrawlStorage = function () {
 		/// <summary>
 		/// Crawls for active village storages and crop production/consumption
 		/// </summary>
+
+		if (!IsLogedIn) return;
+
+		if (MatchPages(	
+			Enums.TravianPages.Home,
+			Enums.TravianPages.Login,
+			Enums.TravianPages.Logout)) return;
 
 		Log("Services: Crawling village storage...");
 
@@ -125,6 +144,13 @@ function Services() {
 		/// Crawls for active village production from production table (not from script)
 		/// </summary>
 
+		if (!IsLogedIn) return;
+
+		if (MatchPages(
+			Enums.TravianPages.Home,
+			Enums.TravianPages.Login,
+			Enums.TravianPages.Logout)) return;
+
 		Log("Services: Crawling village production...");
 
 		var activeVillage = GetActiveVillage();
@@ -141,6 +167,13 @@ function Services() {
 		/// <summary>
 		/// Crawls for active village loyalty
 		/// </summary>
+
+		if (!IsLogedIn) return;
+
+		if (MatchPages(
+			Enums.TravianPages.Home,
+			Enums.TravianPages.Login,
+			Enums.TravianPages.Logout)) return;
 
 		Log("Services: Crawling village loyalty...");
 
@@ -165,6 +198,13 @@ function Services() {
 		/// <summary>
 		/// Crawls Village list data
 		/// </summary>
+
+		if (!IsLogedIn) return;
+
+		if (MatchPages(
+			Enums.TravianPages.Home,
+			Enums.TravianPages.Login,
+			Enums.TravianPages.Logout)) return;
 
 		Log("Services: Crawling Villages list...");
 
@@ -224,6 +264,13 @@ function Services() {
 		/// Crawls for new user reports
 		/// </summary>
 
+		if (!IsLogedIn) return;
+
+		if (MatchPages(
+			Enums.TravianPages.Home,
+			Enums.TravianPages.Login,
+			Enums.TravianPages.Logout)) return;
+
 		var currentReportsCount = parseInt($(".messages .bubble-content").text()) || 0;
 
 		// Check if on Messages page
@@ -242,6 +289,13 @@ function Services() {
 		/// Crawls for new user reports
 		/// </summary>
 
+		if (!IsLogedIn) return;
+
+		if (MatchPages(
+			Enums.TravianPages.Home,
+			Enums.TravianPages.Login,
+			Enums.TravianPages.Logout)) return;
+
 		var currentReportsCount = parseInt($(".reports .bubble-content").text()) || 0;
 
 		// Check if on Reports page
@@ -255,7 +309,7 @@ function Services() {
 		DLog("Services: CrawlReports found [" + currentReportsCount + "] new reports");
 	};
 
-	var GetIsLogedIn = function () {
+	var ProcessIsLogedIn = function () {
 		/// <summary>
 		/// Sets variable to true if user is loged in
 		/// </summary>
@@ -281,15 +335,19 @@ function Services() {
 
 		// Search for matching profile
 		// TODO optimize > exit loop on profile found
-		$.each(AvailableProfiles, function (index, obj) {
+		for (var index = 0; index < AvailableProfiles.length; index++) {
+			var obj = AvailableProfiles[index];
+
 			// Match using User ID and Server Address
 			if (obj.ServerAddress == ActiveServerAddress &&
 				obj.UID == activeProfileUID) {
 				// Set Active Profile
 				Log("Services: Active profile is found!");
 				ActiveProfile = obj;
+
+				break;
 			}
-		});
+		}
 
 		// Creates new profile if matching profile doesn't exist
 		if (IsNullOrEmpty(ActiveProfile)) {
@@ -312,12 +370,16 @@ function Services() {
 		/// </summary>
 		/// <param name="newProfile">Profile data for update</param>
 
+		if (!IsLogedIn) return;
+
 		Log("Services: Saving profile...");
 
 		// Search for profile to update
 		// TODO optimize > exit loop on profile found
 		var wasUpdated = false;
-		$.each(AvailableProfiles, function (index, obj) {
+		for (var index = 0; index < AvailableProfiles.length; index++) {
+			var obj = AvailableProfiles[index];
+
 			// Check if current profile matched active profile
 			if (obj.ServerAddress == ActiveProfile.ServerAddress &&
 				obj.UID == ActiveProfile.UID) {
@@ -325,8 +387,10 @@ function Services() {
 				AvailableProfiles[index] = ActiveProfile;
 
 				wasUpdated = true;
+
+				break;
 			}
-		});
+		}
 
 		// If no profile was updated, create new profile
 		// Adds new profile to the end of list
