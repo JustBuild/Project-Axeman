@@ -1,5 +1,6 @@
 #Project Axeman
 _Current version 0.2_
+
 _Development version 0.2.0.0_
 
 
@@ -45,7 +46,7 @@ Collaborators
 
 ## Changelog
 
-- **Version 0.2.0** _(unknown)_
+- **Version 0.2.0** _(03.07.2012.)_
 
 	- README and LICENSE file changes	
 	- Merge pull request #2 from AleksandarDev/features … Features
@@ -81,8 +82,8 @@ Collaborators
 	- Class implementation	
 	- Implementing classes
 	- Added PluginsManager and Header to plugins 
-		-Coments are now max. 80c long
-		-Plugins now must have header that contains image, name, version, description, author, more info site (github page), featured and beta flags
+		- Coments are now max. 80c long
+		- Plugins now must have header that contains image, name, version, description, author, more info site (github page), featured and beta flags
 		- Added two variables ActivePage and ActivePageQuery and those are now filled with right information
 	- Basic PluginManager plugin item working 
 		- Added PluginManager.html page
