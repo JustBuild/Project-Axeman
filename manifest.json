@@ -1,12 +1,10 @@
 {
     "name":             "Project Axeman",
-    "description":      "__MSG_ExtensionInfoDescription__",
+    "description":      "Travian 4 extension that adds some "missing" features to the game.",
     "version":          "0.2.0.0",
 	"manifest_version": 2,
 
 	"homepage_url": "http://github.com/JustBuild/Project-Axeman",
-	    
-    "default_locale": "en",
     
     "icons": {
         "128":  "Icons/icon128.png",
