@@ -1,0 +1,596 @@
+<html>
+<!-- Sencha Animator Version: 1.2 Build: 136 -->
+<head>
+	<meta charset="UTF-8">
+	<title>Welcome - Project Axeman</title>
+
+
+	<script type="text/javascript">
+
+
+		if (typeof (AN) === 'undefined') {
+			AN = {};
+		}
+		AN.Controller = {
+
+			scenes: {},
+			scenesArray: [],
+			currentSceneID: -1,
+			olElement: null,
+			events: {},
+			useOrmma: false,
+
+			setConfig: function (configData) {
+
+				this.events = configData.events;
+
+				this.olElement = document.getElementById(configData.parentId);
+				var liElements = this.olElement.children;
+
+				if (configData.ormma) {
+					this.useOrmma = true;
+				}
+
+				var scene;
+				for (var i = 0; i < configData.scenes.length; i++) {
+					scene = configData.scenes[i];
+					scene.element = liElements[i];
+					this.scenes[scene.id] = scene;
+					this.scenesArray.push(scene);
+				}
+
+				this.setupListeners();
+
+				this.startSceneByID(this.scenesArray[0].id);
+
+			},
+
+			runningAnimationCount: 0,
+			browser: 'webkit',
+
+			setupListeners: function () {
+				var me = this;
+
+				var eventName = "webkitAnimationEnd";
+
+				if (document.body.style.MozAnimationName !== undefined) {
+					eventName = "animationend";
+					this.browser = "moz";
+				}
+
+				this.olElement.addEventListener(eventName, function () {
+					me.onAnimationEnd();
+				}, false);
+
+				function addMousemoveListenerTo(scene) {
+					scene.element.addEventListener('mousemove', function (event) {
+						scene.mousemoveAction(me, event);
+					}, false);
+				}
+
+				var scene;
+				for (var i = 0; i < this.scenesArray.length; i++) {
+					scene = this.scenesArray[i];
+					if (scene.mousemoveAction) {
+
+						addMousemoveListenerTo(scene);
+					}
+				}
+
+				function addListenerTo(element, eventType, aFunction) {
+					element.addEventListener(eventType, function (event) {
+						aFunction(me, event);
+					}, false);
+				}
+
+				var element, event;
+				for (var i = 0; i < this.events.length; i++) {
+					event = this.events[i];
+					element = document.getElementById(event.id);
+					addListenerTo(element, event.type, event.handler);
+				}
+
+			},
+
+			onAnimationEnd: function () {
+
+				this.runningAnimationCount--;
+
+				if (this.runningAnimationCount === 0) {
+					this.onSceneFinish();
+				}
+
+			},
+
+			startSceneByID: function (sceneID) {
+
+				var me = this;
+
+				//restart current scene without flicker
+				if (sceneID === this.currentSceneID) {
+					this.scenes[sceneID].element.setAttribute('class', 'run restart');
+
+					setTimeout(function () {
+
+						me.runningAnimationCount = me.scenes[sceneID].animationCount;
+						me.scenes[sceneID].element.setAttribute('class', 'run');
+
+						if (me.scenes[sceneID].startAction) {
+							me.scenes[sceneID].startAction(me);
+						}
+						if (me.scenes[sceneID].animationCount === 0) {
+							me.onSceneFinish();
+						}
+
+					}, 0);
+					return;
+				} else if (this.currentSceneID !== -1) {
+					this.scenes[this.currentSceneID].element.setAttribute('class', '');
+				}
+
+				this.runningAnimationCount = this.scenes[sceneID].animationCount;
+
+				this.currentSceneID = sceneID;
+				var nextScene = this.scenes[sceneID];
+
+				if (this.browser === 'moz') {
+					nextScene.element.setAttribute('class', 'run restart');
+					var unused = nextScene.element.offsetHeight;
+					nextScene.element.setAttribute('class', 'run');
+				} else {
+					nextScene.element.setAttribute('class', 'run');
+				}
+
+				if (this.useOrmma) {
+					this.ormmaNextScene(nextScene);
+				}
+
+				if (nextScene.startAction) {
+					nextScene.startAction(this);
+				}
+
+				if (nextScene.animationCount === 0) {
+					this.onSceneFinish();
+				}
+
+			},
+
+			replayScene: function () {
+				this.startSceneByID(this.currentSceneID);
+			},
+
+			onSceneFinish: function () {
+				if (this.scenes[this.currentSceneID].endAction) {
+					this.scenes[this.currentSceneID].endAction(this);
+				}
+			},
+
+			goToNextScene: function () {
+				var nextIndex = this.scenesArray.indexOf(this.scenes[this.currentSceneID]) + 1;
+				var nextScene;
+				if (nextScene = this.scenesArray[nextIndex]) {
+					this.startSceneByID(nextScene.id);
+				}
+			},
+
+			goToURL: function (aURL) {
+				document.location.href = aURL;
+			},
+
+			ormmaNextScene: function (nextScene) {
+				var currentState = ormma.getState();
+
+				if (nextScene.dimensions.expanded) {
+					//expanded state
+					//check if we're expanded
+					var maxSize = ormma.getMaxSize();
+					if (currentState !== 'expanded') {
+						ormma.expand({
+							x: 0,
+							y: 0,
+							width: maxSize.width,
+							height: maxSize.height
+						});
+					}
+
+					var transform = "";
+					var elementHeight = nextScene.element.offsetHeight;
+					var elementWidth = nextScene.element.offsetWidth;
+					var y = (maxSize.height - elementHeight) / 2;
+					var x = (maxSize.width - elementWidth) / 2;
+					transform += " translate3d(" + Math.round(x) + "px," + Math.round(y) + "px,0)";
+
+					if (nextScene.dimensions.fit) {
+						var scaleFactor = Math.min(maxSize.width / elementWidth, maxSize.height / elementHeight);
+						transform += " scale3d(" + scaleFactor + "," + scaleFactor + ",1)";
+					}
+					nextScene.element.style.webkitTransform = transform;
+
+				} else {
+
+					if (currentState === 'expanded') {
+						ormma.close();
+					}
+					ormma.resize(nextScene.dimensions.width, nextScene.dimensions.height);
+				}
+			}
+		};
+
+		window.addEventListener('load', function () {
+			var configData = {
+				parentId: 'AN-sObj-parentOl',
+				ormma: false,
+				scenes: [{ id: 0, animationCount: 4, duration: 5.457, dimensions: { height: 700, width: 1024, expanded: false, fit: false } }],
+				events: []
+			};
+			AN.Controller.setConfig(configData);
+		}, false);
+	</script>
+
+
+	<style type="text/css">
+		.AN-sObj-stage {
+			position: relative;
+			overflow: hidden;
+		}
+
+			.AN-sObj-stage div {
+				position: absolute;
+			}
+
+			.AN-sObj-stage a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			.AN-sObj-stage * {
+				margin: 0;
+				padding: 0;
+				-webkit-font-smoothing: antialiased;
+			}
+
+			.AN-sObj-stage img {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+		body, .AN-sObj-stage, ol, li {
+			margin: 0;
+			padding: 0;
+		}
+
+		ol {
+			list-style: none;
+			position: relative;
+		}
+
+		li {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.AN-Scene-Description {
+			display: none;
+		}
+
+		@-webkit-keyframes AN-ani-delay {
+			0% {
+			}
+
+			100% {
+			}
+		}
+
+		li {
+			display: none;
+		}
+
+			li.run {
+				display: block;
+			}
+
+		.restart * {
+			-webkit-animation-name: none !important;
+		}
+
+		#AN-sObj-17 {
+			-webkit-transform: translate3d(0px, 0px, 0px);
+			width: 1024px;
+			height: 700px;
+			background-color: rgba(194,194,194,1);
+			top: 0;
+			left: 0;
+		}
+
+		#AN-sObj-18 {
+			-webkit-transform: translate3d(862px, 336px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.5, 0.5, 1);
+			width: 500px;
+			height: 492px;
+			top: 0;
+			left: 0;
+			overflow: visible;
+			opacity: 0;
+		}
+
+		#AN-sObj-19 {
+			-webkit-transform: translate3d(232px, 275px, 0px);
+			width: 967px;
+			height: 20px;
+			top: 0;
+			left: 0;
+			font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+			font-size: 110px;
+			color: rgba(51,51,51,1);
+			text-shadow: rgba(0,0,0,1) 0px 0px 30px;
+		}
+
+		#AN-sObj-20 {
+			-webkit-transform: translate3d(205px, 248px, 0px);
+			width: 120px;
+			height: 20px;
+			top: 0;
+			left: 0;
+			text-shadow: 0 0 10px #AAA;
+			;
+			font-size: 150px;
+			font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+		}
+
+		@-webkit-keyframes ani-AN-sObj-17 {
+			0% {
+				-webkit-transform: translate3d(0px, 0px, 0px);
+				opacity: 0;
+				background-color: rgba(255,255,255,1);
+			}
+
+			11.61% {
+				-webkit-transform: translate3d(0px, 0px, 0px);
+				opacity: 0;
+				background-color: rgba(255,255,255,1);
+			}
+
+			11.97% {
+				-webkit-transform: translate3d(0px, 0px, 0px);
+				opacity: 1;
+				background-color: rgba(0,0,0,1);
+			}
+
+			51.75% {
+				-webkit-transform: translate3d(0px, 0px, 0px);
+				opacity: 1;
+				background-color: rgba(0,0,0,1);
+			}
+
+			73.93% {
+				-webkit-transform: translate3d(0px, 0px, 0px);
+				opacity: 0;
+				background-color: rgba(0,0,0,1);
+			}
+
+			90.25% {
+				-webkit-transform: translate3d(0px, 0px, 0px);
+				opacity: 0;
+				background-color: rgba(255,255,255,1);
+			}
+
+			100% {
+				-webkit-transform: translate3d(0px, 0px, 0px);
+				opacity: 1;
+				background-color: rgba(250,250,250,1);
+			}
+		}
+
+		.run #AN-sObj-17 {
+			-webkit-animation-name: ani-AN-sObj-17;
+			-webkit-animation-duration: 5.453s;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-fill-mode: both;
+		}
+
+		#AN-sObj-17 {
+			-webkit-transform: translate3d(0px, 0px, 0px);
+			opacity: 1;
+			background-color: rgba(250,250,250,1);
+		}
+
+		.restart #AN-sObj-17 {
+			-webkit-transform: translate3d(0px, 0px, 0px);
+			opacity: 0;
+			background-color: rgba(255,255,255,1);
+		}
+
+		@-webkit-keyframes ani-AN-sObj-18 {
+			0% {
+				-webkit-transform: translate3d(862px, 336px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.5, 0.5, 1);
+				opacity: 1;
+			}
+
+			2.07% {
+				-webkit-transform: translate3d(862px, 336px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.5, 0.5, 1);
+				opacity: 1;
+			}
+
+			4.6% {
+				-webkit-transform: translate3d(543.5px, 207px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.6, 0.6, 1);
+				opacity: 1;
+			}
+
+			6.48% {
+				-webkit-transform: translate3d(225px, 132px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.9, 0.9, 1);
+				opacity: 1;
+			}
+
+			8.74% {
+				-webkit-transform: translate3d(222px, 287px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(-13.4deg) scale3d(1.5, 1.5, 1);
+				opacity: 1;
+			}
+
+			11.54% {
+				-webkit-transform: translate3d(187px, 993px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(-13.4deg) scale3d(4, 4, 1);
+				opacity: 0;
+			}
+
+			16.71% {
+				-webkit-transform: translate3d(-118px, 82px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.4, 0.4, 1);
+				opacity: 0;
+			}
+
+			51.72% {
+				-webkit-transform: translate3d(-118px, 82px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.4, 0.4, 1);
+				opacity: 0;
+			}
+
+			84.72% {
+				-webkit-transform: translate3d(-118px, 82px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.4, 0.4, 1);
+				opacity: 1;
+			}
+
+			100% {
+				-webkit-transform: translate3d(122px, -171px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.1, 0.1, 1);
+				opacity: 1;
+			}
+		}
+
+		.run #AN-sObj-18 {
+			-webkit-animation-name: ani-AN-sObj-18;
+			-webkit-animation-duration: 5.457s;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-fill-mode: both;
+		}
+
+		#AN-sObj-18 {
+			-webkit-transform: translate3d(122px, -171px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.1, 0.1, 1);
+			opacity: 1;
+		}
+
+		.restart #AN-sObj-18 {
+			-webkit-transform: translate3d(862px, 336px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(0.5, 0.5, 1);
+			opacity: 1;
+		}
+
+		@-webkit-keyframes ani-AN-sObj-19 {
+			0% {
+				-webkit-transform: translate3d(232px, 275px, 0px) scale3d(1, 1, 1);
+				opacity: 0;
+				text-shadow: rgba(0,0,0,0.5) 0px 0px 3px;
+			}
+
+			16.65% {
+				-webkit-transform: translate3d(232px, 275px, 0px) scale3d(1, 1, 1);
+				opacity: 0;
+				text-shadow: rgba(0,0,0,0.5) 0px 0px 3px;
+			}
+
+			51.9% {
+				-webkit-transform: translate3d(232px, 275px, 0px) scale3d(1, 1, 1);
+				opacity: 0;
+				text-shadow: rgba(170,170,170,0.5) 0px 0px 10px;
+			}
+
+			84.72% {
+				-webkit-transform: translate3d(232px, 275px, 0px) scale3d(1, 1, 1);
+				opacity: 1;
+				text-shadow: rgba(0,0,0,0.5) 0px 0px 3px;
+			}
+
+			100% {
+				-webkit-transform: translate3d(64px, 50px, 0px) scale3d(0.3, 0.3, 1);
+				opacity: 1;
+				text-shadow: rgba(0,0,0,0.5) 0px 0px 0px;
+			}
+		}
+
+		.run #AN-sObj-19 {
+			-webkit-animation-name: ani-AN-sObj-19;
+			-webkit-animation-duration: 5.457s;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-fill-mode: both;
+		}
+
+		#AN-sObj-19 {
+			-webkit-transform: translate3d(64px, 50px, 0px) scale3d(0.3, 0.3, 1);
+			opacity: 1;
+			text-shadow: rgba(0,0,0,0.5) 0px 0px 0px;
+		}
+
+		.restart #AN-sObj-19 {
+			-webkit-transform: translate3d(232px, 275px, 0px) scale3d(1, 1, 1);
+			opacity: 0;
+			text-shadow: rgba(0,0,0,0.5) 0px 0px 3px;
+		}
+
+		@-webkit-keyframes ani-AN-sObj-20 {
+			0% {
+				-webkit-transform: translate3d(205px, 248px, 0px);
+				opacity: 0;
+			}
+
+			88.97% {
+				-webkit-transform: translate3d(205px, 248px, 0px);
+				opacity: 0;
+			}
+
+			100% {
+				-webkit-transform: translate3d(205px, 248px, 0px);
+				opacity: 1;
+			}
+		}
+
+		.run #AN-sObj-20 {
+			-webkit-animation-name: ani-AN-sObj-20;
+			-webkit-animation-duration: 5.45s;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-fill-mode: both;
+		}
+
+		#AN-sObj-20 {
+			-webkit-transform: translate3d(205px, 248px, 0px);
+			opacity: 1;
+		}
+
+		.restart #AN-sObj-20 {
+			-webkit-transform: translate3d(205px, 248px, 0px);
+			opacity: 0;
+		}
+
+		#AN-sObj-scene-id-0 .AN-sObj-stage {
+			height: 700px;
+			width: 1024px;
+			background-color: rgba(255,255,255,1);
+		}
+	</style>
+
+</head>
+<body>
+
+	<div style="border: 1px solid #CCC; -webkit-box-shadow: 0 -10px 100px #AAA; width: 1024px; height: 700px; margin: 50px auto auto auto;">
+
+		<div id="AN-sObj-parentOl">
+
+			<div id="AN-sObj-scene-id-0" class="run">
+				<div class="AN-sObj-stage">
+					<div id="AN-sObj-17"></div>
+					<div id="AN-sObj-18">
+						<div id="AN-sObj-val-18">
+							<img height="492" width="500" src="../Images/pa.png"></div>
+					</div>
+					<div id="AN-sObj-19"><span>Project Axeman</span></div>
+					<div id="AN-sObj-20">
+						<span>Welcome
+						</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div style="color: #CCC;" >
+			(c) 2012. JustBuild Development<br />
+			<a target="_blank" style="color: #D5D5D5;" href="http://www.sencha.com/" alt="Sencha Website">Animation built using Sencha Animator</a>
+		</div>
+	</div>
+
+</body>
+</html>

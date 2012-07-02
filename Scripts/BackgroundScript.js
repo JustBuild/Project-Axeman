@@ -74,6 +74,10 @@ function GotDataRequest(request, response) {
 	// ON SET request
 	else if (request.actionName == "set") {
 		try {
+			if (request.requestName == "IsFirstPlay") {
+				chrome.tabs.create({ url: GetURL("Pages/Welcome.html") }, function () { });
+			}
+
 			// Check if data needs to be stringifyed
 			if (typeof request.requestData != "string") {
 				request.requestData = JSON.stringify(request.requestData);
