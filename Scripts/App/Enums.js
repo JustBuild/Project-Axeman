@@ -10,6 +10,12 @@
  *****************************************************************************/
  
 var Enums = {
+	Tribes: {
+		"1": "Romans",
+		"2": "Teutons",
+		"3": "Gauls"
+	},
+
 	/**************************************************************************
 	 *
 	 * List of all available pages in travian game
@@ -37,6 +43,8 @@ var Enums = {
 		Statistics: "/statistiken.php",
 		Reports: "/berichte.php",
 		Messages: "/nachrichten.php",
+
+		Alliance: "/allianz.php",
 
 		HeroLook: "/hero.php",
 		HeroInventory: "/hero_inventory.php",

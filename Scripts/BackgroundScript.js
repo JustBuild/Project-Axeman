@@ -35,7 +35,7 @@ function Initialize() {
 
 // TODO: Comment function
 function GotRequest(request, sender, sendResponse) {
-	Helpers.DLog("Got request { requestSign: " + request.requestSign + ", requestCategory: " + request.requestCategory + ", requestName: " + request.requestName + ", actionName: " + request.actionName + ", requestData: " + request.requestData + " }");
+	DLog("Got request { requestSign: " + request.requestSign + ", requestCategory: " + request.requestCategory + ", requestName: " + request.requestName + ", actionName: " + request.actionName + ", requestData: " + request.requestData + " }");
 
 	// Supports following categories
 	//		Notification
@@ -51,7 +51,7 @@ function GotRequest(request, sender, sendResponse) {
 
 // TODO: Comment function
 function GotNotificationRequest(request) {
-	Helpers.DLog("BackgroundScript: Got Notification request.");
+	DLog("BackgroundScript: Got Notification request.");
 
 	if (request.actionName == "Show") {
 		notificationManager.Show(request.requestData);
@@ -59,28 +59,39 @@ function GotNotificationRequest(request) {
 }
 
 function GotDataRequest(request, response) {
-	Helpers.DLog("BackgroundScript: Got Data request.");
+	DLog("BackgroundScript: Got Data request.");
 
+	// On GET request
 	if (request.actionName == "get") {
+		// Get data from storage by requestName
 		var data = localStorage.getItem(request.requestName);
 
-		Helpers.Log("BackgroundScript: Data '" + request.requestName + "' GET [" + data + "]");
+		Log("BackgroundScript: Data '" + request.requestName + "' GET [" + data + "]");
 
+		// Send data back in response
 		response(data);
 	}
+	// ON SET request
 	else if (request.actionName == "set") {
 		try {
-			localStorage.setItem(reque.requestName, request.requestData);
-			Helpers.Log("BackgroundScript: Data '" + request.requestName + "' SET [" + request.requestData + "]");
+			// Check if data needs to be stringifyed
+			if (typeof request.requestData != "string") {
+				request.requestData = JSON.stringify(request.requestData);
+			}
+
+			// Save data to storage
+			localStorage.setItem(request.requestName, request.requestData);
+
+			Log("BackgroundScript: Data '" + request.requestName + "' SET [" + request.requestData + "]");
 		} catch (e) {
 			if (e != null) {
 				// Data wasnt successfully saved due to quota exceed so throw an error
-				Helpers.Error("BackgroundScript:  Quota exceeded!");
-				Helpers.Warn("BackgroundScript: " + localStorage.length);
+				Error("BackgroundScript:  Quota exceeded!");
+				Warn("BackgroundScript: " + localStorage.length);
 				alert("Quota exceded! Can't save any changes for Project Axeman");
 			}
 			else {
-				Helpers.Error("BackgroundScript:  Unknown error!");
+				Error("BackgroundScript:  Unknown error!");
 				alert("Unknown error! Can't save any changes for Projrct Axeman");
 			}
 		}
