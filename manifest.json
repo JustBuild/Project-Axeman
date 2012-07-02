@@ -1,12 +1,10 @@
 {
     "name":             "Project Axeman",
-    "description":      "__MSG_ExtensionInfoDescription__",
+    "description":      "Travian 4 extension that adds some 'missing' features to the game.",
     "version":          "0.2.0.0",
-    
-    "default_locale": "en",
-    
-    "background_page":  "Pages/Background.html",
-    "options_page":     "Pages/Options.html",
+	"manifest_version": 2,
+
+	"homepage_url": "http://github.com/JustBuild/Project-Axeman",
     
     "icons": {
         "128":  "Icons/icon128.png",
@@ -15,10 +13,19 @@
     },
 
     "permissions": [
-        "notifications"
+        "notifications",
+		"storage",
+		"unlimitedStorage",
+		"tabs"
     ],
 
-    "page_action": {
+	"background": {
+		"page": "Pages/Background.html"
+	},
+
+    "options_page":     "Pages/PluginsManager.html",
+
+    "browser_action": {
         "default_icon": "Icons/icon48.png",
         "default_title": "Project Axeman",
         "default_popup": "Pages/Popup.html"
@@ -29,13 +36,25 @@
         "js": [ 
             "Scripts/jQuery.js", 
             "Scripts/jQueryUI.js",
-            
-            "Scripts/ExtensionId.js",
-            
-            "Scripts/ContentScript.js",
 
             "Scripts/App/Enums.js",
-            "Scripts/App/App.js"
+            "Scripts/App/Variables.js",
+            "Scripts/App/Helpers.js",
+            "Scripts/App/Models.js",
+
+            "Scripts/App/RequestManager.js",
+            "Scripts/App/NotificationManager.js",
+
+			"Scripts/App/PluginsManager.js",
+
+			"Plugins/Core/Services/Services.js",
+			"Plugins/Development/DevelopmentToolbar/DevelopmentToolbar.js",
+			"Plugins/Support/Feedback/Feedback.js",
+			"Plugins/Economy/ResourceIndicator/ResourceIndicator.js",
+			"Plugins/Economy/ResourceCalculator/ResourceCalculator.js",
+
+            "Scripts/App/App.js",
+            "Scripts/App/AppLauncher.js"
         ],
         "matches": [ 
             "http://*.travian.ae/*", 
@@ -94,5 +113,11 @@
             "http://*.travian.com.vn/*", 
             "http://*.travian.co.za/*" 
         ]
-    } ]
+    } ],
+
+	"web_accessible_resources": [
+		"Plugins/Support/Feedback/Image.png",
+		"Plugins/Support/Feedback/FeedbackForm.html",
+		"Pages/PAStyles.css"
+	]
 }
