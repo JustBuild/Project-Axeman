@@ -25,43 +25,27 @@
 function DevelopmentToolbar() {
 	/**************************************************************************
 	 *
-	 * Plugin header
-	 *
-	 *************************************************************************/
-	this.PAli = "DevelopmentToolbar";
-	this.PCat = "Development";
-	this.PImg = "DevelopmentToolbar.png";
-	this.PNam = "Development Toolbar";
-	this.PVer = "0.0.2.1";
-	this.PDes = "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script";
-	this.PAut = "JustBuild Development";
-	this.PMIS = "https://github.com/JustBuild/Project-Axeman";
-	this.PFea = false;
-	this.PBet = true;
-
-	/**************************************************************************
-	 *
 	 * Registers Developer toolbar plugin
 	 *
 	 *************************************************************************/
 	this.Register = function () {
-		Helpers.Log("DevelopmentToolbar: Registering DevelopmentToolbar plugin...");
+		Log("DevelopmentToolbar: Registering DevelopmentToolbar plugin...");
 
-		// Check if plugin needs to be activated
+		// Check if plugin can be active
 		if (IsDevelopmentMode == false) {
-			var developmentModeRequest = new Request("Background", "Data", "IsDevelopmentMode", "set", "true");
-			developmentModeRequest.Send(null);
+			Log("DevelopmentToolbar: Not in development mode");
+			return;
 		}
 
 		// Activate plugin message
-		Helpers.Log("DevelopmentToolbar: Extension is in development mode - plugin set to active.");
+		Log("DevelopmentToolbar: Extension is in development mode - plugin set to active.");
 
 		// Creates new development toolbar source code
 		var toolbar = this.GetNewToolbar(
  			this.GetNewLabel("Project - Axeman"),
- 			this.GetNewButton("PluginManager", Helpers.GetExtensionRootURL("/Pages/PluginsManager.html")),
-			this.GetNewButton("Popup", Helpers.GetExtensionRootURL("/Pages/Popup.html")),
-			this.GetNewButton("StorageDetails", Helpers.GetExtensionRootURL("/Pages/StorageDetails.html"))
+ 			this.GetNewButton("PluginManager", GetURL("/Pages/PluginsManager.html")),
+			this.GetNewButton("Popup", GetURL("/Pages/Popup.html")),
+			this.GetNewButton("StorageDetails", GetURL("/Pages/StorageDetails.html"))
  		);
 
 		// Appends style and code to current page
@@ -123,28 +107,28 @@ function DevelopmentToolbar() {
 
 	// TODO: Comment function
 	this.GetNewLabel = function (content) {
-		Helpers.DLog("DevelopmentToolbar: Creating new label '" + content + "'");
+		DLog("DevelopmentToolbar: Creating new label '" + content + "'");
 
 		return '<a class="DTLabelNormal" href="#">' + content + '</a>';
 	};
 
 	// TODO: Comment function
 	this.GetNewLabelInfo = function (content) {
-		Helpers.DLog("DevelopmentToolbar: Creating new InfoLabel '" + content + "'");
+		DLog("DevelopmentToolbar: Creating new InfoLabel '" + content + "'");
 
 		return '<a class="DTLabelNormal DTLabelInfo" href="#">' + content + '</a>';
 	};
 
 	// TODO: Comment function
 	this.GetNewLabelWarn = function (content) {
-		Helpers.DLog("DevelopmentToolbar: Creating new WarnLabel '" + content + "'");
+		DLog("DevelopmentToolbar: Creating new WarnLabel '" + content + "'");
 
 		return '<a class="DTLabelNormal DTLabelWarn" href="#">' + content + '</a>';
 	};
 
 	// TODO: Comment function
 	this.GetNewToolbar = function () {
-		Helpers.DLog("DevelopmentToolbar: Creating new Toolbar with [" + arguments.length + "] components.");
+		DLog("DevelopmentToolbar: Creating new Toolbar with [" + arguments.length + "] components.");
 
 		var toolbarSource = '<div class="DTBase" id="DevelopmentToolbar">';
 		for (var index = 0; index < arguments.length; index++) {
@@ -157,8 +141,36 @@ function DevelopmentToolbar() {
 
 	// TODO: Comment function
 	this.GetNewButton = function (content, reference) {
-		Helpers.DLog("DevelopmentToolbar: Creating new Button of content '" + content + "'");
+		DLog("DevelopmentToolbar: Creating new Button of content '" + content + "'");
 
 		return '<a class="DTButton" target="_blank" href="' + reference + '">' + content + '</a>&nbsp;&nbsp;&nbsp;&nbsp;'
 	};
 }
+
+// Metadata for this plugin (DevelopmentToolbar)
+var DevelopmentToolbarMetadata = {
+	Name: "DevelopmentToolbar",
+	Alias: "Development Toolbar",
+	Category: "Development",
+	Version: "0.2.1.1",
+	Description: "You can quickly access extension development pages from bottom of the page. It will even give you some additional information about script.",
+	Author: "JustBuild Development",
+	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
+
+	Settings: {
+		HasSettings: false,
+		SourceURL: ""
+	},
+
+	Flags: {
+		Internal: false,
+		Alpha: false,
+		Beta: true,
+		Featured: false
+	},
+
+	Class: DevelopmentToolbar
+};
+
+// Adds this plugin to global list of available plugins
+GlobalPluginsList[GlobalPluginsList.length] = DevelopmentToolbarMetadata;

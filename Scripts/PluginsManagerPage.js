@@ -1,74 +1,80 @@
 ﻿$(document).ready(function () {
 
-	$((new PluginsManager()).availablePlugins).each(function (index, pluginS) {
-		var plugin = (new pluginS());
-		var pluginItemSource = 
-			"<tr>\
-				<td>\
-					<div class='PluginItem" + (plugin.PBet ? " BetaFlag" : "") + "'>\
-						<table style='width:100%'>\
-							<tr>\
-								<td class='PluginOptions'>\
-									<table>\
-										<tr>\
-											<td>\
-												<img id='PImage" + plugin.PAli + "' src='" + Helpers.GetImageURL("Plugins", plugin.PImg) + "' alt='&lt;" + plugin.PNam + "&gt;' width='64' height='64' />\
-											</td>\
-										</tr>\
-										<tr>\
-											<td>\
-												<input id='PActive" + plugin.PAli + "' type='checkbox' class='ui-helper-hidden-accessible' />\
-												<label id='PActiveLabel" + plugin.PAli + "' for='PActive" + plugin.PAli + "' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false' />\
-											</td>\
-										</tr>\
-									</table>\
-								</td>\
-								<td>\
-									<table style='width:100%'>\
-										<tr>\
-											<td>" + plugin.PNam + "</td>\
-											<td class='PluginVersion'>(" + plugin.PVer + ")</td>\
-										</tr>\
-										<tr class='PluginDescription'>\
-											<td colspan='2'>\
-												<p>" + plugin.PDes + "</p>\
-											</td>\
-										</tr>\
-										<tr class='PluginAuthor'>\
-											<td>" + plugin.PAut + "</td>\
-											<td><a href='&lt;" + plugin.PMIS + "&gt;'>More info...</a></td>\
-										</tr>\
-									</table>\
-								</td>\
-							</tr>\
-						</table>\
-					</div>\
-				</td>\
-			</tr>";
-		$("#pluginsTable").append(pluginItemSource);
+	$.each(
+		GlobalPluginsList,
+		function (index, obj) {
+			var pluginItemSource = 
+				"<tr>\
+					<td>\
+						<div class='PluginItem" + (obj.Flags.Alpha ? " AlphaFlag" : "") + (obj.Flags.Beta ? " BetaFlag" : "") + "'>\
+							<table style='width:100%'>\
+								<tr>\
+									<td class='PluginOptions'>\
+										<table>\
+											<tr>\
+												<td>\
+													<img id='PluginImage" + obj.Name + "' src='" + GetPluginImage(obj) + "' alt='&lt;" + obj.Alias + "&gt;' width='64' height='64' />\
+												</td>\
+											</tr>\
+											<tr>\
+												<td>\
+													<input id='PluginActive" + obj.Name + "' type='checkbox' class='ui-helper-hidden-accessible' />\
+													<label id='PluginActiveLabel" + obj.Name + "' for='PluginActive" + obj.Name + "' class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' role='button' aria-disabled='false' />\
+												</td>\
+											</tr>\
+										</table>\
+									</td>\
+									<td>\
+										<table style='width:100%'>\
+											<tr>\
+												<td>" + obj.Alias + "</td>\
+												<td class='PluginVersion'>(" + obj.Version + ")</td>\
+											</tr>\
+											<tr class='PluginDescription'>\
+												<td colspan='2'>\
+													<p>" + obj.Description + "</p>\
+												</td>\
+											</tr>\
+											<tr class='PluginAuthor'>\
+												<td>" + obj.Author + "</td>\
+												<td><a target='_blank' href='" + obj.Site + "'>More info...</a></td>\
+											</tr>\
+										</table>\
+									</td>\
+								</tr>\
+							</table>\
+						</div>\
+					</td>\
+				</tr>";
+			$("#PluginsTable").append(pluginItemSource);
 
-		// Gets active state
-		var activeState = localStorage.getItem("PActive" + plugin.PAli);
-		if (activeState === null) {
-			localStorage.setItem("PActive" + plugin.PAli, "On");
-			activeState = "On";
+			// Sets flags
+			// NOTE Not yet supported
+			//if (obj.Flags.Internal == true) $("#PluginItem").addClass("InternalFlag");
+			//if (obj.Flags.Featured == true) $("#PluginItem").addClass("FeaturedFlag");
+
+			// Gets active state
+			var activeState = localStorage.getItem("PluginActive" + obj.Name);
+			if (activeState === null) {
+				localStorage.setItem("PluginActive" + obj.Name, "On");
+				activeState = "On";
+			}
+
+			// Assigns that state to control
+			if (activeState == "On") $("#PluginActive" + obj.Name).attr("checked", true);
+			else $("#PluginActive" + obj.Name).attr("checked", false);
+
+			// On click event
+			$("#PluginActive" + obj.Name).button().click(function () {
+				var currentState = $("#PluginActive" + obj.Name).attr("checked") == null ? "Off" : "On";
+				$("#PluginActiveLabel" + obj.Name + " span").text(currentState == "On" ? "On" : "Off");
+				$("#PluginImage" + obj.Name).attr("class", (currentState == "On" ? " " : "Disabled"));
+				localStorage.setItem("PluginActive" + obj.Name, currentState);
+			});
+
+			// Activate initial control state
+			$("#PluginActiveLabel" + obj.Name + " span").text(activeState == "On" ? "On" : "Off");
+			$("#PluginImage" + obj.Name).attr("class", (activeState == "On" ? " " : "Disabled"));
 		}
-
-		// Assigns that state to control
-		if (activeState == "On") $("#PActive" + plugin.PAli).attr("checked", true);
-		else $("#PActive" + plugin.PAli).attr("checked", false);
-
-		// On click event
-		$("#PActive" + plugin.PAli).button().click(function () {
-			var currentState = $("#PActive" + plugin.PAli).attr("checked") == null ? "Off" : "On";
-			$("#PActiveLabel" + plugin.PAli + " span").text(currentState == "On" ? "On" : "Off");
-			$("#PImage" + plugin.PAli).attr("class", (currentState == "On" ? " " : "Disabled"));
-			localStorage.setItem("PActive" + plugin.PAli, currentState);
-		});
-
-		// Activate initial control state
-		$("#PActiveLabel" + plugin.PAli + " span").text(activeState == "On" ? "On" : "Off");
-		$("#PImage" + plugin.PAli).attr("class", (activeState == "On" ? " " : "Disabled"));
-	});
-
+	);
 });
