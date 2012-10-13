@@ -1,0 +1,126 @@
+{
+    "name":             "Project Axeman",
+    "description":      "Travian 4 extension that adds some 'missing' features to the game.",
+    "version":          "0.2.1",
+	"manifest_version": 2,
+
+	"homepage_url": "http://github.com/JustBuild/Project-Axeman",
+    
+    "icons": {
+        "128":  "Icons/icon128.png",
+        "16":   "Icons/icon16.png",
+        "48":   "Icons/icon48.png"
+    },
+
+    "permissions": [
+        "notifications",
+		"storage",
+		"unlimitedStorage",
+		"tabs"
+    ],
+
+	"background": {
+		"page": "Pages/Background.html"
+	},
+
+    "options_page":     "Pages/PluginsManager.html",
+
+    "browser_action": {
+        "default_icon": "Icons/icon48.png",
+        "default_title": "Project Axeman",
+        "default_popup": "Pages/Popup.html"
+    },
+    
+    "content_scripts": [ {
+        "run_at": "document_end",
+        "js": [ 
+            "Scripts/jQuery.js", 
+            "Scripts/jQueryUI.js",
+
+            "Scripts/App/Enums.js",
+            "Scripts/App/Variables.js",
+            "Scripts/App/Helpers.js",
+            "Scripts/App/Models.js",
+
+            "Scripts/App/RequestManager.js",
+            "Scripts/App/NotificationManager.js",
+
+			"Scripts/App/PluginsManager.js",
+
+			"Plugins/Core/Services/Services.js",
+			"Plugins/Development/DevelopmentToolbar/DevelopmentToolbar.js",
+			"Plugins/Support/Feedback/Feedback.js",
+			"Plugins/Economy/ResourceIndicator/ResourceIndicator.js",
+			"Plugins/Economy/ResourceCalculator/ResourceCalculator.js",
+			"Plugins/Economy/FieldUpgradeIndicator/FieldUpgradeIndicator.js",
+			"Plugins/Economy/_Development/_Development.js",
+
+            "Scripts/App/App.js",
+            "Scripts/App/AppLauncher.js"
+        ],
+        "matches": [ 
+            "http://*.travian.ae/*", 
+            "http://*.travian.asia/*",
+            "http://*.travian.com.au/*", 
+            "http://*.travian.ba/*", 
+            "http://*.travian.bg/*", 
+            "http://*.travian.com.br/*", 
+            "http://*.travian.cl/*", 
+            "http://*.travian.cc/*", 
+            "http://*.travian.cz/*", 
+            "http://*.travian.de/*", 
+            "http://*.travian.dk/*", 
+            "http://*.travian.co.ee/*", 
+            "http://*.travian.com.eg/*", 
+            "http://*.travian.com/*", 
+            "http://*.travian.net/*", 
+            "http://*.travian.fi/*", 
+            "http://*.travian.fr/*", 
+            "http://*.travian.gr/*", 
+            "http://*.travianteam.com/*", 
+            "http://*.travian.hk/*", 
+            "http://*.travian.com.hr/*", 
+            "http://*.travian.hu/*", 
+            "http://*.travian.co.id/*", 
+            "http://*.travian.co.il/*", 
+            "http://*.travian.in/*", 
+            "http://*.travian.ir/*", 
+            "http://*.travian.it/*", 
+            "http://*.travian.jp/*", 
+            "http://*.travian.kr/*", 
+            "http://*.travian.lt/*", 
+            "http://*.travian.lv/*", 
+            "http://*.travian.ma/*", 
+            "http://*.travian.my/*", 
+            "http://*.travian.nl/*", 
+            "http://*.travian.no/*", 
+            "http://*.travian.ph/*", 
+            "http://*.travian.pk/*", 
+            "http://*.travian.pl/*", 
+            "http://*.travian.pt/*", 
+            "http://*.travian.ro/*", 
+            "http://*.travian.rs/*", 
+            "http://*.travian.ru/*", 
+            "http://*.travian.sa/*", 
+            "http://*.travian.se/*", 
+            "http://*.travian.si/*", 
+            "http://*.travian.sk/*", 
+            "http://*.travian.sy/*", 
+            "http://*.travian.th/*", 
+            "http://*.travian.tr/*", 
+            "http://*.travian.tw/*", 
+            "http://*.travian.com.ua/*", 
+            "http://*.travian.co.uk/*", 
+            "http://*.travian.us/*", 
+            "http://*.travian.com.vn/*", 
+            "http://*.travian.co.za/*" 
+        ]
+    } ],
+
+	"web_accessible_resources": [
+		"Pages/PAStyles.css",
+		"Plugins/Support/Feedback/Image.png",
+		"Plugins/Support/Feedback/FeedbackForm.html",
+		"Plugins/Economy/FieldUpgradeIndicator/Resources/indicators.png"
+	]
+}

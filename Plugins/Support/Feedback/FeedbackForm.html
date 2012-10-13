@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Project Axeman - Feedback</title>
+
+		<style type="text/css">
+			.FeedbackBody {
+				font-family:'Segoe UI';
+				font-size:85%;
+				color:white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="FeedbackBody">
+			<h1 style="color:white;">Feedback</h1>
+
+			<form method="post" action="mailto:justbuilddev@gmail.com?subject=Project Axeman Feedback" target="_blank" enctype="text/plain">
+				<table class="PAtable">
+					<tr><td class="PAtd">Name</td>
+						<td class="PAtd"><input style="width:100%" class="PATextBoxDark" type="text" name="Name" /></td>
+					</tr>
+					<tr><td class="PAtd">Email</td>
+						<td class="PAtd"><input style="width:100%" class="PATextBoxDark" type="email" name="Email" /></td>
+					</tr>
+					<tr>
+						<td class="PAtd">Type of feedback</td>
+						<td class="PAtd">
+							<select name="FeedbackType" style="width:100%;">
+								<option value="General">General feedback</option>
+								<optgroup label="Questions">
+									<option value="QHowToUse">How to use?</option>
+									<option value="QAbout">General about this extension</option>
+									<option value="QContribute">I am a programmer, can I contribute to this project?</option>
+									<option value="QDonate">Can I donate for further development?</option>
+									<option value="QOther">Other</option>
+								</optgroup>			 
+								<optgroup label="Ideas">
+									<option value="INewFeature">Propose a new feature or plugin</option>
+									<option value="IOther">Other</option>
+								</optgroup>	
+								<optgroup label="Feature/Plugin">
+									<option value="FNotWorking">Not working properly</option>
+									<option value="FNotActivating">Can not activate</option>
+									<option value="FNotAvailable">Not available in plugins manager page</option>
+									<option value="FUpdate">Needs update</option>
+									<option value="FOld">Plugin needs new features (plugin is not useful)</option>
+								</optgroup>	 
+								<optgroup label="Help">
+									<option value="HToWork">Getting this extension to work</option>
+									<option value="HOther">Other</option>
+								</optgroup>
+							</select>
+						</td>
+					</tr>
+					<tr><td class="PAtd" colspan="2">Feedback note</td></tr>
+					<tr><td class="PAtd" colspan="2"><textarea class="PATextBoxDark" name="Note" wrap="soft" style="width:100%"></textarea></td></tr>
+					<tr><td class="PAtd" colspan="2"><input type="checkbox" name="ContactUser" />Would you like to be contacted regarding your feedback?</td></tr>
+					<tr>
+						<td colspan="2" class="PAtd">
+							<input type="submit" class="PAButtonLight" value="Create email" style="margin:20px auto auto auto" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</body>
+</html>
