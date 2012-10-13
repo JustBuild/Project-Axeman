@@ -1,6 +1,0 @@
-.project
-.settings
-.*
-Scripts/ExtensionId.js
-/nbproject/private/
-/nbproject/
