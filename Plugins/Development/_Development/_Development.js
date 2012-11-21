@@ -28,20 +28,12 @@ var DevelopmentMetadata = {
 	Author: "JustBuild Development",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
 
-	Settings: {
-		HasSettings: false,
-		SourceURL: ""
-	},
-
 	Flags: {
-		Internal: true,
-		Alpha: false,
-		Beta: false,
-		Featured: false
+		Internal: true
 	},
 
 	Class: Development
 };
 
 // Adds this plugin to global list of available plugins
-GlobalPluginsList[GlobalPluginsList.length] = DevelopmentMetadata;
+GlobalPluginsList[GlobalPluginsList.length] = $.extend(true, {}, Models.PluginMetadata, DevelopmentMetadata);

@@ -7,6 +7,9 @@
  * Created on:
  * 		02.07.2012.
  *
+ * ToDo:
+ * 		Check crop balance in buildings
+ *
  *****************************************************************************/
 
 /// <summary>
@@ -45,7 +48,10 @@ function ResourceCalculator() {
 		Log("ResourceCalculator: Build cost appending...");
 
 		for (var rindex = 0; rindex < 4; rindex++) {
-			var inWarehouse = ActiveProfile.Villages[ActiveVillageIndex].Resources.Stored[rindex];
+			var resources = ActiveProfile.Villages[ActiveVillageIndex].Resources;
+			var inWarehouse = resources.Stored[rindex];
+			var production = resources.Production[rindex];
+			var storage = resources.Storage[rindex];
 
 			$(".contractCosts").each(function (cindex) {
 				$("span:eq(" + rindex + ")", this).each(function () {
@@ -57,21 +63,26 @@ function ResourceCalculator() {
 					// Crete element
 					var costElement = $("<div>");
 					costElement.attr("id", "ResourceCalculatorBuildCostC" + cindex + "R" + rindex);
-					costElement.css("color", color);
-					costElement.css("text-align", "right");
+					costElement.css({
+						"color": color,
+						"text-align": "right"
+					});
 					costElement.html("(" + diff + ")");
 					$(this).append(costElement);
 
 					DLog("ResourceCalculator - Appended cost element for resource [r" + (rindex + 1) + "] difference [" + diff + "]");
 
 					// Get time difference
-					var activeVillage = ActiveProfile.Villages[ActiveVillageIndex];
-					var production = activeVillage.Resources.Production[rindex];
-					var ratio = 0;
-					if (diff < 0) {
-						ratio = (-diff) / production;
+					if(production < 0 || storage < res){
+						var timeDifference = "never";
 					}
-					var timeDifference = ConvertHoursToTime(ratio);
+					else{
+						var ratio = 0;
+						if (diff < 0) {
+							ratio = (-diff) / production;
+						}
+						var timeDifference = ConvertHoursToTime(ratio);
+					}
 
 					// create elements
 					var timeElement = $("<div>");
@@ -100,6 +111,39 @@ function ResourceCalculator() {
 						setInterval(RefreshBuildFunction, 1000, data);
 					}
 				});
+			});
+		}
+	};
+	
+	/// <summary>
+	/// Called in intervals to refresh times on elements and
+	/// resource difference
+	/// </summary>
+	/// <param name="data">Data object</param>
+	var RefreshBuildFunction = function (data) {
+		for (var index = 0; index < 4; index++) {
+			$("#" + data.TimeElementID + index).each(function () {
+				if (hours != "never"){
+					// Get current time from element
+					var hours = ConvertTimeToHours($(this).text());
+
+					// Not updating if 00:00:00
+					if (hours > 0) {
+						// Subtracts one second and writes new text to element
+						hours -= 0.0002777006777777; // 1 s -> 1/~3600 (3601 because of calculation error)
+						$(this).html(ConvertHoursToTime(hours));
+					}
+
+					// Changes element style (color) depending on current time state
+					if (hours === 0)
+						$(this).css("color", data.ColorZero || "#B20C08");
+					else if (hours < 0.75)
+						$(this).css("color", data.ColorLow || "#B20C08");
+					else if (hours < 3)
+						$(this).css("color", data.ColorMedium || "#CCA758");
+					else
+						$(this).css("color", data.ColorHigh || "black");
+				}
 			});
 		}
 	};
@@ -132,6 +176,7 @@ function ResourceCalculator() {
 			Inputs: inputs,
 			UnitCosts: costs
 		};
+		console.warn(data);
 		setInterval(RefreshUnitsFunction, refreshRate, data);
 	};
 
@@ -146,7 +191,7 @@ function ResourceCalculator() {
 			// Go through all inputs
 			data.Inputs.each(function (iindex) {
 				// Get resource cost
-				var costElement = $(data.UnitCosts[iindex]);
+				var costElement = $(data.UnitCosts[iindex*5+rindex]);
 				var resourceCost = parseInt(costElement.text(), 10);
 
 				// Get quantity
@@ -154,9 +199,8 @@ function ResourceCalculator() {
 				var quantity = parseInt(quantityValue, 10) || 1;
 				
 				// Change quantity zero to one for intuitive results
-				if (quantity == 0) {
+				if (quantity == 0) 
 					quantity = 1;
-				}
 
 				// Calculate difference
 				var diff = inWarehouse - resourceCost * quantity;
@@ -165,37 +209,6 @@ function ResourceCalculator() {
 				// Update elements
 				$("#" + data.ElementID + iindex + "R" + rindex).html("(" + diff + ")");
 				$("#" + data.ElementID + iindex + "R" + rindex).css("color", color);
-			});
-		}
-	};
-
-	/// <summary>
-	/// Called in intervals to refresh times on elements and
-	/// resource difference
-	/// </summary>
-	/// <param name="data">Data object</param>
-	var RefreshBuildFunction = function (data) {
-		for (var index = 0; index < 4; index++) {
-			$("#" + data.TimeElementID + index).each(function () {
-				// Get current time from element
-				var hours = ConvertTimeToHours($(this).text());
-
-				// Not updating if 00:00:00
-				if (hours > 0) {
-					// Subtracts one second and writes new text to element
-					hours -= 0.0002777006777777; // 1 s -> 1/~3600 (3601 because of calculation error)
-					$(this).html(ConvertHoursToTime(hours));
-				}
-
-				// Changes element style (color) depending on current time state
-				if (hours === 0)
-					$(this).css("color", data.ColorZero || "#B20C08");
-				else if (hours < 0.75)
-					$(this).css("color", data.ColorLow || "#B20C08");
-				else if (hours < 3)
-					$(this).css("color", data.ColorMedium || "#CCA758");
-				else
-					$(this).css("color", data.ColorHigh || "black");
 			});
 		}
 	};
@@ -211,20 +224,12 @@ var ResourceCalculatorMetadata = {
 	Author: "JustBuild Development",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
 
-	Settings: {
-		HasSettings: false,
-		SourceURL: ""
-	},
-
 	Flags: {
-			Internal: false,
-			Alpha: false,
-			Beta: true,
-			Featured: false
+		Beta: true
 	},
 
 	Class: ResourceCalculator
 };
 
 // Adds this plugin to global list of available plugins
-GlobalPluginsList[GlobalPluginsList.length] = ResourceCalculatorMetadata;
+GlobalPluginsList[GlobalPluginsList.length] = $.extend(true, {}, Models.PluginMetadata, ResourceCalculatorMetadata);

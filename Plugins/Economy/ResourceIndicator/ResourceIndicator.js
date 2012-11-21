@@ -32,43 +32,52 @@ function ResourceIndicator() {
 
 		Log("ResourcesIndicator: Registering ResourceIndicator plugin...");
 
+		//Indicator beautifer
+		$("#res").css({
+			"background": "-webkit-linear-gradient(top, rgba(224, 231, 241, 0) 0%,rgba(224, 231, 241, 1) 50%)",
+			"width": "589px",
+			"border-bottom-left-radius": "10px",
+			"border-bottom-right-radius": "10px",
+			"box-shadow": "0px 1px 3px #888"
+		});
+
 		// Appends calculated time to page
 		$("#res").children().each(function (index) {
 			// Skips crop consumption
-			if (index !== 4) {
-				var actualProduction = ActiveProfile.Villages[ActiveVillageIndex].Resources.Production[index];
+			if (index == 4)
+				return true;
+			var actualProduction = ActiveProfile.Villages[ActiveVillageIndex].Resources.Production[index];
+			console.log(actualProduction);
 
-				// Create element to append
-				var element = $("<div><b><p>");
-				element.css("background-color", "#EFF5FD");
-				$("p", element).attr("id", "ResourceIndicator" + index);
-				$("p", element).css("text-align", "right");
-				$("p", element).html("never");
+			// Create element to append
+			var element = $("<div><b><p>");
+			$("p", element).attr("id", "ResourceIndicator" + index);
+			$("p", element).css("text-align", "right");
+			$("p", element).html("never");
 
-				if (actualProduction == 0) {
+			if (actualProduction == 0) {
+				$(this).append(element);
+			}
+			else {
+				var current = ActiveProfile.Villages[ActiveVillageIndex].Resources.Stored[index];
+
+				if (actualProduction > 0) {
+					var max = ActiveProfile.Villages[ActiveVillageIndex].Resources.Storage[index]
+					var timeLeft = (max - current) / actualProduction;
+
+					$("p", element).html(ConvertHoursToTime(timeLeft));
 					$(this).append(element);
 				}
 				else {
-					var current = ActiveProfile.Villages[ActiveVillageIndex].Resources.Stored[index];
+					var timeLeft = current / Math.abs(actualProduction);
 
-					if (actualProduction > 0) {
-						var max = ActiveProfile.Villages[ActiveVillageIndex].Resources.Storage[index]
-						var timeLeft = (max - current) / actualProduction;
-
-						$("p", element).html(ConvertHoursToTime(timeLeft));
-						$(this).append(element);
-					}
-					else {
-						var timeLeft = current / Math.abs(actualProduction);
-
-						element.css("color", "red !important");
-						element.css("border", "1px solid red");
-						$("p", element).html(ConvertHoursToTime(timeLeft));
-						$(this).append(element);
-					}
+					$("p", element).css("color", "red");
+					$("p", element).addClass("negative");
+					$("p", element).html(ConvertHoursToTime(timeLeft));
+					$(this).append(element);
 				}
-				DLog("ResourcesIndicator: Appended to resource [l" + (index + 1) + "]");
 			}
+			DLog("ResourcesIndicator: Appended to resource [l" + (index + 1) + "]");
 		});
 
 		// Initial refresh
@@ -83,11 +92,12 @@ function ResourceIndicator() {
 	/// Called in intervals to refresh times on elements
 	/// </summary>
 	/// <param name="id">Elements id tag</param>
+	/// <param name="cneg">Color for negative value</param>
 	/// <param name="czero">Color for hours >= 3</param>
 	/// <param name="calmost">Color for hours < 3</param>
 	/// <param name="cclose">Color for hours < 0.75</param>
 	/// <param name="cother">Color for hours = 0</param>
-	function RefreshFunction(id, czero, calmost, cclose, cother) {
+	function RefreshFunction(id, cneg, czero, calmost, cclose, cother) {
 		for (var index = 0; index < 4; index++) {
 			$("#" + id + index).each(function () {
 				// Get current time from element
@@ -102,16 +112,21 @@ function ResourceIndicator() {
 				else if (hours < 0) {
 					hours = 0;
 				}
-
+				
+				if($(this).hasClass("negative")){
+					$(this).css("color", cneg || "red");
+				}
+				else{
 				// Changes element style (color) depending on current time state
-				if (hours === 0)
-					$(this).css("color", czero || "black");
-				else if (hours < 0.75)
-					$(this).css("color", calmost || "#B20C08");
-				else if (hours < 3)
-					$(this).css("color", cclose || "#A6781C");
-				else
-					$(this).css("color", cother || "#0C9E21");
+					if (hours === 0)
+						$(this).css("color", czero || "black");
+					else if (hours < 0.75)
+						$(this).css("color", calmost || "#B20C08");
+					else if (hours < 3)
+						$(this).css("color", cclose || "#A6781C");
+					else
+						$(this).css("color", cother || "#0C9E21");
+				}
 			});
 		}
 	};
@@ -127,20 +142,12 @@ var ResourceIndicatorMetadata = {
 	Author: "JustBuild Development",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
 
-	Settings: {
-		HasSettings: false,
-		SourceURL: ""
-	},
-
 	Flags: {
-		Internal: false,
-		Alpha: false,
-		Beta: true,
-		Featured: false
+		Beta: true
 	},
 
 	Class: ResourceIndicator
 };
 
 // Adds this plugin to global list of available plugins
-GlobalPluginsList[GlobalPluginsList.length] = ResourceIndicatorMetadata;
+GlobalPluginsList[GlobalPluginsList.length] = $.extend(true, {}, Models.PluginMetadata, ResourceIndicatorMetadata);

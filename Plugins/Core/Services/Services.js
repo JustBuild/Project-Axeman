@@ -12,14 +12,14 @@
  *
  *****************************************************************************/
 
-/// <summary>
-/// Plugin that takes care of all built-in models (fill and update), refreshes page and changes views randomly.
-/// </summary>
+// <summary>
+// Plugin that takes care of all built-in models (fill and update), refreshes page and changes views randomly.
+// </summary>
 function Services() {
 
-	/// <summary>
-	/// Registers plugin 
-	/// </summary>
+	// <summary>
+	// Registers plugin 
+	// </summary>
 	this.Register = function () {
 		Log("Services: Initializing...");
 
@@ -31,10 +31,10 @@ function Services() {
 		// TODO Request refresh
 	};
 
-	/// <summary>
-	/// This function will crawl current page and get all available
-	/// data from it and save it to current profile
-	/// </summary>
+	// <summary>
+	// This function will crawl current page and get all available
+	// data from it and save it to current profile
+	// </summary>
 	var CrawlPage = function () {
 		// Nothing to crawl is user is loged off
 		if (!IsLogedIn) return;
@@ -44,19 +44,20 @@ function Services() {
 		CrawlReports();
 		CrawlMessages();
 		CrawlVillageList();
+		CrawlPopulation();
 		CrawlLoyalty();
 		CrawlProduction();
 		CrawlStorage();
-		// TODO Village type
+		CrawlVillageType();
 		// TODO Fields
 		// TODO Tasks
 		// TODO Military Units
 		// TODO Movements
 	};
 
-	/// <summary>
-	/// Crawls for active village storages and crop production/consumption
-	/// </summary>
+	// <summary>
+	// Crawls for active village storages and crop production/consumption
+	// </summary>
 	var CrawlStorage = function () {
 		if (MatchPages(	
 			Enums.TravianPages.Home,
@@ -93,9 +94,9 @@ function Services() {
 		UpdateActiveVillage(activeVillage);
 	};
 
-	/// <summary>
-	/// Crawls for active village production from production table (not from script)
-	/// </summary>
+	// <summary>
+	// Crawls for active village production from production table (not from script)
+	// </summary>
 	var CrawlProduction = function () {
 		if (MatchPages(
 			Enums.TravianPages.Home,
@@ -111,7 +112,7 @@ function Services() {
 
 		// Regular expression string from
 		// http://txt2re.com/index-javascript.php3?s=resources.production%20=%20{%20%27l1%27:%20500,%27l2%27:%20556,%27l3%27:%20500,%27l4%27:%20367};&16&12&14&13&11
-		var regexString = ".*?\\d+.*?(\\d+).*?\\d+.*?(\\d+).*?\\d+.*?(\\d+).*?\\d+.*?(\\d+)";
+		var regexString = ".*?\\d+.*?(\\d+).*?\\d+.*?(\\d+).*?\\d+.*?(\\d+).*?\\d+.*?([-+]?\\d+)";
 		var p = new RegExp(regexString, ["i"]);
 		var m = p.exec(scriptContent);
 		if (m != null) {
@@ -125,10 +126,22 @@ function Services() {
 
 		UpdateActiveVillage(activeVillage);
 	};
+	
+	// <summary>
+	// Crawls for user population
+	// </summary>
+	var CrawlPopulation = function () {
+		if (!MatchPages(Enums.TravianPages.Player)) return;
+		
+			var pop = parseInt($("td.inhabitants").text(), 10) || 0;
+			ActiveProfile.Population = pop;
+			
+		DLog("Services: Population of active village is [" + ActiveProfile.Population + "]");
+	};
 
-	/// <summary>
-	/// Crawls for active village loyalty
-	/// </summary>
+	// <summary>
+	// Crawls for active village loyalty
+	// </summary>
 	var CrawlLoyalty = function () {
 		if (MatchPages(
 			Enums.TravianPages.Home,
@@ -154,9 +167,9 @@ function Services() {
 		DLog("Services: Set Village [" + activeVillage.VID + "] loyalty to [" + activeVillage.Loyalty + "]");
 	};
 
-	/// <summary>
-	/// Crawls Village list data
-	/// </summary>
+	// <summary>
+	// Crawls Village list data
+	// </summary>
 	var CrawlVillageList = function () {
 		if (MatchPages(
 			Enums.TravianPages.Home,
@@ -218,9 +231,9 @@ function Services() {
 		});
 	};
 
-	/// <summary>
-	/// Crawls for new user reports
-	/// </summary>
+	// <summary>
+	// Crawls for new user reports
+	// </summary>
 	var CrawlMessages = function () {
 		if (MatchPages(
 			Enums.TravianPages.Home,
@@ -240,9 +253,9 @@ function Services() {
 		DLog("Services: CrawlReports found [" + currentReportsCount + "] new messages");
 	};
 
-	/// <summary>
-	/// Crawls for new user reports
-	/// </summary>
+	// <summary>
+	// Crawls for new user reports
+	// </summary>
 	var CrawlReports = function () {
 		if (MatchPages(
 			Enums.TravianPages.Home,
@@ -261,10 +274,25 @@ function Services() {
 
 		DLog("Services: CrawlReports found [" + currentReportsCount + "] new reports");
 	};
+	
+	// <summary>
+	// Crawls village type
+	// </summary>
+	var CrawlVillageType = function () {
+		if (!MatchPages(Enums.TravianPages.VillageOut)) return;
 
-	/// <summary>
-	/// Sets variable to true if user is loged in
-	/// </summary>
+		var currentVillageType = $("village_map").attr("class") || "f3";
+	
+		var activeVillage = GetActiveVillage();
+		activeVillage.VillageOut.Type = currentVillageType;
+		UpdateActiveVillage(activeVillage);
+
+		DLog("Services: CrawlVillageType is [" + currentVillageType + "]");
+	};
+
+	// <summary>
+	// Sets variable to true if user is loged in
+	// </summary>
 	var ProcessIsLogedIn = function () {
 		IsLogedIn = !IsNullOrEmpty($(".signLink"));
 
@@ -272,9 +300,9 @@ function Services() {
 		else Warn("Services: User isn't loged in!");
 	};
 
-	/// <summary>
-	/// Sets profile object to AvailableProfiles
-	/// </summary>
+	// <summary>
+	// Sets profile object to AvailableProfiles
+	// </summary>
 	var ProcessProfiles = function () {
 		// Can't get active user if user isn't loged in
 		if (!IsLogedIn) return;
@@ -319,10 +347,10 @@ function Services() {
 		}
 	};
 
-	/// <summary>
-	/// Updates AvailableProfiles list with new profile data
-	/// </summary>
-	/// <param name="newProfile">Profile data for update</param>
+	// <summary>
+	// Updates AvailableProfiles list with new profile data
+	// </summary>
+	// <param name="newProfile">Profile data for update</param>
 	var UpdateProfile = function (newProfile) {
 		if (!IsLogedIn) return;
 
@@ -358,18 +386,18 @@ function Services() {
 		updateProfilesRequest.Send();
 	};
 
-	/// <summary>
-	/// Gets currently active village
-	/// </summary>
-	/// <returns>Models.Village object representing currently active village</returns>
+	// <summary>
+	// Gets currently active village
+	// </summary>
+	// <returns>Models.Village object representing currently active village</returns>
 	var GetActiveVillage = function () {
 		return ActiveProfile.Villages[ActiveVillageIndex];
 	};
 
-	/// <summary>
-	/// Updates active village
-	/// </summary>
-	/// <param name="updatedVillage">Update village</param>
+	// <summary>
+	// Updates active village
+	// </summary>
+	// <param name="updatedVillage">Update village</param>
 	var UpdateActiveVillage = function (updatedVillage) {
 		ActiveProfile.Villages[ActiveVillageIndex] = updatedVillage;
 	};
@@ -381,24 +409,20 @@ var ServicesMetadata = {
 	Alias: "Services",
 	Category: "Core",
 	Version: "0.0.1.4",
-	Description: "Takes care of all variables and randomly changes pages. This is core plugin and by disableing it you could do damage to saved user data.",
+	Description: "Takes care of all variables and randomly changes pages.",
 	Author: "JustBuild Development",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
 
 	Settings: {
-		HasSettings: false,
-		SourceURL: ""
+		Changeable: false
 	},
 
 	Flags: {
-		Internal: false,
-		Alpha: true,
-		Beta: false,
-		Featured: false
+		Alpha: true
 	},
 
 	Class: Services
 };
 
 // Adds this plugin to global list of available plugins
-GlobalPluginsList[GlobalPluginsList.length] = ServicesMetadata;
+GlobalPluginsList[GlobalPluginsList.length] = $.extend(true, {}, Models.PluginMetadata, ServicesMetadata);

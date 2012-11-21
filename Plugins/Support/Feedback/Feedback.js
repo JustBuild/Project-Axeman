@@ -61,21 +61,17 @@ var FeedbackMetadata = {
 	Description: "Send us some feedback so we can quickly respond to any problems or ideas.",
 	Author: "JustBuild Development",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
-
-	Settings: {
-		HasSettings: false,
-		SourceURL: ""
+	
+	Default:{
+		State: "Off"
 	},
 
 	Flags: {
-		Internal: false,
-		Alpha: false,
-		Beta: true,
-		Featured: false
+		Beta: true
 	},
 
 	Class: Feedback
 };
 
 // Adds this plugin to global list of available plugins
-GlobalPluginsList[GlobalPluginsList.length] = FeedbackMetadata;
+GlobalPluginsList[GlobalPluginsList.length] = $.extend(true, {}, Models.PluginMetadata, FeedbackMetadata);

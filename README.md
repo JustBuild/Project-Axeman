@@ -1,7 +1,7 @@
 #Project Axeman
 _Current version 0.2.1_
 
-_Development version 0.2.1.0_
+_Development version 0.2.2_
 
 
 ## Overview
@@ -29,7 +29,8 @@ _This extension uses [Google Chrome](http://www.google.com/chrome "Google Chrome
 **Plugins to come**
 
 - Marketplace enhancements
-- Village Selector 
+- Multilanguage support
+- Village Selector
 - Easy Build
 - Desktop notifications (tasks, units, messages, reports...)
 - Website layout customization
@@ -45,10 +46,30 @@ Collaborators
 
 - Everton Moreth _([emoreth](https://github.com/emoreth "Everton Moreth on github"))_
 - Ignacio Munizaga _([thagat](https://github.com/emoreth "Everton Moreth on github"))_
-- kavillock _([kavillock](https://github.com/emoreth "Everton Moreth on github"))_
+- Grzegorz Witczak _([kavillock](https://github.com/kavillock "Grzegorz Witczak on github"))_
 
 
 ## Changelog
+- **Version 0.2.2** _(21.11.2012.)_
+	- Minor fixes
+	- Fix some typos
+	- Delete old & unused elements
+	- Services:
+		- Crawl population
+		- Crawl village type
+	- format manifest.json to readable form
+	- Rebuid Plugin manager
+	- Plugin settings are extended from model
+	- Add new settings: deafult value and changeable
+	- ResourceIndicator:
+		- Tell, if the negative crop production
+		- Beautify indicator frame
+	- ResourceCalculator:
+		- You can't build when production is negative, or warehouse < cost
+	- Fix FieldUpgradeIndicator:
+		- Levels as rounded div's
+		- Village type from profile
+		- Fix problem with new fields "deafult: 0"	
 
 - **Version 0.2.1.1** _(12.07.2012.)_
 	- Fixed FieldUpgradeIndicator not showing marks on right position

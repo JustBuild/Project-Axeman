@@ -17,7 +17,6 @@
 //
 var GlobalPluginsList = new Array();
 
-
 function PluginsManager() {
 	// TODO comment
 	this.Initialize = function () {
@@ -65,4 +64,3 @@ function PluginsManager() {
 		);
 	};
 }
-

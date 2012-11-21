@@ -1,6 +1,6 @@
 RELEASE TODO LIST
 	(1)		Variables.js > IsDevelopmentMode => false
-	(2)		Variables.js > IsDebugMode => falsež
+	(2)		Variables.js > IsDebugMode => false
 	(3)		Changes log
 
 

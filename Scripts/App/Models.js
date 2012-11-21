@@ -130,3 +130,32 @@ Models.Report = function () {
 	this.Toy = 0;
 	this.Date = "unknown";
 };
+
+Models.PluginMetadata = {
+	Name: "",
+	Alias: "",
+	Category: "",
+	Version: "",
+	Description: "",
+	Author: "",
+	Site: "",
+
+	Settings: {
+		HasSettings: false,
+		SourceURL: "",
+		Changeable: true
+	},
+	
+	Default: {
+		State: "On"
+	},
+
+	Flags: {
+			Internal: false,
+			Alpha: false,
+			Beta: false,
+			Featured: false
+	},
+
+	Class: ""
+};
