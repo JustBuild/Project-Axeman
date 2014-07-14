@@ -52,6 +52,7 @@
                 "Plugins/Economy/ResourceSender/ResourceSender.js",
 				"Plugins/Utility/VillageListEnhancement/VillageListEnhancement.js",
 				"Plugins/Utility/MarketplaceEnhancements/MarketplaceEnhancements.js",
+				"Plugins/Utility/ReportEnhancement/ReportEnhancement.js",
 				"Plugins/Utility/TravianPLUS/TravianPLUS.js",
 				"Plugins/Development/_Development/_Development.js",
 				"Scripts/App/App.js",
@@ -62,7 +63,32 @@
 				"Pages/PAStyle.css",
 				"Utils/pageslide/jquery.pageslide.css"
 			],
-			"matches": [ "http://*/*" ]
+			"matches": [
+				"http://*.travian.cl/*",
+				"http://*.travian.co.ee/*",
+				"http://*.travian.co.uk/*",
+				"http://*.travian.co.za/*",
+				"http://*.travian.com.au/*",
+				"http://*.travian.com.tr/*",
+				"http://*.travian.com/*",
+				"http://*.travian.cz/*",
+				"http://*.travian.de/*",
+				"http://*.travian.dk/*",
+				"http://*.travian.fr/*",
+				"http://*.travian.gr/*",
+				"http://*.travian.in/*",
+				"http://*.travian.it/*",
+				"http://*.travian.net/*",
+				"http://*.travian.nl/*",
+				"http://*.travian.no/*",
+				"http://*.travian.pl/*",
+				"http://*.travian.ro/*",
+				"http://*.travian.ru/*",
+				"http://*.travian.se/*",
+				"http://*.travian.si/*",
+				"http://*.travian.sk/*",
+				"http://*.travian.us/*"
+			]
 		}
 	],
 	"web_accessible_resources": [
