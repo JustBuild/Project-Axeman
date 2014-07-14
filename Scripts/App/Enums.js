@@ -8,7 +8,7 @@
  * 		25.02.2012.
  *
  *****************************************************************************/
- 
+
 var Enums = {
 	Tribes: {
 		"1": "Romans",
@@ -54,23 +54,89 @@ var Enums = {
 		Plus: "/plus.php",
 		Help: "/help.php"
 	},
-	
+
 	TaskTypes: {
 		Build: "",
 		Movements: "",
 		TotalTroops: ""
 	},
-	
+
+    TroopsInUID: {
+        1: 'Legionnaire',
+        2: 'Praetorian',
+        3: 'Imperian',
+        4: 'Equites Legati',
+        5: 'Equites Imperatoris',
+        6: 'Equites Caesaris',
+        7: 'Battering Ram',
+        8: 'Fire Catapult',
+        9: 'Senator',
+        10: 'Settler',
+        11: 'Maceman',
+        12: 'Spearman',
+        13: 'Axeman',
+        14: 'Scout',
+        15: 'Paladin',
+        16: 'Teutonic Knight',
+        17: 'Ram',
+        18: 'Catapult',
+        19: 'Chief',
+        20: 'Settler',
+        21: 'Phalanx',
+        22: 'Swordsman',
+        23: 'Pathfinder',
+        24: 'Theutates Thunder',
+        25: 'Druidrider',
+        26: 'Haeduan',
+        27: 'Ram',
+        28: 'Trebuchet',
+        29: 'Chieftain',
+        30: 'Settler',
+    },
+
+    TroopResources: {
+        1: [120, 100, 150, 30, 1],
+        2: [100, 130, 160, 70, 1],
+        3: [150, 160, 210, 80, 1],
+        4: [140, 160, 20, 40, 2],
+        5: [550, 440, 320, 100, 3],
+        6: [550, 640, 800, 180, 4],
+        7: [900, 360, 500, 70, 3],
+        8: [950, 1350, 600, 90, 6],
+        9: [30750, 27200, 45000, 37500, 5],
+        10: [4600, 4200, 5800, 4400, 1],
+        11: [95, 75, 40, 40, 1],
+        12: [145, 70, 85, 40, 1],
+        13: [130, 120, 170, 70, 1],
+        14: [160, 100, 50, 50, 1],
+        15: [370, 270, 290, 75, 2],
+        16: [450, 515, 480, 80, 3],
+        17: [1000, 300, 350, 70, 3],
+        18: [900, 1200, 600, 60, 6],
+        19: [35500, 26600, 25000, 27200, 4],
+        20: [5800, 4400, 4600, 5200, 1],
+        21: [100, 130, 55, 30, 1],
+        22: [140, 150, 185, 60, 1],
+        23: [170, 150, 20, 40, 2],
+        24: [350, 450, 230, 60, 2],
+        25: [360, 330, 280, 120, 2],
+        26: [500, 620, 675, 170, 3],
+        27: [950, 555, 330, 75, 3],
+        28: [960, 1450, 630, 90, 6],
+        29: [30750, 45400, 31000, 37500, 4],
+        30: [4400, 5600, 4200, 3900, 1],
+    },
+
 	/**************************************************************************
 	 *
 	 * Village out filed IDs
 	 *
-	 * Specifies the resource map in a village, with arrays of wood, clay, 
+	 * Specifies the resource map in a village, with arrays of wood, clay,
 	 * iron and crop respectively.
 	 * (eg. Enums.VillageOutMaps.fX[Y].length for number of fields,
 	 *		Enums.VillageOutMaps.fX[Y][Z] for field build id where
 	 *		X is type of village,
-	 *		Y is filed type and 
+	 *		Y is filed type and
 	 *		Z is filed index)
 	 *
 	 * Author: Ignacio Munizaga (thagat)
@@ -90,7 +156,7 @@ var Enums = {
 		f11: [[1, 2, 4, 12], [9, 10, 15], [0, 3, 7, 8, 11], [5, 6, 13, 14, 16, 17]],
 		f12: [[0, 2, 3, 13, 16], [4, 5, 15, 17], [6, 9, 10], [1, 7, 8, 11, 12, 14]],
 	},
-	
+
 	VillageInGID: {
 		1: 'Woodcutter',
 		2: 'ClayPit',
@@ -253,7 +319,7 @@ var Enums = {
 			[15498630, 19926810, 15498630, 4428180, 2, 38293280, 95, 6950]
 		]
 	],
-	
+
 	Buildings: {
 		//http://t4.answers.travian.com/index.php?aid=194
 		Sawmill: [
