@@ -52,6 +52,7 @@
                 "Plugins/Economy/ResourceSender/ResourceSender.js",
 				"Plugins/Utility/VillageListEnhancement/VillageListEnhancement.js",
 				"Plugins/Utility/MarketplaceEnhancements/MarketplaceEnhancements.js",
+				"Plugins/Utility/ReportEnhancement/ReportEnhancement.js",
 				"Plugins/Utility/TravianPLUS/TravianPLUS.js",
 				"Plugins/Development/_Development/_Development.js",
 				"Scripts/App/App.js",
