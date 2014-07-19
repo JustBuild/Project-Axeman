@@ -70,12 +70,12 @@ function App() {
 		
 		// Load extension active state
 		loadNumber++;
-		(new Request("Background", "Data", "IsExtensionActive", { Type: "get" }).Send(function(response) {
-			if (response) {
-				isExtensionActive = response.State;
+		StorageLoad("IsExtensionActive", function(items) {
+			if (items) {
+				isExtensionActive = items;
 			}
 			CheckFinishedLoading();
-		}));
+		});
 	};
 
 	var LoadProfiles = function () {
@@ -84,11 +84,12 @@ function App() {
 		/// </summary>
 
 		DLog("App: Requesting profiles list...");
+			
+		StorageLoad({ "Profiles": null }, function (items) {
+			console.log(items);
 
-		var profilesRequest = new Request("Background", "Data", "Profiles", { Type: "get" });
-		profilesRequest.Send(function (response) {
 			// Check if response is valid
-			if (IsNullOrEmpty(response)) {
+			if (IsNullOrEmpty(items)) {
 				DLog("App: No profiles found...");
 				DLog("App: Creating new profiles list...");
 
@@ -96,7 +97,7 @@ function App() {
 			}
 			else {
 				// Parse response
-				AvailableProfiles = response || new Array();
+				AvailableProfiles = items || new Array();
 
 				DLog("App: Recieved [" + AvailableProfiles.length + "] profile(s)");
 			}

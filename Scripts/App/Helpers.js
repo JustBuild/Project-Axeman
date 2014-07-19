@@ -257,13 +257,6 @@ Number.prototype.PadLeft = function (length, digit) {
 	return str;
 };
 
-function EnsureParams(object, required) {
-	// TODO implement
-	for (var index = 0; index < args.length; index++) {
-		console.warn(args[index]);
-	}
-};
-
 function CreateStylesheet(path) {
 	/// <summary>
 	/// Creates link object to given stylesheet.
@@ -371,4 +364,12 @@ function CreateTravianSidebar(header, content)
 	</div>';
 
 	return $('#sidebarBoxLinklist').after(html);
+}
+
+function StorageSave(key, value, callback) {
+	chrome.storage.local.set({ key: value }, callback);
+}
+
+function StorageLoad(key, callback) {
+	chrome.storage.local.get(key, callback);
 }
