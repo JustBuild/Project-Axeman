@@ -34,17 +34,13 @@ var AutoRefresherMetadata = {
     Name: "AutoRefresher",
     Alias: "Auto Refresher",
     Category: "Utility",
-    Version: "0.0.0.1",
+    Version: "1.0",
     Description: "Auto Refreshes your game periodically",
     Author: "Ben Perry",
-    Site: "https://github.com/JustBuild/Project-Axeman/wiki",
+    Site: "https://github.com/bungiman/Project-Axeman",
 
     Settings: {
         IsLoginRequired: true,
-    },
-
-    Flags: {
-        Internal: true
     },
 
     Class: AutoRefresher
