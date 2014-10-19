@@ -20,48 +20,70 @@ function AutoAdventure() {
         this.initialize();
     },
 
-    /// <summary>
-    /// Adds checkbox on the end of reports list to check all reports
-    /// </summary>
-
     this.initialize = function() {
-
-        if (!this.hasAdventure()) {
-
-            // We're on the last page of doing the adventure
-            if (MatchPages([Enums.TravianPages.HeroStartAdventure])) {
-                $('button[name="ok"]').click();
-            }
-
-            // No adventures = don't continue
+        if (!ActiveProfile.Hero.HasAdventure || !ActiveProfile.Hero.CanAdventure) {
             return;
         }
-
-        // We have an adventure, let's go to the list of adventures
+        // If we are not starting an adventure, lets start one
         if (!MatchPages([Enums.TravianPages.HeroStartAdventure, Enums.TravianPages.HeroAdventures])) {
             location.href = 'hero_adventure.php';
             return;
         }
-
         // Pick the first adventure from the list
         if (MatchPages([Enums.TravianPages.HeroAdventures])) {
-            var url = $('a.gotoAdventure:first').attr('href');
+            var adventures = this.getAdventures();
+            adventures = this.sortByDuration(adventures);
+            var adventure = adventures.filter(':first').find('a.gotoAdventure');
+            var url = adventure.attr('href');
             if (url != undefined) {
                 location.href = url;
                 return;
             }
         }
-
         // Start the first adevnture
         if (MatchPages([Enums.TravianPages.HeroStartAdventure])) {
-            $('button[name="start"]').click();
+            var startButton = $('button[name="start"]');
+            if (startButton) {
+                startButton.click();
+                return;
+            }
+            startButton = $('button[name="ok"]');
+            if (startButton) {
+                startButton.click();
+                return;
+            }
             return;
         }
 
     }
 
-    this.hasAdventure = function() {
-        return $('.heroStatusMessage').text().trim().indexOf('in home') !== -1 && parseInt($('.adventureWhite .speechBubbleContent').text());
+    this.getAdventures = function() {
+        return $('form#adventureListForm table tbody tr');
+    }
+
+    this.sortByDuration = function(adventures) {
+        var moveTimes = adventures.find('.moveTime').slice(0);
+        var swapped;
+        do {
+            swapped = false;
+            for (var i=0; i < moveTimes.length-1; i++) {
+                if (moveTimes[i].innerText > moveTimes[i+1].innerText) {
+                    var temp = moveTimes[i];
+                    moveTimes[i] = moveTimes[i+1];
+                    moveTimes[i+1] = temp;
+                    swapped = true;
+                }
+            }
+        } while (swapped);
+        return moveTimes.parent();
+    }
+
+    this.filterForNormalAdventures = function(adventures) {
+        return adventures.find('.difficulty img[alt="normal"]').parent().parent();
+    }
+
+    this.filterForHardAdventures = function(adventures) {
+        return adventures.find('td.difficulty img[alt="hard"]').parent().parent();
     }
 
 }
