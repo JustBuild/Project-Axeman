@@ -49,7 +49,7 @@
                 "Plugins/Fun/Decorations/Decorations.js",
                 "Plugins/Support/Feedback/Feedback.js",
                 "Plugins/Economy/ResourceCalculator/ResourceCalculator.js",
-                "Plugins/Economy/ResourceIndicator/ResourceIndicator.js",                
+                "Plugins/Economy/ResourceIndicator/ResourceIndicator.js",
                 "Plugins/Economy/UpgradeIndicator/UpgradeIndicator.js",
                 "Plugins/Economy/ResourceSender/ResourceSender.js",
                 "Plugins/Utility/VillageListEnhancement/VillageListEnhancement.js",
@@ -57,6 +57,7 @@
                 "Plugins/Utility/AutoAdventure/AutoAdventure.js",
                 "Plugins/Utility/ReportEnhancement/ReportEnhancement.js",
                 "Plugins/Utility/TravianPLUS/TravianPLUS.js",
+                "Plugins/Utility/TroopAttack/TroopAttack.js",
                 "Plugins/Development/_Development/_Development.js",
 
                 "Scripts/App/App.js",
