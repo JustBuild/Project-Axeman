@@ -326,6 +326,29 @@ function NumberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function RetrieveCustomSettingValue(settings, name) {
+	/// <summary>
+	/// Retrieves requested custom plugin setting value 
+	/// </summary>
+	/// <param name="settings">Available settings</param>
+	/// <param name="name">Name of custom setting to retrieve</param>
+	/// <returns type="">
+	/// Return Value of requested plugin custom setting if available; otherwise returns DefaultValue
+	/// </returns>
+
+	for (var index = 0; index < settings.length; index++) {
+		if (settings[index].Name == name) {
+			if (settings[index].Value !== undefined) {
+				return settings[index].Value;
+			} else {
+				console.log("retrieving Defautl value!");
+				console.log(settings[index]);
+				return settings[index].DefaultValue;
+			}
+		}
+	}
+};
+
 function _gim(name) {
 	/// <summary>
 	/// Gets locale message

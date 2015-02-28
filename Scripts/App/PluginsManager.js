@@ -60,12 +60,14 @@ function PluginsManager() {
 
 			try {
 				var state = obj.Default.State;
+				var settings = obj.CustomSettings;
 				var settingsPlugin = $.grep(Settings.Plugins, function (value, index) { return value.Name == obj.Name; })[0];
 				if (settingsPlugin) {
 					state = settingsPlugin.State;
+					settings = settingsPlugin.CustomSettings;
 				}
 
-				registerPlugin(obj, state);
+				registerPlugin(obj, state, settings);
 				pluginsTotal++;
 			}
 			catch (ex) {
@@ -75,7 +77,7 @@ function PluginsManager() {
 		});
 	};
 
-	function registerPlugin(pluginMetadata, state) {
+	function registerPlugin(pluginMetadata, state, settings) {
 		DLog("[-------------------- BEGIN " + pluginMetadata.Name + " --------------------]");
 		var startTime = (new Date()).getTime();
 
@@ -92,7 +94,7 @@ function PluginsManager() {
 				}
 
 				var pluginObject = new pluginMetadata.Class();
-				pluginObject.Register();
+				pluginObject.Register(settings);
 			} else Log("PluginsManager: Plugin '" + pluginMetadata.Name + "' is NOT active!");
 		}
 
