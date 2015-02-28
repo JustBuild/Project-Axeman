@@ -1,7 +1,7 @@
 #Project Axeman
-_Current version 0.2.8_
+_Current version 0.2.9_
 
-_Development version 0.2.9_
+_Development version 0.2.10_
 
 
 ## Overview
@@ -56,6 +56,10 @@ Donators
 - Geczy
 
 ## Changelog
+- **Version 0.2.9** _(03.08.2014.)_
+	- New: Redesigned options page
+	- Improved: Report Enahancements now features Report filters
+	- Fix: Capital village was not saving correctly
 - **Version 0.2.8** _(23.07.2014.)_
 	- New: Support for troops in Resource Sender plugin
 	- New: Resport Enhancement plugin

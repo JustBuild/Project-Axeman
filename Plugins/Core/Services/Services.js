@@ -97,6 +97,7 @@ function Services() {
 			CrawlLoyalty();
 			CrawlMessages();
 			CrawlReports();
+            CrawlHero();
 
 			if (MatchPages([Enums.TravianPages.Player]) && !URLContains('uid')) {
 
@@ -408,6 +409,22 @@ function Services() {
 			}
 		}
 		DLog("Services: CrawlReports found [" + currentReportsCount + "] new messages");
+	};
+
+	var CrawlHero = function () {
+		/// <summary>
+		/// Crawls for hero information
+        //// This method crawls pages to know hero's state
+		/// </summary>
+
+        var canAdventure = $('.heroStatusMessage').text().trim().indexOf('in home') !== -1;
+        var hasAdventure = parseInt($('.adventureWhite .speechBubbleContent').text()) >= 1;
+
+        ActiveProfile.Hero.CanAdventure = canAdventure;
+        ActiveProfile.Hero.HasAdventure = hasAdventure;
+
+		DLog("Services: CrawlHero found canAdventure = '" + canAdventure + "'");
+		DLog("Services: CrawlHero found hasAdventure = '" + hasAdventure + "'");
 	};
 
 	var CrawlReports = function () {
