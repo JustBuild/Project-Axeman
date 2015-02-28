@@ -11,8 +11,8 @@
 	this.Initialize = function () {
 		var self = this;
 
-		this.InitializeSettings();
-		this.InitializePlugins();
+		self.InitializeSettings();
+		self.InitializePlugins();
 		
 		// Load settings
 		var data = JSON.parse(localStorage.getItem("Settings"));
