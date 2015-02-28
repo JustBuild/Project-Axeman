@@ -5,6 +5,11 @@
 		<title>Settings</title>
 
 		<link rel="stylesheet" type="text/css" href="chrome-bootstrap/chrome-bootstrap.css" />
+		<style>
+			body {
+				color: rgb(48, 57, 66);
+			}
+		</style>
 	</head>
 	<body class="chrome-bootstrap">
 		<div class="frame">
@@ -81,8 +86,8 @@
 					<div class="content">
 						<div data-bind="foreach: Plugins" style="font-size: 1.1em; color: #333333; min-width: 576px; max-width: 738px;">
 							<div style="margin: 23px 0; display: -webkit-box;">
-								<div style="padding-right: 10px;">
-									<img data-bind="attr: { src: ImageSource }" style="width: 68px; height: 68px;"></img>
+								<div style="padding-right: 10px; text-align: center;">
+									<img data-bind="attr: { src: ImageSource }" style="width: 48px; height: 48px;"></img>
 									<div data-bind="if: Flags.Internal">
 										<div style="padding: 4px 10px; background-color: #333; color: white; border-radius: 5px; width: 48px; text-align: center; line-height: 20px; font-weight: bold; font-size: 0.75em; margin: 2px 0;">INTERNAL</div>
 									</div>
@@ -95,18 +100,18 @@
 								</div>
 								<div style="-webkit-box-flex: 1; padding-right: 5px;">
 									<div>
-										<span data-bind="text: Alias" style="padding-right: 20px;"></span>
+										<b><span data-bind="text: Alias" style="padding-right: 20px;"></span></b>
 										<span data-bind="text: Version"></span>
 									</div>
 									<div style="margin: 5px 0;">
 										<span data-bind="text: Description" style="color: rgb(151, 156, 160);"></span>
 										<a data-bind="attr: { href: Site }" style="margin-left: 0.5em;">Visit website</a>
 									</div>
-									<div style="margin: 5px 0;">
+									<div style="margin: 5px 0; font-size: 0.95em; ">
 										<span>Category: </span>
 										<span data-bind="text: Category"></span>
 									</div>
-									<div style="margin: 5px 0;">
+									<div style="margin: 5px 0; font-size: 0.95em; ">
 										<span>Author: </span>
 										<span data-bind="text: Author"></span>
 									</div>

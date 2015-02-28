@@ -11,10 +11,10 @@
 	this.Initialize = function () {
 		var self = this;
 
+		// Load settings
 		self.InitializeSettings();
 		self.InitializePlugins();
-		
-		// Load settings
+
 		var data = localStorage.getItem("Settings");
 		if (data) {
 			ko.mapping.fromJSON(data, {}, self.ViewModel);
@@ -28,6 +28,7 @@
 			localStorage.setItem("Settings", JSON.stringify(jsData));
 		});
 
+		console.log("Binding...");
 		ko.applyBindings(self.ViewModel);
 	};
 
@@ -60,6 +61,9 @@
 			console.log("Processed model of " + metadata.Name);
 			return true;
 		});
+
+		console.log("Plugins initialized");
+		console.log(self.ViewModel.Plugins());
 	};
 };
 
