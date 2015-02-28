@@ -341,8 +341,6 @@ function RetrieveCustomSettingValue(settings, name) {
 			if (settings[index].Value !== undefined) {
 				return settings[index].Value;
 			} else {
-				console.log("retrieving Defautl value!");
-				console.log(settings[index]);
 				return settings[index].DefaultValue;
 			}
 		}
