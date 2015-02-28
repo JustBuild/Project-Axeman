@@ -4,28 +4,22 @@
 	border-radius: 2em;
 }
 	.PAUIElement.Upgradeable {
-		background-color: green;
 		color: white;
 		text-shadow: 0 0 3px black;
 	}
 	.PAUIElement.UnderConstruction {
-		background-color: #FA4;
 		color: black;
 		text-shadow: 0 0 3px silver;
-		/*text-decoration: blink;*/
 	}
 	.PAUIElement.NonUpgradeable {
-		background-color: red;
 		color: white;
 		text-shadow: 0 0 3px black;
 	}
 	.PAUIElement.MaxUpgraded {
-		background-color: silver;
 		color: black;
 		text-shadow: 0 0 3px white;
 	}
 	.PAUIElement.NoResources {
-		background-color: white;
 		color: black;
 		text-shadow: 0 0 3px white;
 	}

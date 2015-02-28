@@ -93,7 +93,7 @@ var AutoAdventureMetadata = {
     Name: "AutoAdventure",
     Alias: "Auto Adventure",
     Category: "Utility",
-    Version: "0.0.0.1",
+    Version: "0.1.0.0",
     Description: "Completes an adventure when available.",
     Author: "Geczy",
     Site: "https://github.com/JustBuild/Project-Axeman/wiki",
@@ -103,8 +103,7 @@ var AutoAdventureMetadata = {
     },
 
     Flags: {
-        Alpha: true,
-        Internal: true
+        Alpha: true
     },
 
     Class: AutoAdventure

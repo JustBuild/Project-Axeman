@@ -5,6 +5,11 @@
 		<title>Settings</title>
 
 		<link rel="stylesheet" type="text/css" href="chrome-bootstrap/chrome-bootstrap.css" />
+		<style>
+			body {
+				color: rgb(48, 57, 66);
+			}
+		</style>
 	</head>
 	<body class="chrome-bootstrap">
 		<div class="frame">
@@ -81,8 +86,8 @@
 					<div class="content">
 						<div data-bind="foreach: Plugins" style="font-size: 1.1em; color: #333333; min-width: 576px; max-width: 738px;">
 							<div style="margin: 23px 0; display: -webkit-box;">
-								<div style="padding-right: 10px;">
-									<img data-bind="attr: { src: ImageSource }" style="width: 68px; height: 68px;"></img>
+								<div style="padding-right: 10px; text-align: center;">
+									<img data-bind="attr: { src: ImageSource }" style="width: 48px; height: 48px;"></img>
 									<div data-bind="if: Flags.Internal">
 										<div style="padding: 4px 10px; background-color: #333; color: white; border-radius: 5px; width: 48px; text-align: center; line-height: 20px; font-weight: bold; font-size: 0.75em; margin: 2px 0;">INTERNAL</div>
 									</div>
@@ -95,32 +100,71 @@
 								</div>
 								<div style="-webkit-box-flex: 1; padding-right: 5px;">
 									<div>
-										<span data-bind="text: Alias" style="padding-right: 20px;"></span>
+										<b><span data-bind="text: Alias" style="padding-right: 20px;"></span></b>
 										<span data-bind="text: Version"></span>
 									</div>
 									<div style="margin: 5px 0;">
 										<span data-bind="text: Description" style="color: rgb(151, 156, 160);"></span>
 										<a data-bind="attr: { href: Site }" style="margin-left: 0.5em;">Visit website</a>
 									</div>
-									<div style="margin: 5px 0;">
+									<div style="margin: 5px 0; font-size: 0.95em; ">
 										<span>Category: </span>
 										<span data-bind="text: Category"></span>
 									</div>
-									<div style="margin: 5px 0;">
+									<div style="margin: 5px 0; font-size: 0.95em; ">
 										<span>Author: </span>
 										<span data-bind="text: Author"></span>
+									</div>
+									<div style="margin: 5px 0" data-bind="if: IsOptionsShown">
+										<div style="margin-bottom: 10px;"><b>Plugin options</b></div>
+										<div data-bind="foreach: CustomSettings">
+											<div style="margin: 5px 20px">
+												<div data-bind="if: DataType() == 'Boolean'">
+													<input type="checkbox" data-bind="checked: Value" />
+													<span data-bind="text: Header"></span>
+												</div>
+												<div data-bind="if: DataType() == 'Color'">
+													<span data-bind="text: Header" style="display: inline-block; min-width: 120px;"></span>
+													<input type="text" data-bind="value: Value" />
+													<input type="color" data-bind="value: Value" />
+												</div>
+												<div data-bind="if: DataType() == 'String'">
+													<span data-bind="text: Header" style="display: inline-block; min-width: 120px;"></span>
+													<input type="text" data-bind="value: Value" />
+												</div>
+												<div data-bind="if: DataType() == 'Number'">
+													<span data-bind="text: Header" style="display: inline-block; min-width: 120px;"></span>
+													<input type="number" data-bind="value: Value" />
+												</div>
+												<div data-bind="if: Description">
+													<span data-bind="text: Description" style="color: rgb(151, 156, 160);"></span>
+													<span data-bind="if: Link">
+														<a data-bind="attr: { href: Link }">Get more help</a>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div style="margin: 5px 0;" data-bind="if: CustomSettings().length">
+										<button class="link-button" data-bind="click: $parent.ToggleIsOptionsShown">
+											<span data-bind="ifnot: IsOptionsShown">Show</span>
+											<span data-bind="if: IsOptionsShown">Hide</span>
+											<span> plugin options...</span>
+										</button>
 									</div>
 								</div>
 								<div style="position: relative; margin-right: 20px;">
 									<div>
 										<label style="padding: 7px 0;">
 											<input type="checkbox" data-bind="checked: State, attr: { 'data-plugin': Name }" />
-											<span style="min-width: 58px; margin-left: 0.6em; margin-right: 30px;">Enabled</span>
+											<span data-bind="style: { fontWeight: State() ? 'bold' : 'normal' }" style="min-width: 58px; margin-left: 0.6em; margin-right: 30px;">Enabled</span>
 										</label>
 									</div>
 								</div>
 							</div>
 						</div>
+
+						<small>If you don't see any plugins - click <a href="#" id="clearSettings">here</a> to reset your settings.</small>
 					</div>
 				</div>
 

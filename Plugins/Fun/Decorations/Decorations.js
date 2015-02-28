@@ -19,6 +19,7 @@ function Decorations() {
 
 		RemoveInGameHelp();
 		EasyDemolish();
+		AddPlusLinks();
 
 		$('.openedClosedSwitch.switchClosed').on('click', function(e) {
 			AddCoordsToFarmList();
@@ -37,6 +38,29 @@ function Decorations() {
 		}
 	};
 
+	var AddPlusLinks = function() {
+		if (!$('.layoutButton.marketBlack.gold').length) {
+			return false;
+		}
+
+		var replaceClasses = [
+			"workshop",
+			"market",
+			"barracks",
+			"stable",
+		];
+
+		for (var i in replaceClasses) {
+			$('.layoutButton.gold').each(function(e) {
+				if ($(this).hasClass(replaceClasses[i] + "Black")) {
+					$(this).removeClass(replaceClasses[i] + "Black gold").addClass(replaceClasses[i] + "White green");
+					$(this).off('click hover');
+				}
+			});
+		}
+
+	}
+
 	var EasyDemolish = function() {
 		if (!$('#demolish').length) {
 			return false;
@@ -47,8 +71,9 @@ function Decorations() {
 		});
 
 		$("#demolish").append($("#demolish option").remove().sort(function(a, b) {
-			var at = $(a).text(), bt = $(b).text();
-			return (at > bt)?1:((at < bt)?-1:0);
+			var at = $(a).text(),
+				bt = $(b).text();
+			return (at > bt) ? 1 : ((at < bt) ? -1 : 0);
 		}));
 	}
 

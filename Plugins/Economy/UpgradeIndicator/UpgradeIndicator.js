@@ -14,16 +14,34 @@
 
 
 function UpgradeIndicator() {
+	var isResourceEfficiencySidebarActive = true;
+
 	/// <summary>
 	/// Initializes object
 	/// </summary>
-	this.Register = function () {
+	this.Register = function(settings) {
 		// TODO Refactor
 		// TODO Log
 
 		Log("Registering UpgradeIndicator plugin...", "UpgradeIndicator");
-
+		
 		$("head").append(CreateStylesheet("Plugins/Economy/UpgradeIndicator/UpgradeIndicatorStyle.css"));
+
+		// Retrieve settings
+		isResourceEfficiencySidebarActive = RetrieveCustomSettingValue(settings, "ResourceEfficiencySidebar");
+		var upgradeableColor = RetrieveCustomSettingValue(settings, "UpgradeableColor");
+		var underConstructionColor = RetrieveCustomSettingValue(settings, "UnderConstructionColor");
+		var nonUpgradeableColor = RetrieveCustomSettingValue(settings, "NonUpgradeableColor");
+		var maxUpgradedColor = RetrieveCustomSettingValue(settings, "MaxUpgradedColor");
+		var noResourcesColor = RetrieveCustomSettingValue(settings, "NoResourcesColor");
+
+		// Append color settings
+		var configurableStyle = ".PAUIElement.Upgradeable { background-color: " + upgradeableColor + " }" +
+			".PAUIElement.UnderConstruction { background-color: " + underConstructionColor + " }" +
+			".PAUIElement.NonUpgradeable { background-color: " + nonUpgradeableColor + " }" +
+			".PAUIElement.MaxUpgraded { background-color: " + maxUpgradedColor + " }" +
+			".PAUIElement.NoResources { background-color: " + noResourcesColor + " }";
+		$("head").append("<style>" + configurableStyle + "</style>");
 
 		// Check if we can apply states
 		if (MatchPages([Enums.TravianPages.VillageOut])) FieldUpgradeIndicator();
@@ -53,16 +71,16 @@ function UpgradeIndicator() {
 				// Get upgrade cost for current level
 				var fieldUpgradeCost = Enums.Fields[rIndex][fieldLevel];
 
-	            // Show upgrade efficiency
-	            if (fieldLevel < fieldMaxLevel && fieldUpgradeCost && fieldUpgradeCost.length >= 4) {
-	                var total = fieldUpgradeCost[0] + fieldUpgradeCost[1] + fieldUpgradeCost[2] + fieldUpgradeCost[3];
-	                var rPerWheat = fieldUpgradeCost[4] > 0 ? Math.floor(total / fieldUpgradeCost[4]) : 0;
+				// Show upgrade efficiency
+				if (fieldLevel < fieldMaxLevel && fieldUpgradeCost && fieldUpgradeCost.length >= 4) {
+					var total = fieldUpgradeCost[0] + fieldUpgradeCost[1] + fieldUpgradeCost[2] + fieldUpgradeCost[3];
+					var rPerWheat = fieldUpgradeCost[4] > 0 ? Math.floor(total / fieldUpgradeCost[4]) : 0;
 
-	                if (rPerWheat > 0) {
-	                    var resEfficiencyit = [rPerWheat, fieldLevel, Enums.FieldNames[rIndex], (availableFields[rIndex][fIndex] + 1)];
-	                    resEfficiency.push(resEfficiencyit);
-	                }
-	            }
+					if (rPerWheat > 0) {
+						var resEfficiencyit = [rPerWheat, fieldLevel, Enums.FieldNames[rIndex], (availableFields[rIndex][fIndex] + 1)];
+						resEfficiency.push(resEfficiencyit);
+					}
+				}
 
 				// Check if field is under construction
 				if (field.hasClass("underConstruction")) {
@@ -100,7 +118,7 @@ function UpgradeIndicator() {
 					}
 				}
 
-				if(fieldUpgradeCost && fieldUpgradeCost.length >= 4 && ActiveProfile.Villages[ActiveVillageIndex].Resources.FreeCrop < fieldUpgradeCost[4]) {
+				if (fieldUpgradeCost && fieldUpgradeCost.length >= 4 && ActiveProfile.Villages[ActiveVillageIndex].Resources.FreeCrop < fieldUpgradeCost[4]) {
 					fieldUpgradeState = "NonUpgradeable";
 				}
 
@@ -109,18 +127,21 @@ function UpgradeIndicator() {
 			}
 		}
 
-	      if (resEfficiency.length) {
-	            resEfficiency.sort(function(a, b) {
-	                return a[0] - b[0];
-	            });
+		// Efficiency sidebar
+		if (isResourceEfficiencySidebarActive) {
+			if (resEfficiency.length) {
+				resEfficiency.sort(function(a, b) {
+					return a[0] - b[0];
+				});
 
-	            var html = '<ul>'
-	            for (var i = 0; i < resEfficiency.length; i++) {
-	                html += '<li><a href="build.php?id=' + resEfficiency[i][3] + '">' + (i + 1) + '. Level ' + resEfficiency[i][1] + ' ' + resEfficiency[i][2] + '</a></li>';
-	            }
-	            html += '</ul>';
-	            CreateTravianSidebar('Efficiency queue', html)
-	        }
+				var html = '<ul>'
+				for (var i = 0; i < resEfficiency.length; i++) {
+					html += '<li><a href="build.php?id=' + resEfficiency[i][3] + '">' + (i + 1) + '. Level ' + resEfficiency[i][1] + ' ' + resEfficiency[i][2] + '</a></li>';
+				}
+				html += '</ul>';
+				CreateTravianSidebar('Efficiency queue', html)
+			}
+		}
 	};
 
 	var BuildingUpgradeIndicator = function() {
@@ -142,16 +163,16 @@ function UpgradeIndicator() {
 			var building = Enums.Buildings[GIDs[buildingGID]];
 			var buildingUpgradeCost = building[buildingLevel];
 
-            // Show upgrade efficiency
-            if (buildingLevel < building.length && buildingUpgradeCost && buildingUpgradeCost.length >= 4) {
-                var total = buildingUpgradeCost[0] + buildingUpgradeCost[1] + buildingUpgradeCost[2] + buildingUpgradeCost[3];
-                var rPerWheat = buildingUpgradeCost[4] > 0 ? Math.floor(total / buildingUpgradeCost[4]) : 0;
+			// Show upgrade efficiency
+			if (buildingLevel < building.length && buildingUpgradeCost && buildingUpgradeCost.length >= 4) {
+				var total = buildingUpgradeCost[0] + buildingUpgradeCost[1] + buildingUpgradeCost[2] + buildingUpgradeCost[3];
+				var rPerWheat = buildingUpgradeCost[4] > 0 ? Math.floor(total / buildingUpgradeCost[4]) : 0;
 
-                if (rPerWheat > 0) {
-                    var resEfficiencyit = [rPerWheat, buildingLevel, GIDs[buildingGID], buildingGID];
-                    resEfficiency.push(resEfficiencyit);
-                }
-            }
+				if (rPerWheat > 0) {
+					var resEfficiencyit = [rPerWheat, buildingLevel, GIDs[buildingGID], buildingGID];
+					resEfficiency.push(resEfficiencyit);
+				}
+			}
 
 			if (!$(levelObject).is(".underConstruction")) {
 				DLog("------" + buildingGID + ": " + GIDs[buildingGID]);
@@ -188,25 +209,28 @@ function UpgradeIndicator() {
 				upgradeState = "UnderConstruction";
 			}
 
-			if(buildingUpgradeCost && buildingUpgradeCost.length >= 4 && ActiveProfile.Villages[ActiveVillageIndex].Resources.FreeCrop < buildingUpgradeCost[4]) {
+			if (buildingUpgradeCost && buildingUpgradeCost.length >= 4 && ActiveProfile.Villages[ActiveVillageIndex].Resources.FreeCrop < buildingUpgradeCost[4]) {
 				upgradeState = "NonUpgradeable";
 			}
 
 			SetUIElementState(levelObject, upgradeState);
 		});
 
-      if (resEfficiency.length) {
-            resEfficiency.sort(function(a, b) {
-                return a[0] - b[0];
-            });
+		// Efficiency sidebar
+		if (isResourceEfficiencySidebarActive) {
+			if (resEfficiency.length) {
+				resEfficiency.sort(function(a, b) {
+					return a[0] - b[0];
+				});
 
-            var html = '<ul>'
-            for (var i = 0; i < resEfficiency.length; i++) {
-                html += '<li><a href="build.php?gid=' + resEfficiency[i][3] + '">' + (i + 1) + '. Level ' + resEfficiency[i][1] + ' ' + resEfficiency[i][2] + '</a></li>';
-            }
-            html += '</ul>';
-            CreateTravianSidebar('Efficiency queue', html)
-        }
+				var html = '<ul>'
+				for (var i = 0; i < resEfficiency.length; i++) {
+					html += '<li><a href="build.php?gid=' + resEfficiency[i][3] + '">' + (i + 1) + '. Level ' + resEfficiency[i][1] + ' ' + resEfficiency[i][2] + '</a></li>';
+				}
+				html += '</ul>';
+				CreateTravianSidebar('Efficiency queue', html);
+			}
+		}
 	};
 
 	var SetUIElementState = function (field, state) {
@@ -220,7 +244,7 @@ var UpgradeIndicatorMetadata = {
 	Name: "UpgradeIndicator",
 	Alias: "Upgrade Indicator",
 	Category: "Economy",
-	Version: "0.2.0.16",
+	Version: "0.2.1.0",
 	Description: "Know when you can upgrade fields and building without clicking for each. This plugin will highlight upgradeable fields and buildings for you.",
 	Author: "JustBuild Development",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
@@ -229,6 +253,46 @@ var UpgradeIndicatorMetadata = {
 		RunOnPages: [Enums.TravianPages.VillageIn, Enums.TravianPages.VillageOut],
 		IsLoginRequired: true
 	},
+
+	CustomSettings: [
+		{
+			Name: "ResourceEfficiencySidebar",
+			Header: "Show Resource Efficiency sidebar",
+			Description: "Resource efficiency sidebar shows you what to upgrade next to maximize your population with least crop usage.",
+			DataType: Enums.DataTypes.Boolean,
+			DefaultValue: true
+		},
+		{
+			Name: "UpgradeableColor",
+			Header: "Upgradeable color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#008000"
+		},
+		{
+			Name: "UnderConstructionColor",
+			Header: "Under construction color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#FFAA44"
+		},
+		{
+			Name: "NonUpgradeableColor",
+			Header: "Non upgradeable color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#FF0000"
+		},
+		{
+			Name: "MaxUpgradedColor",
+			Header: "Max upgraded color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#C0C0C0"
+		},
+		{
+			Name: "NoResourcesColor",
+			Header: "No resources color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#FFFFFF"
+		}
+	],
 
 	Flags: {
 		Beta: true

@@ -65,8 +65,8 @@ var TroopAttackMetadata = {
 	Name: "TroopAttack",
 	Alias: "Troop Attack",
 	Category: "Utility",
-	Version: "0.0.0.1",
-	Description: "TODO",
+	Version: "0.1.0.0",
+	Description: "Shows the carrying capacity of troops entered in rally point attack",
 	Author: "Geczy",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
 
@@ -77,8 +77,7 @@ var TroopAttackMetadata = {
 	},
 
 	Flags: {
-		Alpha: true,
-		Internal: true
+		Alpha: true
 	},
 
 	Class: TroopAttack
