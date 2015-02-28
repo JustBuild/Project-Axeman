@@ -175,6 +175,7 @@ Models.Profile = function () {
 
 	this.Messages = new Models.MessagesCollection();
 	this.Reports = new Models.ReportsCollection();
+    this.Hero = new Models.Hero();
 
 	//this.Plugins = new Array();
 };
@@ -214,6 +215,11 @@ Models.Report = function () {
 	this.Toy = 0;
 	this.Date = "unknown";
 };
+
+Models.Hero = function () {
+    this.HasAdventure = false;
+    this.CanAdventure = false;
+}
 
 // TODO Implement into PluginsManager
 //Models.ProfilePlugin = function () {
