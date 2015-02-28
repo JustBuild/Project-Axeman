@@ -28,6 +28,10 @@ Models.OptionsModel = function() {
 		this.IsAdancedShown(!this.IsAdancedShown());
 	};
 
+	this.ToggleIsOptionsShown = function (plugin, event) {
+		plugin.IsOptionsShown(!plugin.IsOptionsShown());
+	};
+
 	// Plugins
 	this.Plugins = new Array();
 };
@@ -48,8 +52,6 @@ Models.PluginMetadata = {
 	State: false,
 
 	Settings: {
-		//HasSettings: false,
-		//SourceURL: "",
 		IsChangeable: true,
 		IsLoginRequired: false,
 		RunOnPages: [],
@@ -57,6 +59,8 @@ Models.PluginMetadata = {
 		PageMustContain: [],
 		PageMayContain: []
 	},
+
+	CustomSettings: [],
 
 	Default: {
 		State: true
@@ -70,6 +74,16 @@ Models.PluginMetadata = {
 	},
 
 	Class: ""
+};
+
+Models.PluginCustomSetting = {
+	Name: "",
+	Header: "",
+	Description: "",
+	DataType: undefined,
+	Value: undefined,
+	DefaultValue: undefined,
+	Link: ""
 };
 
 /******************************************************************************

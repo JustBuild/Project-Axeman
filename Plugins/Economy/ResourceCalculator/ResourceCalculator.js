@@ -23,15 +23,26 @@ function ResourceCalculator() {
 	/// <summary>
 	/// Initializes object
 	/// </summary>
-	this.Register = function () {
+	this.Register = function(settings) {
 		Log("ResourceCalculator: Registering ResourceCalculator plugin...");
 
-
-		BuildCostCalculator();
-		UnitCostCalculator();
+		// Retrieve settings
+		var colors = {
+			ColorZero: RetrieveCustomSettingValue(settings, "ColorZero"),
+			ColorLow: RetrieveCustomSettingValue(settings, "ColorLow"),
+			ColorMedium: RetrieveCustomSettingValue(settings, "ColorMedium"),
+			ColorHigh: RetrieveCustomSettingValue(settings, "ColorHigh")
+		};
+		var times = {
+			LowTime: RetrieveCustomSettingValue(settings, "LowTime"),
+			MediumTime: RetrieveCustomSettingValue(settings, "MediumTime")
+		};
+		console.log(colors);
+		BuildCostCalculator(colors, times);
+		UnitCostCalculator(colors);
 	};
 
-	var BuildCostCalculator = function () {
+	var BuildCostCalculator = function (colors, times) {
 		/// <summary>
 		/// Build cost calculator appends empty placeholders
 		/// for resources and filled elements for time that
@@ -58,7 +69,7 @@ function ResourceCalculator() {
 					// Get cost difference
 					var res = parseInt($(this).text(), 10) || 0;
 					var diff = inWarehouse - res;
-					var color = diff < 0 ? "#B20C08" : "#0C9E21";
+					var color = diff < 0 ? colors.ColorHigh : colors.ColorZero;
 
 					// Crete element
 					var costElement = $("<div>");
@@ -99,19 +110,11 @@ function ResourceCalculator() {
 			});
 		}
 
-		// Create refresh data
-		var data = {
-			ColorZero: "#0C9E21",
-			ColorLow: "#AEBF61",
-			ColorMedium: "#A6781C",
-			ColorHigh: "#B20C08"
-		};
-
 		// Initial refresh
-		RefreshBuildFunction(data);
+		RefreshBuildFunction(colors, times);
 
 		// Set interval only once for each contract
-		setInterval(RefreshBuildFunction, 1000, data);
+		setInterval(RefreshBuildFunction, 1000, colors, times);
 	};
 
 	/// <summary>
@@ -119,7 +122,7 @@ function ResourceCalculator() {
 	/// resource difference
 	/// </summary>
 	/// <param name="data">Data object</param>
-	var RefreshBuildFunction = function (data) {
+	var RefreshBuildFunction = function (colors, times) {
 		// Go through all timeleft indicators
 		$(".ResourceCalculatorBuildFillTime").each(function () {
 			var secondsLeft = parseInt($(this).attr("data-timeleft"), 10);
@@ -136,24 +139,21 @@ function ResourceCalculator() {
 			}
 
 			if (secondsLeft == 0)
-				$(this).css("color", data.ColorZero || "#B20C08");
-			else if (secondsLeft < 2700)
-				$(this).css("color", data.ColorLow || "#B20C08");
-			else if (secondsLeft < 10800)
-				$(this).css("color", data.ColorMedium || "#CCA758");
-			else $(this).css("color", data.ColorHigh || "black");
+				$(this).css("color", colors.ColorZero);
+			else if (secondsLeft < times.LowTime)
+				$(this).css("color", colors.ColorLow);
+			else if (secondsLeft < times.MediumTime)
+				$(this).css("color", colors.ColorMedium);
+			else $(this).css("color", colors.ColorHigh);
 		});
 	};
 
-	var UnitCostCalculator = function () {
+	var UnitCostCalculator = function (colors) {
 		/// <summary>
 		/// Units cost calculator appends empty placeholders
 		/// </summary>
 
 		DLog("ResourceCalculator: Unit cost appending...");
-
-		// Refresh rate in ms
-		var refreshRate = 128;
 
 		var inputs = $(".details > input[name*='t']");
 		var costs = $(".details > .showCosts");
@@ -171,7 +171,7 @@ function ResourceCalculator() {
 				var costElement = $("<div>");
 				costElement.addClass("ResourceCalculatorBuildCost");
 				costElement.addClass("ResourceCalculatorR" + rindex);
-				costElement.css("color", "#0C9E21");
+				costElement.css("color", colors.ColorZero);
 				costElement.css("text-align", "right");
 				costElement.html("(0)");
 				$("span:eq(" + rindex + ")", costs[iindex]).append(costElement);
@@ -179,15 +179,15 @@ function ResourceCalculator() {
 
 			// Attach function on textbox change
 			$(inputs[iindex]).on("input", function () {
-				RefreshUnitsFunction($(inputs[iindex]), $(costs[iindex]));
+				RefreshUnitsFunction($(inputs[iindex]), $(costs[iindex]), colors);
 			});
 
 			// Initial call
-			RefreshUnitsFunction($(inputs[iindex]), $(costs[iindex]));
+			RefreshUnitsFunction($(inputs[iindex]), $(costs[iindex]), colors);
 		});
 	};
 
-	var RefreshUnitsFunction = function (input, cost) {
+	var RefreshUnitsFunction = function (input, cost, colors) {
 		/// <summary>
 		/// Refreshes units cost elements
 		/// </summary>
@@ -205,7 +205,7 @@ function ResourceCalculator() {
 
 			// Calculate difference
 			var diff = inWarehouse - resourceCost * quantity;
-			var color = diff < 0 ? "#B20C08" : "#0C9E21";
+			var color = diff < 0 ? colors.ColorHigh : colors.ColorZero;
 
 			// Update elements
 			var costElement = $(".ResourceCalculatorR" + rindex, cost);
@@ -225,7 +225,7 @@ var ResourceCalculatorMetadata = {
 	Name: "ResourceCalculator",
 	Alias: "Resource Calculator",
 	Category: "Economy",
-	Version: "0.2.4.0",
+	Version: "0.2.5.0",
 	Description: "Shows you how much of each resource is needed to build field, building or train army. ",
 	Author: "JustBuild Development",
 	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
@@ -234,6 +234,46 @@ var ResourceCalculatorMetadata = {
 		RunOnPages: [Enums.TravianPages.Build],
 		IsLoginRequired: true
 	},
+
+
+	CustomSettings: [
+		{
+			Name: "LowTime",
+			Header: "Low limit (seconds)",
+			DataType: Enums.DataTypes.Number,
+			DefaultValue: 2700
+		},
+		{
+			Name: "MediumTime",
+			Header: "Medium limit (seconds)",
+			DataType: Enums.DataTypes.Number,
+			DefaultValue: 10800
+		},
+		{
+			Name: "ColorZero",
+			Header: "Zero difference resource color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#0C9E21"
+		},
+		{
+			Name: "ColorLow",
+			Header: "Low difference resource color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#AEBF61"
+		},
+		{
+			Name: "ColorMedium",
+			Header: "Medium difference resource color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#A6781C"
+		},
+		{
+			Name: "ColorHigh",
+			Header: "Hight difference resource color",
+			DataType: Enums.DataTypes.Color,
+			DefaultValue: "#B20C08"
+		}
+	],
 
 	Flags: {
 		Beta: true
