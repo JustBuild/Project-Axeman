@@ -11,10 +11,11 @@
 	this.Initialize = function () {
 		var self = this;
 
-		// Load settings
-		self.InitializeSettings();
+		// Load default values
 		self.InitializePlugins();
+		self.InitializeSettings();
 
+		// Apply existing settings
 		var data = localStorage.getItem("Settings");
 		if (data) {
 			ko.mapping.fromJSON(data, {}, self.ViewModel);
@@ -63,7 +64,6 @@
 		});
 
 		console.log("Plugins initialized");
-		console.log(self.ViewModel.Plugins());
 	};
 };
 
@@ -71,7 +71,14 @@ $(document).ready(function () {
 	// Instantiate options and initialize
 	var optionsInstance = new Options();
 	optionsInstance.Initialize();
+	setupClearSettings();
 });
+
+function setupClearSettings() {
+	$("#clearSettings").click(function () {
+		localStorage.removeItem("Settings");
+	});
+}
 
 //
 // chrome-bootstrap
