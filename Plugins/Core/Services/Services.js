@@ -417,8 +417,8 @@ function Services() {
         //// This method crawls pages to know hero's state
 		/// </summary>
 
-        var canAdventure = $('.heroStatusMessage').text().trim().indexOf('in home') !== -1;
-        var hasAdventure = parseInt($('.adventureWhite .speechBubbleContent').text()) >= 1;
+        var canAdventure = $('.heroStatusMessage .heroStatus100') != undefined;
+        var hasAdventure = (parseInt($('.adventureWhite .speechBubbleContent').text(), 10) || 0) >= 1;
 
         ActiveProfile.Hero.CanAdventure = canAdventure;
         ActiveProfile.Hero.HasAdventure = hasAdventure;
