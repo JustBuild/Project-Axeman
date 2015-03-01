@@ -11,21 +11,28 @@
 
 function AutoRefresher() {
 
-    var refreshTime = 3; // minutes
-
     /// <summary>
     /// Initializes object
     /// </summary>
-    this.Register = function() {
-        this.initialize();
+    this.Register = function(settings) {
+        var refreshRate = RetrieveCustomSettingValue(settings, "RefreshRate");
+
+        this.Initialize(refreshRate);
     };
 
-    this.initialize = function() {
+    this.Initialize = function(refreshRate) {
         Log("Initializing AutoRefresher plugin", "AutoRefresher");
+
+        // ((Math.random() + 0.5) * 1000
+        // Result is: 500 .. 1500
+        var refreshMs = refreshRate * ((Math.random() + 0.5) * 1000);
+
         setTimeout(function() {
             Log("Refreshing page!", "AutoRefresher");
-            location.reload();
-        }, refreshTime*60*1000);
+            //location.reload();
+        }, refreshMs);
+
+        Log("Refresh in (ms)" + refreshMs);
     };
 }
 
@@ -42,6 +49,15 @@ var AutoRefresherMetadata = {
     Settings: {
         IsLoginRequired: true,
     },
+
+    CustomSettings: [
+        {
+            Name: "RefreshRate",
+            Header: "How often to refresh (seconds)",
+            DataType: Enums.DataTypes.Number,
+            DefaultValue: "180"
+        }
+    ],
 
     Flags: {
         Alpha: true,
