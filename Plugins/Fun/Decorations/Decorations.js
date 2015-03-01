@@ -57,15 +57,16 @@ function Decorations() {
 			21
 		];
 
-		for (var i in replaceClasses) {
-			$('.layoutButton.gold').each(function(e) {
+		$('.layoutButton.gold').each(function(e) {
+			for (var i in replaceClasses) {
 				if ($(this).hasClass(replaceClasses[i] + "Black")) {
 					$(this).removeClass(replaceClasses[i] + "Black gold").addClass(replaceClasses[i] + "White green");
 					$(this).off('click hover');
 					$(this).attr('onclick', 'location.href="' + Enums.TravianPages.Build + '?gid=' + ids[i] + '"');
+					break;
 				}
-			});
-		}
+			}
+		});
 
 	}
 
