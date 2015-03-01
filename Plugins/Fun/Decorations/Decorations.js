@@ -77,8 +77,7 @@ function Decorations() {
 		});
 
 		$("#demolish").append($("#demolish option").remove().sort(function(a, b) {
-			var at = $(a).text(),
-				bt = $(b).text();
+			var at = $(a).text(), bt = $(b).text();
 			return (at > bt) ? 1 : ((at < bt) ? -1 : 0);
 		}));
 	}
