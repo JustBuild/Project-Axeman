@@ -44,10 +44,17 @@ function Decorations() {
 		}
 
 		var replaceClasses = [
-			"workshop",
 			"market",
 			"barracks",
 			"stable",
+			"workshop",
+		];
+
+		var ids = [
+			17,
+			19,
+			20,
+			21
 		];
 
 		for (var i in replaceClasses) {
@@ -55,6 +62,7 @@ function Decorations() {
 				if ($(this).hasClass(replaceClasses[i] + "Black")) {
 					$(this).removeClass(replaceClasses[i] + "Black gold").addClass(replaceClasses[i] + "White green");
 					$(this).off('click hover');
+					$(this).attr('onclick', 'location.href="' + Enums.TravianPages.Build + '?gid=' + ids[i] + '"');
 				}
 			});
 		}
