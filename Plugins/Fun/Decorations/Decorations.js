@@ -44,27 +44,24 @@ function Decorations() {
 		}
 
 		var replaceClasses = [
-			"market",
-			"barracks",
-			"stable",
 			"workshop",
+			"stable",
+			"barracks",
+			"market",
 		];
 
 		var ids = [
-			17,
-			19,
+			21,
 			20,
-			21
+			19,
+			17,
 		];
 
-		$('.layoutButton.gold').each(function(e) {
-			for (var i in replaceClasses) {
-				if ($(this).hasClass(replaceClasses[i] + "Black")) {
-					$(this).removeClass(replaceClasses[i] + "Black gold").addClass(replaceClasses[i] + "White green");
-					$(this).off('click hover');
-					$(this).attr('onclick', 'location.href="' + Enums.TravianPages.Build + '?gid=' + ids[i] + '"');
-					break;
-				}
+		$('.layoutButton.gold:not(.editBlack)').each(function( i ) {
+			if ($(this).hasClass(replaceClasses[i] + "Black")) {
+				$(this).removeClass(replaceClasses[i] + "Black gold").addClass(replaceClasses[i] + "White green");
+				$(this).off('click hover');
+				$(this).attr('onclick', 'location.href="' + Enums.TravianPages.Build + '?gid=' + ids[i] + '"');
 			}
 		});
 
