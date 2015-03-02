@@ -35,6 +35,9 @@ function VillageListEnhancement() {
 		var villageListPanel = $("#sidebarBoxVillagelist");
 		var villageListHead = $(".content", villageListPanel);
 
+		// Sort bar container
+		var sortBar = $("<div>");
+
 		// Message
 		// TODO Localize
 		var message = "<div style='float:left;margin-top:5px;'>Sort villages</div>";
@@ -64,10 +67,16 @@ function VillageListEnhancement() {
 		buttonSortHie.click(sortVillageListHiararchical);
 
 		// Append buttons to list
-		villageListHead.append(message);
-		villageListHead.append(buttonSortHie);
-		villageListHead.append(buttonSortDesc);
-		villageListHead.append(buttonSortAsc);
+		sortBar.append(message);
+		sortBar.append(buttonSortHie);
+		sortBar.append(buttonSortDesc);
+		sortBar.append(buttonSortAsc);
+
+		// Append sort bar container to the villages list
+		villageListHead.append(sortBar);
+
+		// Clearfix
+		villageListHead.append($("<div>").css("clear", "both"));
 	};
 
 	// TODO Comment
