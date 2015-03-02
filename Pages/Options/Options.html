@@ -89,13 +89,13 @@
 								<div style="padding-right: 10px; text-align: center;">
 									<img data-bind="attr: { src: ImageSource }" style="width: 48px; height: 48px;"></img>
 									<div data-bind="if: Flags.Internal">
-										<div style="padding: 4px 10px; background-color: #333; color: white; border-radius: 5px; width: 48px; text-align: center; line-height: 20px; font-weight: bold; font-size: 0.75em; margin: 2px 0;">INTERNAL</div>
+										<div style="background-color: #333; width: 12px; height: 12px; border-radius: 6px; margin: 2px; float: left;" title="INTERNAL"></div>
 									</div>
 									<div data-bind="if: Flags.Alpha">
-										<div style="padding: 4px 10px; background-color: #2D8AD6; color: white; border-radius: 5px; width: 48px; text-align: center; line-height: 20px; margin: 2px 0;">Alpha</div>
+										<div style="background-color: #2D8AD6; width: 12px; height: 12px; border-radius: 6px; margin: 2px; float: left;" title="ALPHA"></div>
 									</div>
 									<div data-bind="if: Flags.Beta">
-										<div style="padding: 4px 10px; background-color: #C51A1A; color: white; border-radius: 5px; width: 48px; text-align: center; line-height: 20px; margin: 2px 0;">Beta</div>
+										<div style="background-color: #C51A1A; width: 12px; height: 12px; border-radius: 6px; margin: 2px; float: left;" title="BETA"></div>
 									</div>
 								</div>
 								<div style="-webkit-box-flex: 1; padding-right: 5px;">
@@ -163,6 +163,8 @@
 								</div>
 							</div>
 						</div>
+
+						<small>If you don't see any plugins - click <a href="#" id="clearSettings">here</a> to reset your settings.</small>
 					</div>
 				</div>
 
@@ -214,6 +216,7 @@
 		<script type="text/javascript" src="../../Plugins/Utility/VillageListEnhancement/VillageListEnhancement.js"></script>
 		<script type="text/javascript" src="../../Plugins/Utility/MarketplaceEnhancements/MarketplaceEnhancements.js"></script>
 		<script type="text/javascript" src="../../Plugins/Utility/AutoAdventure/AutoAdventure.js"></script>
+		<script type="text/javascript" src="../../Plugins/Utility/AutoRefresher/AutoRefresher.js"></script>
 		<script type="text/javascript" src="../../Plugins/Utility/ReportEnhancement/ReportEnhancement.js"></script>
 		<script type="text/javascript" src="../../Plugins/Utility/TroopAttack/TroopAttack.js"></script>
 		<script type="text/javascript" src="../../Plugins/Utility/TravianPLUS/TravianPLUS.js"></script>

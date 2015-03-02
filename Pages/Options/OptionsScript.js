@@ -11,13 +11,21 @@
 	this.Initialize = function () {
 		var self = this;
 
-		// Load settings
-		self.InitializeSettings();
+		// Load default values
 		self.InitializePlugins();
+		self.InitializeSettings();
 
+		// Apply existing settings
 		var data = localStorage.getItem("Settings");
 		if (data) {
-			ko.mapping.fromJSON(data, {}, self.ViewModel);
+			var jsData = $.parseJSON(data);
+
+			// Sort plugins settings
+			var sortedPluginsSettings = jsData.Plugins.sort(function(left, right) {
+				return left.Name > right.Name ? 1 : -1;
+			});
+
+			ko.mapping.fromJS(sortedPluginsSettings, {}, self.ViewModel);
 			console.log("Mapped saved data to models");
 		}
 
@@ -39,8 +47,13 @@
 	this.InitializePlugins = function () {
 		var self = this;
 
+		// Sort plugins metadata
+		var sortedPluginsMetadata = GlobalPluginsList.sort(function(left, right) {
+			return left.Name > right.Name ? 1 : -1;
+		});
+
 		// Populate ViewModel with default values
-		$.each(GlobalPluginsList, function (index, metadata) {
+		$.each(sortedPluginsMetadata, function (index, metadata) {
 			$.each(metadata.CustomSettings, function(index, obj) {
 				obj.Value = obj.DefaultValue;
 				if (!obj.Description) obj.Description = false;
@@ -63,7 +76,6 @@
 		});
 
 		console.log("Plugins initialized");
-		console.log(self.ViewModel.Plugins());
 	};
 };
 
@@ -71,7 +83,14 @@ $(document).ready(function () {
 	// Instantiate options and initialize
 	var optionsInstance = new Options();
 	optionsInstance.Initialize();
+	setupClearSettings();
 });
+
+function setupClearSettings() {
+	$("#clearSettings").click(function () {
+		localStorage.removeItem("Settings");
+	});
+}
 
 //
 // chrome-bootstrap
