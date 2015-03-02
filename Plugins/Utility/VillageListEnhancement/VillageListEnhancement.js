@@ -11,12 +11,23 @@
 
 
 function VillageListEnhancement() {
+	// Constants
+	var sortFunctionStorageKey = "VillageListEnhancementSort";
+	var sortFunctionAscendingValue = "asc";
+	var sortFunctionDescendingValue = "dec";
+	var sortFunctionHierachicalValue = "hie";
+
+
 	/// <summary>
 	/// Initializes object
 	/// </summary>
 	this.Register = function () {
-		Log("VillageListEnhancement: Registering VillageListEnhancement plugin...");
+		Log("Registering VillageListEnhancement plugin...", "VillageListEnhancement");
 
+		initializeSortUI();	
+	};
+
+	var initializeSortUI = function() {
 		// Button styles
 		var buttonStyle = {
 			"float": "right",
@@ -77,33 +88,67 @@ function VillageListEnhancement() {
 
 		// Clearfix
 		villageListHead.append($("<div>").css("clear", "both"));
-	};
+
+		// Retrieve selected function
+		getSelectedSortFunction(function(data) {
+			// Call appropriate sort function
+			// Call Ascending by default
+			if (!data || data == sortFunctionAscendingValue)
+				sortVillageListAscending();
+			else if (data == sortFunctionDescendingValue)
+				sortVillageListDescending();
+			else sortVillageListHiararchical();
+		});
+	}
 
 	// TODO Comment
 	// TODO Log
 	var sortVillageListAscending = function() {
+		Log("Sorting villages list Ascending...", "VillageListEnhancement");
+
+		// Sort Ascending
 		$("#sidebarBoxVillagelist .content > ul > li").sortElements(function (a, b) {
 			return $(".name", a).text() > $(".name", b).text() ? 1 : -1;
 		});
 
-		// TODO Save selection
+		// Save selection
+		saveSelectedSortFunction(sortFunctionAscendingValue);
 	};
 
 	// TODO Comment
 	// TODO Log
 	var sortVillageListDescending = function () {
+		Log("Sorting villages list Descending...", "VillageListEnhancement");
+
+		// Sort Descending
 		$("#sidebarBoxVillagelist .content > ul > li").sortElements(function (a, b) {
 			return $(".name", a).text() > $(".name", b).text() ? -1 : 1;
 		});
 
-		// TODO Save selection
+		// Save selection
+		saveSelectedSortFunction(sortFunctionDescendingValue);
 	};
 
 	// TODO Comment
 	// TODO Log
 	// TODO Implement
 	var sortVillageListHiararchical = function() {
+		Log("Sorting villages list Hierarchically...", "VillageListEnhancement");
 
+		// Save selection
+		saveSelectedSortFunction(sortFunctionHierachicalValue);
+	};
+
+	// TODO Comment
+	var getSelectedSortFunction = function(callback) {
+		(new Request("Background", "Data", sortFunctionStorageKey, { Type: "get" })).Send(function(response) {
+			callback(response) || function() {};
+		});
+	};
+
+	// TODO Comment
+	var saveSelectedSortFunction = function(sortFunction) {
+		(new Request("Background", "Data", sortFunctionStorageKey, { Type: "set", Value: sortFunction })).Send();
 	};
 }
 
