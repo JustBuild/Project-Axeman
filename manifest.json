@@ -55,6 +55,7 @@
                 "Plugins/Utility/VillageListEnhancement/VillageListEnhancement.js",
                 "Plugins/Utility/MarketplaceEnhancements/MarketplaceEnhancements.js",
                 "Plugins/Utility/AutoAdventure/AutoAdventure.js",
+                "Plugins/Utility/AutoRefresher/AutoRefresher.js",
                 "Plugins/Utility/ReportEnhancement/ReportEnhancement.js",
                 "Plugins/Utility/TravianPLUS/TravianPLUS.js",
                 "Plugins/Utility/TroopAttack/TroopAttack.js",
