@@ -14,7 +14,7 @@ function VillageListEnhancement() {
 	// Constants
 	var sortFunctionStorageKey = "VillageListEnhancementSort";
 	var sortFunctionAscendingValue = "asc";
-	var sortFunctionDescendingValue = "dec";
+	var sortFunctionDescendingValue = "des";
 	var sortFunctionHierachicalValue = "hie";
 
 
@@ -24,24 +24,22 @@ function VillageListEnhancement() {
 	this.Register = function () {
 		Log("Registering VillageListEnhancement plugin...", "VillageListEnhancement");
 
+		// Inject styles
+		$("head").append(CreateStylesheet("Plugins/Utility/VillageListEnhancement/VillageListEnhancementStyles.css"));
+
 		initializeSortUI();	
+		initializeBuildQueueUI();
 	};
 
-	var initializeSortUI = function() {
-		// Button styles
-		var buttonStyle = {
-			"float": "right",
-			"position": "relative",
-			"top": "6px",
-			"width": "22px",
-			"height": "22px",
-			"-webkit-filter": "grayscale(1)",
-		};
-		var buttonHoverStyle = {
-			"-webkit-filter": "grayscale(0)",
-			"cursor": "pointer"
-		};
+	// TODO Comment
+	// TODO Implement
+	// TODO Log
+	var initializeBuildQueueUI = function() {
 
+	};
+
+	// TODO Comment
+	var initializeSortUI = function() {
 		// Retrieve village list and header
 		var villageListPanel = $("#sidebarBoxVillagelist");
 		var villageListHead = $(".content", villageListPanel);
@@ -55,26 +53,26 @@ function VillageListEnhancement() {
 
 		// Sort ascending button
 		var buttonSortAsc = $("<div>");
-		buttonSortAsc.css(buttonStyle);
+		buttonSortAsc.addClass("sortButton");
+		buttonSortAsc.addClass(sortFunctionAscendingValue);
 		buttonSortAsc.css("background-image", "url('" + GetURL("Plugins/Utility/VillageListEnhancement/SortAscending.png") + "')");
 		buttonSortAsc.attr("title", "Sort ascending");
-		buttonSortAsc.hover(function () { $(this).css(buttonHoverStyle); }, function () { $(this).css(buttonStyle); });
 		buttonSortAsc.click(sortVillageListAscending);
 
 		// Sort descending button
 		var buttonSortDesc = $("<div>");
-		buttonSortDesc.css(buttonStyle);
+		buttonSortDesc.addClass("sortButton");
+		buttonSortDesc.addClass(sortFunctionDescendingValue);
 		buttonSortDesc.css("background-image", "url('" + GetURL("Plugins/Utility/VillageListEnhancement/SortDescending.png") + "')");
 		buttonSortDesc.attr("title", "Sort descending");
-		buttonSortDesc.hover(function () { $(this).css(buttonHoverStyle); }, function () { $(this).css(buttonStyle); });
 		buttonSortDesc.click(sortVillageListDescending);
 
 		// Sort hierachical button
 		var buttonSortHie = $("<div>");
-		buttonSortHie.css(buttonStyle);
+		buttonSortHie.addClass("sortButton");
+		buttonSortHie.addClass(sortFunctionHierachicalValue);
 		buttonSortHie.css("background-image", "url('" + GetURL("Plugins/Utility/VillageListEnhancement/SortHierarchical.png") + "')");
 		buttonSortHie.attr("title", "Sort hierachically");
-		buttonSortHie.hover(function () { $(this).css(buttonHoverStyle); }, function () { $(this).css(buttonStyle); });
 		buttonSortHie.click(sortVillageListHiararchical);
 
 		// Append buttons to list
@@ -111,6 +109,9 @@ function VillageListEnhancement() {
 			return $(".name", a).text() > $(".name", b).text() ? 1 : -1;
 		});
 
+		// Mark as active
+		activateSortFunctionStyle(sortFunctionAscendingValue);
+
 		// Save selection
 		saveSelectedSortFunction(sortFunctionAscendingValue);
 	};
@@ -125,6 +126,9 @@ function VillageListEnhancement() {
 			return $(".name", a).text() > $(".name", b).text() ? -1 : 1;
 		});
 
+		// Mark as active
+		activateSortFunctionStyle(sortFunctionDescendingValue);
+
 		// Save selection
 		saveSelectedSortFunction(sortFunctionDescendingValue);
 	};
@@ -135,8 +139,20 @@ function VillageListEnhancement() {
 	var sortVillageListHiararchical = function() {
 		Log("Sorting villages list Hierarchically...", "VillageListEnhancement");
 
+		// Mark as active
+		activateSortFunctionStyle(sortFunctionHierachicalValue);
+
 		// Save selection
 		saveSelectedSortFunction(sortFunctionHierachicalValue);
+	};
+
+	// TODO Comment
+	var activateSortFunctionStyle = function(sortFunction) {
+		// Remove active style
+		$(".sortButton").each(function() { $(this).removeClass("active"); });
+
+		// Mark active button
+		$(".sortButton." + sortFunction).addClass("active");
 	};
 
 	// TODO Comment

@@ -137,6 +137,7 @@
 		"Plugins/Utility/VillageListEnhancement/SortAscending.png",
 		"Plugins/Utility/VillageListEnhancement/SortDescending.png",
 		"Plugins/Utility/VillageListEnhancement/SortHierarchical.png",
+        "Plugins/Utility/VillageListEnhancement/VillageListEnhancementStyles.css",
 		"Plugins/Utility/MarketplaceEnhancements/MarketplaceEnhancementsStyle.css"
 	]
 }
