@@ -43,12 +43,12 @@ function AutoAdventure() {
         // Start the first adevnture
         if (MatchPages([Enums.TravianPages.HeroStartAdventure])) {
             var startButton = $('button[name="start"]');
-            if (startButton) {
+            if (startButton.length) {
                 startButton.click();
                 return;
             }
             startButton = $('button[name="ok"]');
-            if (startButton) {
+            if (startButton.length) {
                 startButton.click();
                 return;
             }

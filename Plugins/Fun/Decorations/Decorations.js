@@ -26,6 +26,7 @@ function Decorations() {
 		});
 
 		AddCoordsToFarmList();
+		RemovePlusAnimation();
 
 		var commaClasses = [
 			".rArea",
@@ -66,6 +67,23 @@ function Decorations() {
 		});
 
 	}
+
+	var RemovePlusAnimation = function() {
+		$('head').append('<style id="addedCSS" type="text/css">\
+			ul#navigation li.gold a.ani_1{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_2{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_3{background-position:-1 !important1}\
+			ul#navigation li.gold a.ani_4{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_5{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_6{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_7{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_8{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_9{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_10{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_11{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_12{background-position:-1 !important;}\
+		</style>');
+	};
 
 	var EasyDemolish = function() {
 		if (!$('#demolish').length) {
