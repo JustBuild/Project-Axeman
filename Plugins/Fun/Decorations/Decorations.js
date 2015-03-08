@@ -19,6 +19,7 @@ function Decorations() {
 
 		RemoveInGameHelp();
 		EasyDemolish();
+		AddPlusLinks();
 
 		$('.openedClosedSwitch.switchClosed').on('click', function(e) {
 			AddCoordsToFarmList();
@@ -37,6 +38,35 @@ function Decorations() {
 			AddCommas(commaClasses[i]);
 		}
 	};
+
+	var AddPlusLinks = function() {
+		if (!$('.layoutButton.marketBlack.gold').length) {
+			return false;
+		}
+
+		var replaceClasses = [
+			"workshop",
+			"stable",
+			"barracks",
+			"market",
+		];
+
+		var ids = [
+			21,
+			20,
+			19,
+			17,
+		];
+
+		$('.layoutButton.gold:not(.editBlack)').each(function( i ) {
+			if ($(this).hasClass(replaceClasses[i] + "Black")) {
+				$(this).removeClass(replaceClasses[i] + "Black gold").addClass(replaceClasses[i] + "White green");
+				$(this).off('click hover');
+				$(this).attr('onclick', 'location.href="' + Enums.TravianPages.Build + '?gid=' + ids[i] + '"');
+			}
+		});
+
+	}
 
 	var RemovePlusAnimation = function() {
 		$('head').append('<style id="addedCSS" type="text/css">\
@@ -66,7 +96,7 @@ function Decorations() {
 
 		$("#demolish").append($("#demolish option").remove().sort(function(a, b) {
 			var at = $(a).text(), bt = $(b).text();
-			return (at > bt)?1:((at < bt)?-1:0);
+			return (at > bt) ? 1 : ((at < bt) ? -1 : 0);
 		}));
 	}
 
