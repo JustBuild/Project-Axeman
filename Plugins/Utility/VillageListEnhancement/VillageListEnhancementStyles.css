@@ -1,0 +1,17 @@
+.sortButton {
+	float: right;
+	position: relative;
+	top: 6px;
+	width: 22px;
+	height: 22px;
+	-webkit-filter: grayscale(1);
+}
+
+.sortButton:hover {
+	-webkit-filter: grayscale(0);
+	cursor: pointer;
+}
+
+.sortButton.active {
+	-webkit-filter: grayscale(0);
+}
