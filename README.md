@@ -3,6 +3,8 @@ _Current version 0.2.9_
 
 _Development version 0.2.10_
 
+[![Code Climate](https://codeclimate.com/github/JustBuild/Project-Axeman/badges/gpa.svg)](https://codeclimate.com/github/JustBuild/Project-Axeman)
+
 
 ## Overview
 
@@ -269,7 +271,7 @@ Donators
 
 - **Version 0.2.0.0** _(03.07.2012.)_
 	- README and LICENSE file changes	
-	- Merge pull request #2 from AleksandarDev/features … Features
+	- Merge pull request #2 from AleksandarDev/features Â… Features
 	- Moved new contentscript file	
 	- Soma minor changes	
 	- Minor code changes	
@@ -336,16 +338,16 @@ Donators
 		- Models are now inside a Model namespace
 		- Added StorageDetails link to DevelopmentToolbar
 	- Fixed Models.Profile
-	- GameLauncher is now functional …
+	- GameLauncher is now functional Â…
 		- Support for adding new profile
 		- Support for lunching game tab page
 		- Support for profile removal
 	- Removed bug from last commit
-	- Fixed problem when deleting profile …
+	- Fixed problem when deleting profile Â…
 		- Added Tribe to Profile model
 		- Fixed checking UID on adding new profile, now checks server too
 		- Fixed NewProfileTrive select element name changed to id
-	- Changed plugins protocol …
+	- Changed plugins protocol Â…
 		- Moved all files from Scripts/App/Plugins/* to
 	- Plugins/&lt;CATEGORY&gt;/&lt;PLUGIN_NAME&gt;/*
 		- Added GloablPluginsList to Plugins manager
@@ -359,17 +361,17 @@ Donators
 		- Added Files.html page that contains information about current state of coments in project, we need to comment all functions and classes usinf VSDoc standard
 		- Minor changes
 	- Added Alpha flag support in PluginsManager Page
-	- Adding Services feature #1 …
+	- Adding Services feature #1 Â…
 		- Moved PluginImagePlaceholder to Images/
 		- Added Alliance page to TravianPages array
 		- Added loading to App.js (this currently loads only profiles)
 		- Added server address, active profile and available profile variables
 		- cursor:default on popup page item
-	- Adding Services feature #2 …
+	- Adding Services feature #2 Â…
 		- Added Models.Report
 		- Added Models.ReportCollection
 		- Added CrawlReports function to Services.js
-	- Adding Service feature #3 …
+	- Adding Service feature #3 Â…
 		- Now checking for user loged in
 		- Crawling reports (PARTIAL)
 		- Crawling messages (PARTIAL)
