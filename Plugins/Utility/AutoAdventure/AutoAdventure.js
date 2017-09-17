@@ -26,7 +26,7 @@ function AutoAdventure() {
         }
         // If we are not starting an adventure, lets start one
         if (!MatchQuery({t: 3}) && !MatchPages([Enums.TravianPages.HeroStartAdventure, Enums.TravianPages.HeroAdventures])) {
-            location.href = Enums.TravianPages.HeroAdventures;
+            location.href = 'hero.php?t=3';
             return;
         }
 
