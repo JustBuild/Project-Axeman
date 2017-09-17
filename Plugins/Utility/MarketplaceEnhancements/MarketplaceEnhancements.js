@@ -33,12 +33,12 @@ function MarketplaceEnhancements() {
 
 		// Gets max carry for one trader and number of traders available
 		// TODO Move this to Services
-		traderCarryAmount = parseInt($(".send_res .max:eq(0) > a").text() || 0, 10);
+		traderCarryAmount = $(".send_res .max:eq(0) > a").text() || 0;
 		if (ActivePageTravianVersion === "4" || ActivePageTravianVersion == "4.2") {
-			tradersAvailable = parseInt($("#merchantsAvailable").text(), 10) || 0;
+			tradersAvailable = $("#merchantsAvailable").text() || 0;
 		}
 		else if (ActivePageTravianVersion === "4.4") {
-			tradersAvailable = parseInt(escape($(".merchantsAvailable").html()).split(/[A-Z]|%/)[4], 10) || 0;
+			tradersAvailable = escape($(".merchantsAvailable").html()).split(/[A-Z]|%/)[4] || 0;
 		}
 
 		DLog("Trader Max Transport: " + traderCarryAmount, "MarketplaceEnhancements");
@@ -113,13 +113,17 @@ function MarketplaceEnhancements() {
             var villageStorage = ActiveProfile.Villages[VillageIndex].Resources.Stored;
             var villageMaxStorage = ActiveProfile.Villages[VillageIndex].Resources.Storage;
 
-            console.log(villageMaxStorage);
-            console.log(ActiveProfile.Villages[VillageIndex]);
+						villageStorage = villageStorage.map(function (x) {
+							return parseInt(x.replace(/\D/g, '').trim(), 10);
+						});
+						villageMaxStorage = villageMaxStorage.map(function (x) {
+              return parseInt(x.replace(/\D/g, '').trim(), 10);
+						});
 
             for (var i = 0; i < 4; i++) {
             	var id = 'r' + (i + 1);
-				var store = (villageMaxStorage[i] - villageStorage[i]);
-				console.log(store);
+				var store = (villageMaxStorage[i]) - (villageStorage[i]);
+				console.log(villageMaxStorage, villageStorage, villageMaxStorage[i], (villageMaxStorage[i]), (villageStorage[i]), i);
                 store = Math.floor((store - 100) / 10) * 10;
 
                 $('#' + id).val(store);
@@ -573,7 +577,7 @@ var MarketplaceEnhancementsMetadata = {
 	Settings: {
 		IsLoginRequired: true,
 		RunOnPages: [Enums.TravianPages.Build],
-		PageMustContain: [".gid17 .container.active a[href*='t=5']"] // NOTE This can be changed later and test for specific tab in code
+		PageMustContain: [".gid17 a[id^=addRessourcesLink]"]
 	},
 
 	Flags: {
