@@ -170,16 +170,16 @@ function Services() {
 			});
 		}
 		else if (ActivePageTravianVersion === "4.2" || ActivePageTravianVersion === "4.4") {
-			var warehouseSize = parseInt($("#stockBarWarehouse").text().replace(",", "").replace(" ", "").replace(".", ""), 10) || 0;
-			var granarySize = parseInt($("#stockBarGranary").text().replace(",", "").replace(" ", "").replace(".", ""), 10) || 0;
+			var warehouseSize = $("#stockBarWarehouse").text().replace(",", "").replace(" ", "").replace(".", "") || 0;
+			var granarySize = $("#stockBarGranary").text().replace(",", "").replace(" ", "").replace(".", "") || 0;
 
 			for (var index = 0; index < 4; index++) {
-				activeVillage.Resources.Stored[index] = parseInt($("#l" + (index + 1)).text().replace(",", "").replace(" ", "").replace(".", ""), 10) || 0;
+				activeVillage.Resources.Stored[index] = $("#l" + (index + 1)).text().replace(",", "").replace(" ", "").replace(".", "") || 0;
 				activeVillage.Resources.Storage[index] = index == 3 ? granarySize : warehouseSize;
 			}
 
 			// Crawl Free Crop
-			activeVillage.Resources.FreeCrop = parseInt($("#stockBarFreeCrop").text().replace(",", "").replace(" ", "").replace(".", ""), 10) || 0;
+			activeVillage.Resources.FreeCrop = $("#stockBarFreeCrop").text().replace(",", "").replace(" ", "").replace(".", "") || 0;
 		} else throw ("Unsuported travian version");
 
 		DLog("Stored in Village [" + activeVillage.VID + "] is [" + activeVillage.Resources.Stored + "] and free crop [" + activeVillage.Resources.FreeCrop + "]", "Services");

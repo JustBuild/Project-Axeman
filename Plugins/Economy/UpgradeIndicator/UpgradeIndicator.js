@@ -36,11 +36,11 @@ function UpgradeIndicator() {
 		var noResourcesColor = RetrieveCustomSettingValue(settings, "NoResourcesColor");
 
 		// Append color settings
-		var configurableStyle = ".PAUIElement.Upgradeable { background-color: " + upgradeableColor + " }" +
-			".PAUIElement.UnderConstruction { background-color: " + underConstructionColor + " }" +
-			".PAUIElement.NonUpgradeable { background-color: " + nonUpgradeableColor + " }" +
-			".PAUIElement.MaxUpgraded { background-color: " + maxUpgradedColor + " }" +
-			".PAUIElement.NoResources { background-color: " + noResourcesColor + " }";
+		var configurableStyle = ".PAUIElement.Upgradeable { background-color: " + upgradeableColor + " !important; }" +
+			".PAUIElement.UnderConstruction { background-color: " + underConstructionColor + " !important; }" +
+			".PAUIElement.NonUpgradeable { background-color: " + nonUpgradeableColor + " !important; }" +
+			".PAUIElement.MaxUpgraded { background-color: " + maxUpgradedColor + " !important; }" +
+			".PAUIElement.NoResources { background-color: " + noResourcesColor + " !important; }";
 		$("head").append("<style>" + configurableStyle + "</style>");
 
 		// Check if we can apply states
