@@ -55,17 +55,17 @@ function ResourceIndicator() {
 		// Style for T4.4
 		if (ActivePageTravianVersion === "4.4") {
 			$(".ResourceIndicatorFillTime").css({
-				"background": "-webkit-linear-gradient(top, rgba(237, 237, 237, 0) 0%,rgba(224, 231, 241, 0.85) 20%)",
-				"height": "25px",
-				"position": "absolute",
-				"right": "2px",
-				"top": "10px",
-				"width": "76px",
-				"border-bottom-left-radius": "10px",
-				"border-bottom-right-radius": "10px",
-				"box-shadow": "0px 1px 2px #888",
-				"text-align": "center",
-				"line-height": "26px"
+				"background": "-webkit-linear-gradient(top, rgba(237, 237, 237, 0) 0%,rgba(224, 231, 241, 0.85) 20%) !important",
+				"height": "25px !important",
+				"position": "absolute !important",
+				"right": "2px !important",
+				"top": "10px !important",
+				"width": "76px !important",
+				"border-bottom-left-radius": "10px !important",
+				"border-bottom-right-radius": "10px !important",
+				"box-shadow": "0px 1px 2px #888 !important",
+				"text-align": "center !important",
+				"line-height": "26px !important"
 			});
 		}
 
@@ -90,11 +90,11 @@ function ResourceIndicator() {
 
 			//Indicator beautifer
 			$("#res").css({
-				"background": "-webkit-linear-gradient(top, rgba(237, 237, 237, 0) 0%,rgba(224, 231, 241, 0.98) 50%)",
-				"width": "589px",
-				"border-bottom-left-radius": "10px",
-				"border-bottom-right-radius": "10px",
-				"box-shadow": "0px 1px 2px #888"
+				"background": "-webkit-linear-gradient(top, rgba(237, 237, 237, 0) 0%,rgba(224, 231, 241, 0.98) 50%) !important",
+				"width": "589px !important",
+				"border-bottom-left-radius": "10px !important",
+				"border-bottom-right-radius": "10px !important",
+				"box-shadow": "0px 1px 2px #888 !important"
 			});
 		}
 		else if (ActivePageTravianVersion === "4.4") {

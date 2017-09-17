@@ -3,24 +3,21 @@
 	box-shadow: inset 0 0 0 1px dimGray !important;
 	border-radius: 2em !important;
 }
-	.PAUIElement.Upgradeable {
-		color: white !important;
-		text-shadow: 0 0 3px black !important;
-	}
-	.PAUIElement.UnderConstruction {
-		color: black !important;
-		text-shadow: 0 0 3px silver !important;
-	}
-	.PAUIElement.NonUpgradeable {
-		color: white !important;
-		text-shadow: 0 0 3px black !important;
-	}
-	.PAUIElement.MaxUpgraded {
-		color: black !important;
-		text-shadow: 0 0 3px white !important;
-	}
-	.PAUIElement.NoResources {
-		color: black !important;
-		text-shadow: 0 0 3px white !important;
-	}
-	
+.PAUIElement.Upgradeable {
+	color: white !important;
+}
+.PAUIElement.UnderConstruction {
+	color: black !important;
+}
+.PAUIElement.NonUpgradeable {
+	color: white !important;
+}
+.PAUIElement.MaxUpgraded {
+	color: black !important;
+}
+.PAUIElement.NoResources {
+	color: black !important;
+}
+div.village1 .colorLayer .labelLayer, div.village2 div#village_map div#levels .colorLayer .labelLayer {
+	background-color: inherit;
+}
