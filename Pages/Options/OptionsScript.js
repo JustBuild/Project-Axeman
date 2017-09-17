@@ -21,11 +21,11 @@
 			var jsData = $.parseJSON(data);
 
 			// Sort plugins settings
-			var sortedPluginsSettings = jsData.Plugins.sort(function(left, right) {
+			jsData.Plugins = jsData.Plugins.sort(function(left, right) {
 				return left.Name > right.Name ? 1 : -1;
 			});
 
-			ko.mapping.fromJS(sortedPluginsSettings, {}, self.ViewModel);
+			ko.mapping.fromJS(jsData, self.ViewModel);
 			console.log("Mapped saved data to models");
 		}
 
