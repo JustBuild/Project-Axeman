@@ -702,7 +702,7 @@ function Services() {
 		if (ActivePageTravianVersion === "4") {
 			return $(".sideInfoPlayer img").attr("class").replace("nationBig nationBig", "");
 		} else if (ActivePageTravianVersion === "4.2" || ActivePageTravianVersion === "4.4") {
-			return $(".sidebarBoxInnerBox .playerName > img").attr("class").replace("nation nation", "");
+			return $(".sidebarBoxInnerBox .playerName img").attr("class").replace("nation nation", "");
 		} else throw("Unsuported travian version");
 	};
 
