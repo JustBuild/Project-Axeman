@@ -146,7 +146,7 @@ function ParseQuery(query) {
 	return parameters;
 };
 
-function Error(message) {
+function Error(message, e) {
 	/// <summary>
 	/// Writes console error message
 	/// This only works if development mode is set to true
@@ -157,12 +157,12 @@ function Error(message) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.error(category + message);
+		console.error(category + message, e);
 	}
 	return 0;
 };
 
-function Warn(message) {
+function Warn(message, e) {
 	/// <summary>
 	/// Writes console warning message
 	/// This only works if development mode is set to true
@@ -171,11 +171,11 @@ function Warn(message) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.warn("%c" + category + message, "color: #B88E07");
+		console.warn("%c" + category + message, "color: #B88E07", e);
 	}
 };
 
-function Log(message) {
+function Log(message, e) {
 	/// <summary>
 	/// Writes console message
 	/// This only works if development mode is set to true
@@ -184,11 +184,11 @@ function Log(message) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.log(category + message);
+		console.log(category + message, e);
 	}
 };
 
-function DLog(message) {
+function DLog(message, e) {
 	/// <summary>
 	/// Writes console Debug message
 	/// This only works if debug and development modes are set to true
@@ -197,7 +197,7 @@ function DLog(message) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.log("%c" + category + message, "color: #AAAAAA");
+		console.log("%c" + category + message, "color: #AAAAAA", e);
 	}
 };
 

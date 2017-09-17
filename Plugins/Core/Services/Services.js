@@ -138,7 +138,7 @@ function Services() {
 		}
 
 		if ($(".sideInfoPlayer .signLink").length) ActivePageTravianVersion = "4";
-		else if ($("#sidebarBoxQuestachievements").length) ActivePageTravianVersion = "4.4";
+		else if ($("#sidebarBoxDailyquests").length) ActivePageTravianVersion = "4.4";
 		else if ($(".sidebarBoxInnerBox .heroImage").length) ActivePageTravianVersion = "4.2";
 
 		DLog("Travian version: " + ActivePageTravianVersion, "Services");
@@ -529,7 +529,7 @@ function Services() {
 
 	var ProcessIsLogedIn = function () {
 		/// <summary>
-		/// Sets variable to true if user is loged in
+		/// Sets variable to true if user is logged in
 		/// </summary>
 
 		IsLogedIn = !IsNullOrEmpty($(".heroImage"));
@@ -586,7 +586,7 @@ function Services() {
 			}
 		}
 		catch (ex) {
-			Warn("Couldn't retireve profile specific values. Creating new profile. Reason: " + ex);
+			Warn("Couldn't retireve profile specific values. Creating new profile. Reason: ", ex);
 		}
 
 		// Update profile data (create new if none matched)
