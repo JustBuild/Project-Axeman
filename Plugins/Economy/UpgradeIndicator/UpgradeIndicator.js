@@ -151,19 +151,22 @@ function UpgradeIndicator() {
 		var villageMap = $("#village_map");
 		var GIDs = Enums.VillageInGID;
 		var buildings = $("img", villageMap).not(".iso, .clickareas, #lswitch, .onTop");
+
 		var resEfficiency = [];
 		buildings.each(function(index) {
-			var levelObject = $("#levels div", villageMap)[index];
+			var levelObject = $("#levels div.labelLayer", villageMap)[index];
 
 			// Get current building level and GID
 			// TODO Pull this from profile.village model
 			var buildingLevel = parseInt($(levelObject).text(), 10) || 0;
 			buildingLevel = $(levelObject).is(".underConstruction") ? (buildingLevel + 1) : buildingLevel;
+
+
 			var buildingGID = $(this).attr("class").match(/g([0-9]{1,2})/)[1];
 			var building = Enums.Buildings[GIDs[buildingGID]];
 			var buildingUpgradeCost = building[buildingLevel];
 
-			// Show upgrade efficiency
+      // Show upgrade efficiency
 			if (buildingLevel < building.length && buildingUpgradeCost && buildingUpgradeCost.length >= 4) {
 				var total = buildingUpgradeCost[0] + buildingUpgradeCost[1] + buildingUpgradeCost[2] + buildingUpgradeCost[3];
 				var rPerWheat = buildingUpgradeCost[4] > 0 ? Math.floor(total / buildingUpgradeCost[4]) : 0;
