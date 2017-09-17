@@ -55,7 +55,7 @@ var Enums = {
 
 		HeroLook: "/hero.php",
 		HeroInventory: "/hero_inventory.php",
-		HeroAdventures: "/hero_adventure.php",
+		HeroAdventures: "/hero.php",
 		HeroStartAdventure: "/start_adventure.php",
 		HeroAuctions: "/hero_auction.php",
 

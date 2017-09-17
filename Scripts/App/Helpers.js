@@ -86,6 +86,7 @@ function MatchPages(pages) {
 
 	if (!pages || pages.length === 0) return true;
 
+
 	for (var index = 0; index < pages.length; index++) {
 		if (pages[index] == Enums.TravianPages[ActivePage]) {
 			return true;
@@ -146,7 +147,7 @@ function ParseQuery(query) {
 	return parameters;
 };
 
-function Error(message, e) {
+function Error(message) {
 	/// <summary>
 	/// Writes console error message
 	/// This only works if development mode is set to true
@@ -157,12 +158,12 @@ function Error(message, e) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.error(category + message, e);
+		console.error(category + message);
 	}
 	return 0;
 };
 
-function Warn(message, e) {
+function Warn(message) {
 	/// <summary>
 	/// Writes console warning message
 	/// This only works if development mode is set to true
@@ -171,11 +172,11 @@ function Warn(message, e) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.warn("%c" + category + message, "color: #B88E07", e);
+		console.warn("%c" + category + message, "color: #B88E07");
 	}
 };
 
-function Log(message, e) {
+function Log(message) {
 	/// <summary>
 	/// Writes console message
 	/// This only works if development mode is set to true
@@ -184,11 +185,11 @@ function Log(message, e) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.log(category + message, e);
+		console.log(category + message);
 	}
 };
 
-function DLog(message, e) {
+function DLog(message) {
 	/// <summary>
 	/// Writes console Debug message
 	/// This only works if debug and development modes are set to true
@@ -197,7 +198,7 @@ function DLog(message, e) {
 
 	if (IsLogging() && IsDevelopmentMode()) {
 		var category = arguments[1] !== undefined ? arguments[1] + ": " : "";
-		console.log("%c" + category + message, "color: #AAAAAA", e);
+		console.log("%c" + category + message, "color: #AAAAAA");
 	}
 };
 

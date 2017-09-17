@@ -25,34 +25,31 @@ function AutoAdventure() {
             return;
         }
         // If we are not starting an adventure, lets start one
-        if (!MatchPages([Enums.TravianPages.HeroStartAdventure, Enums.TravianPages.HeroAdventures])) {
-            location.href = 'hero_adventure.php';
+        if (!MatchQuery({t: 3}) && !MatchPages([Enums.TravianPages.HeroStartAdventure, Enums.TravianPages.HeroAdventures])) {
+            location.href = Enums.TravianPages.HeroAdventures;
             return;
         }
+
         // Pick the first adventure from the list
-        if (MatchPages([Enums.TravianPages.HeroAdventures])) {
+        if (MatchQuery({t: 3}) && MatchPages([Enums.TravianPages.HeroAdventures])) {
             var adventures = this.getAdventures();
             adventures = this.sortByDuration(adventures);
+
+            console.log(adventures)
             var adventure = adventures.filter(':first').find('a.gotoAdventure');
             var url = adventure.attr('href');
             if (url != undefined) {
-                location.href = url;
+              location.href = url;
                 return;
             }
         }
-        // Start the first adevnture
+        // Start the first adventure
         if (MatchPages([Enums.TravianPages.HeroStartAdventure])) {
-            var startButton = $('button[name="start"]');
-            if (startButton.length) {
+            var startButton = $('.adventureSend button.green');
+
+          if (startButton.length) {
                 startButton.click();
-                return;
             }
-            startButton = $('button[name="ok"]');
-            if (startButton.length) {
-                startButton.click();
-                return;
-            }
-            return;
         }
 
     }
