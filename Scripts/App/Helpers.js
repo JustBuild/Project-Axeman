@@ -414,8 +414,6 @@ function CreateTravianSidebar(header, content)
 		</div>\
 		<div class="sidebarBoxInnerBox">\
 			<div class="innerBox header">\
-				<button type="button" id="" class="layoutButton overviewWhite green" onclick="return false;">\
-				</button>\
 				<div class="clear"></div>\
 				<div class="boxTitle">' + header + '</div>\
 			</div>\
