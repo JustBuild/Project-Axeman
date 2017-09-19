@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
  * ResourceSender.js
  *
  * Author:
@@ -23,7 +23,7 @@ function ResourceSender() {
     Log("Registering ResourceSender plugin...", "ResourceSender");
 
     // If in marketplace at Send resource tab
-    if ($(".gid17 .container.active a[href*='t=5']").length) {
+    if ($("#content .container.active a[href*='t=5']").length) {
       HandleMarketplaceRequest();
     }
 
