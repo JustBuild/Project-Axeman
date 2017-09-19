@@ -1,6 +1,6 @@
 # Project Axeman [![Code Climate](https://codeclimate.com/github/JustBuild/Project-Axeman/badges/gpa.svg)](https://codeclimate.com/github/JustBuild/Project-Axeman)
 
-Travian Chrome extension that supports up to 57 countries and more than 200 servers.
+A Chrome extension for the popular online game "Travian" that supports more than 200 Travian servers.
 
 ## :lipstick: Features
 
