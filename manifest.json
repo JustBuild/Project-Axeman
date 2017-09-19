@@ -33,7 +33,6 @@
             "js": [
                 "Scripts/jQuery.js",
                 "Scripts/jQuery.sortElements.js",
-                "Scripts/jQueryUI.js",
                 "Utils/pageslide/jquery.pageslide.js",
                 "Utils/underscore/underscore.js",
                 "Scripts/App/Enums.js",
@@ -65,7 +64,6 @@
                 "Scripts/App/AppLauncher.js"
             ],
             "css": [
-                "Pages/jQueryUIStyle.css",
                 "Pages/PAStyle.css",
                 "Utils/pageslide/jquery.pageslide.css"
             ],
