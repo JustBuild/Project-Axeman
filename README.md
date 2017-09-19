@@ -1,10 +1,12 @@
 # Project Axeman [![Code Climate](https://codeclimate.com/github/JustBuild/Project-Axeman/badges/gpa.svg)](https://codeclimate.com/github/JustBuild/Project-Axeman)
 
-A Chrome extension for the popular online game "Travian" that supports more than 200 Travian servers.
+A Chrome extension to make playing the online game [Travian](https://www.travian.com/) a little easier.
 
-## :lipstick: Features
+[Install](https://chrome.google.com/webstore/detail/project-axeman/jdpilgbpoogpebhhfbbgpaebkndebmee?hl=en) this extension from the Chrome store for free! 
 
-**Plugins**
+## Features
+
+:lipstick: **Plugins**
 
 - Auto Adventure
 - Auto Refresher
@@ -20,9 +22,9 @@ A Chrome extension for the popular online game "Travian" that supports more than
 
 **Looking for a plugin?** Request it by opening a new issue [here](https://github.com/JustBuild/Project-Axeman/issues/new)!
 
-## :octocat: Development
+## Development
 
-Developed by Aleksandar Toplek _([@AleksandarDev](https://github.com/AleksandarDev "Aleksandar Toplek on github")) at JustBuild Development_
+:octocat: Developed by Aleksandar Toplek _([@AleksandarDev](https://github.com/AleksandarDev "Aleksandar Toplek on github")) at JustBuild Development_
 
 :speech_balloon: Contributors
 
