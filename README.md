@@ -1,19 +1,10 @@
-# Project Axeman
-_Current version 0.2.9_
-
-_Development version 0.2.10_
-
-[![Code Climate](https://codeclimate.com/github/JustBuild/Project-Axeman/badges/gpa.svg)](https://codeclimate.com/github/JustBuild/Project-Axeman)
-
-
-## Overview
+# Project Axeman [![Code Climate](https://codeclimate.com/github/JustBuild/Project-Axeman/badges/gpa.svg)](https://codeclimate.com/github/JustBuild/Project-Axeman)
 
 Travian 4, 4.2 and 4.4 extension that adds some "missing" features to the game.
 
 _This extension uses [Google Chrome](http://www.google.com/chrome "Google Chrome web page") built-in capability to crawl and change page content using JavaScript. This extension isn't supported by Travian Games GmbH and is forbidden by [Travian Game rules and Terms of use](http://agb.traviangames.com/Travian_EN_Terms.pdf "Travian Terms of use (English)")! By using this extension and all features you agree with [License](https://github.com/JustBuild/Project-Axeman/blob/master/LICENSE.md "EULA on github")._
 
-
-##Features
+## :book: Features
 
 **Version 0.2 is finally here!**
 
@@ -41,18 +32,18 @@ _This extension uses [Google Chrome](http://www.google.com/chrome "Google Chrome
 
 ## Development
 
-Developed by JustBuild Development
+:octocat: Developed by JustBuild Development
 
 - Aleksandar Toplek _([AleksandarDev](https://github.com/AleksandarDev "Aleksandar Toplek on github"))_
 
-Collaborators
+:speech_balloon: Collaborators
 
 - Matt Gates _([Geczy](https://github.com/Geczy))_
 - Grzegorz Witczak _([kavillock](https://github.com/kavillock "Grzegorz Witczak on github"))_
 - Everton Moreth _([emoreth](https://github.com/emoreth "Everton Moreth on github"))_
 - Ignacio Munizaga _([thagat](https://github.com/emoreth "Everton Moreth on github"))_
 
-Donators
+:moneybag: Donators
 
 - Ivan Boytsov
 - Geczy
