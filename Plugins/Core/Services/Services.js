@@ -99,7 +99,7 @@ function Services() {
 			CrawlReports();
             CrawlHero();
 
-			if (MatchPages([Enums.TravianPages.Player]) && !URLContains('uid')) {
+			if (MatchPages([Enums.TravianPages.Player]) && (!URLContains('uid') || URLContains(ActiveProfile.UID))) {
 
 				Log("Crawling Player page...", "Services");
 
@@ -432,7 +432,7 @@ function Services() {
 		/// Crawls for new user reports
 		/// </summary>
 
-		var currentReportsCount = parseInt($(".reports .bubble-content").text(), 10) || 0;
+		var currentReportsCount = parseInt($(".reports .speechBubbleContent").text(), 10) || 0;
 
 		// Check if on Reports page
 		if (MatchPages([Enums.TravianPages.Reports])) {
@@ -460,17 +460,17 @@ function Services() {
 			DLog("Services: " + obj.Name + " " + (checkMainCity ? "is" : "isn't") + " main city");
 
 			// Crawl village population
-			var villagePop =  parseInt($(".inhabitants", village).text(), 10) || 0;
+			var villagePop = parseInt($(".inhabitants", village).text().replace(/\D/g, '').trim(), 10) || 0;
 			ActiveProfile.Villages[index].Population = villagePop;
 			DLog("Services: Population of "+obj.Name+" is ["+villagePop+"]");
 
 			// Crawl village position X Coordinate
-			var PositionX = $(".coordinateX", village).text();
+			var PositionX = $(".coordinateX", village).text().replace(/\D/g, '').trim();
 			PositionX = parseInt(PositionX.replace("(",""), 10) || 0;
 			ActiveProfile.Villages[index].Position.x = PositionX;
 
 			// Crawl village position Y coordinate
-			var PositionY = $(".coordinateY", village).text();
+			var PositionY = $(".coordinateY", village).text().replace(/\D/g, '').trim();
 			PositionY = parseInt(PositionY.replace(")",""), 10) || 0;
 			ActiveProfile.Villages[index].Position.y = PositionY;
 
