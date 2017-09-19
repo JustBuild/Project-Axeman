@@ -342,7 +342,7 @@ function Services() {
 
 		Log("Crawling messages...", "Services");
 
-		var currentReportsCount = parseInt($(".messages > div.bubble > .bubble-content").text(), 10) || 0;
+		var currentReportsCount = parseInt($(".messages .speechBubbleContent").text(), 10) || 0;
 		ActiveProfile.Messages.UnreadCount = currentReportsCount;
 
 		// Check if on Messages page
