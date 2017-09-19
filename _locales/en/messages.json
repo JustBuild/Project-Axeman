@@ -6,7 +6,7 @@
 	"popup_Profiles": { "message": "Profiles" },
 	"popup_Options": { "message": "Options" },
 	"popup_Add": { "message": "Add" },
-	"popup_NoProfilesAvailable": { "message": "No profiles available" },
+	"popup_NoProfilesAvailable": { "message": "This list will automatically populate with your accounts after you first log in to Travian." },
 	"popup_NoProfilesAvailableHelp": { "message": "To add new profile, click on 'Add' button and fill-in the form or just open new Travian game for which you would like to create a profile. By filling the form, you can check 'Auto login' feature which is not available otherwise." },
 	"popup_ProfileItem_Villages": { "message": "village(s)" },
 	"popup_ProfileItem_Population": { "message": "population" },
