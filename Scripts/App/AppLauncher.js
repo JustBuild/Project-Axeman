@@ -15,7 +15,7 @@
 // Start message (log) that contains
 // date and extension root URL
 console.log("Project Axeman Extension initialized at ");
-console.log((new Date()).toString());
+console.log(new Date().toString());
 console.log("Extension URL [" + chrome.extension.getURL("/") + "]");
 console.log("Starting App...");
 

@@ -9,7 +9,6 @@
  *
  *****************************************************************************/
 
-
 var Models = {};
 
 /******************************************************************************
@@ -18,22 +17,22 @@ var Models = {};
  *
  *****************************************************************************/
 Models.OptionsModel = function() {
-	// Settings
-	this.IsAdancedShown = false;
-	this.IsExtensionEnabled = true;
-	this.IsLoggingEnabled = false;
-	this.IsDevelopmentModeEnabled = false;
+  // Settings
+  this.IsAdancedShown = false;
+  this.IsExtensionEnabled = true;
+  this.IsLoggingEnabled = false;
+  this.IsDevelopmentModeEnabled = false;
 
-	this.ToggleIsAdvancedShown = function() {
-		this.IsAdancedShown(!this.IsAdancedShown());
-	};
+  this.ToggleIsAdvancedShown = function() {
+    this.IsAdancedShown(!this.IsAdancedShown());
+  };
 
-	this.ToggleIsOptionsShown = function (plugin, event) {
-		plugin.IsOptionsShown(!plugin.IsOptionsShown());
-	};
+  this.ToggleIsOptionsShown = function(plugin, event) {
+    plugin.IsOptionsShown(!plugin.IsOptionsShown());
+  };
 
-	// Plugins
-	this.Plugins = new Array();
+  // Plugins
+  this.Plugins = new Array();
 };
 
 /******************************************************************************
@@ -42,48 +41,48 @@ Models.OptionsModel = function() {
  *
  *****************************************************************************/
 Models.PluginMetadata = {
-	Name: "",
-	Alias: "",
-	Category: "Other",
-	Version: "0.0.1",
-	Description: "TODO",
-	Author: "",
-	Site: "",
-	State: false,
+  Name: "",
+  Alias: "",
+  Category: "Other",
+  Version: "0.0.1",
+  Description: "TODO",
+  Author: "",
+  Site: "",
+  State: false,
 
-	Settings: {
-		IsChangeable: true,
-		IsLoginRequired: false,
-		RunOnPages: [],
-		RunOnPageQuery: {},
-		PageMustContain: [],
-		PageMayContain: []
-	},
+  Settings: {
+    IsChangeable: true,
+    IsLoginRequired: false,
+    RunOnPages: [],
+    RunOnPageQuery: {},
+    PageMustContain: [],
+    PageMayContain: []
+  },
 
-	CustomSettings: [],
+  CustomSettings: [],
 
-	Default: {
-		State: true
-	},
+  Default: {
+    State: true
+  },
 
-	Flags: {
-		Internal: false,
-		Alpha: false,
-		Beta: false,
-		Featured: false
-	},
+  Flags: {
+    Internal: false,
+    Alpha: false,
+    Beta: false,
+    Featured: false
+  },
 
-	Class: ""
+  Class: ""
 };
 
 Models.PluginCustomSetting = {
-	Name: "",
-	Header: "",
-	Description: "",
-	DataType: undefined,
-	Value: undefined,
-	DefaultValue: undefined,
-	Link: ""
+  Name: "",
+  Header: "",
+  Description: "",
+  DataType: undefined,
+  Value: undefined,
+  DefaultValue: undefined,
+  Link: ""
 };
 
 /******************************************************************************
@@ -91,66 +90,89 @@ Models.PluginCustomSetting = {
  * Village model
  *
  *****************************************************************************/
-Models.Village = function () {
-	this.IsActive = false;
+Models.Village = function() {
+  this.IsActive = false;
 
-	// Note: On any *.travian.*/... page (except help)
-	this.VID = 0;
-	this.Name = "<NameNotDefined>";
-	this.Loyalty = 100;
+  // Note: On any *.travian.*/... page (except help)
+  this.VID = 0;
+  this.Name = "<NameNotDefined>";
+  this.Loyalty = 100;
 
-	// Note: On spieler.php?uid=* page where * is players id
-	this.IsMainCity = false;
-	this.Population = 0;
-	this.Position = {
-		x: 0,
-		y: 0
-	};
+  // Note: On spieler.php?uid=* page where * is players id
+  this.IsMainCity = false;
+  this.Population = 0;
+  this.Position = {
+    x: 0,
+    y: 0
+  };
 
-	// Note: On any *.travian.*/... page (except help)
-	this.Resources = {
-		Storage: [0, 0, 0, 0],
-		Stored: [0, 0, 0, 0],
+  // Note: On any *.travian.*/... page (except help)
+  this.Resources = {
+    Storage: [0, 0, 0, 0],
+    Stored: [0, 0, 0, 0],
 
-		Production: [0, 0, 0, 0],
+    Production: [0, 0, 0, 0],
 
-		FreeCrop: 0
-	};
+    FreeCrop: 0
+  };
 
-	// Note: On dorf1.php page
-	this.VillageIn = {
-		LastUpdated: 0,
+  // Note: On dorf1.php page
+  this.VillageIn = {
+    LastUpdated: 0,
 
-		Levels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		Buildings: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-	};
+    Levels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    Buildings: [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  };
 
-	// NOTE: On dorf1.php page
-	this.VillageOut = {
-		LastUpdated: 0,
+  // NOTE: On dorf1.php page
+  this.VillageOut = {
+    LastUpdated: 0,
 
-		Type: "f3",
-		Levels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-	};
+    Type: "f3",
+    Levels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  };
 
-	this.Troops = {
-		// NOTE: On build.php?id=39 (since rally point is on the same place in every village)
-		//       EXCEPT WW village
-		// This is players troops currently in village that can be sent to attack/support
-		AvailableTroops: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  this.Troops = {
+    // NOTE: On build.php?id=39 (since rally point is on the same place in every village)
+    //       EXCEPT WW village
+    // This is players troops currently in village that can be sent to attack/support
+    AvailableTroops: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-		// NOTE: On build.php?id=39 (since rally point is on the same place in every village)
-		// This is total troops in village (supports + players troops + troops in attack/support/return/adventure)
-		TotalTroops: {
-			Gauls: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			Romans: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			Teutons: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			Nature: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-		},
+    // NOTE: On build.php?id=39 (since rally point is on the same place in every village)
+    // This is total troops in village (supports + players troops + troops in attack/support/return/adventure)
+    TotalTroops: {
+      Gauls: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      Romans: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      Teutons: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      Nature: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
 
-		// NOTE: build.php page > gid13 (Armory)
-		TroopLevels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-	};
+    // NOTE: build.php page > gid13 (Armory)
+    TroopLevels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  };
 };
 
 /******************************************************************************
@@ -158,68 +180,68 @@ Models.Village = function () {
  * Profile model
  *
  *****************************************************************************/
-Models.Profile = function () {
-	// Project-Axeman variables	
-	this.IsAutoLogin = false;
-	this.Password = "";
+Models.Profile = function() {
+  // Project-Axeman variables
+  this.IsAutoLogin = false;
+  this.Password = "";
 
-	//Game variables
-	this.ServerAddress = "unknown";
-	this.ServerVersion = "unsuported";
+  //Game variables
+  this.ServerAddress = "unknown";
+  this.ServerVersion = "unsuported";
 
-	this.Name = "unknown";
-	this.UID = "unknown";
-	this.Tribe = "unknown";
+  this.Name = "unknown";
+  this.UID = "unknown";
+  this.Tribe = "unknown";
 
-	this.Villages = new Array();
+  this.Villages = new Array();
 
-	this.Messages = new Models.MessagesCollection();
-	this.Reports = new Models.ReportsCollection();
-    this.Hero = new Models.Hero();
+  this.Messages = new Models.MessagesCollection();
+  this.Reports = new Models.ReportsCollection();
+  this.Hero = new Models.Hero();
 
-	//this.Plugins = new Array();
+  //this.Plugins = new Array();
 };
 
-Models.MessagesCollection = function () {
-	this.UnreadCount = 0;
+Models.MessagesCollection = function() {
+  this.UnreadCount = 0;
 
-	this.Inbox = {};
-	this.Sent = {};
-	this.Draft = new Array();
-	this.Archive = {};
+  this.Inbox = {};
+  this.Sent = {};
+  this.Draft = new Array();
+  this.Archive = {};
 };
 
-Models.Message = function () {
-	this.IsRead = false;
-	this.MID = "unknown";
-	this.Subject = "unknown";
-	this.From = "unknown";
-	this.FromUID = 0;
-	this.Date = "unknown";
-	this.Content = "";
+Models.Message = function() {
+  this.IsRead = false;
+  this.MID = "unknown";
+  this.Subject = "unknown";
+  this.From = "unknown";
+  this.FromUID = 0;
+  this.Date = "unknown";
+  this.Content = "";
 };
 
-Models.ReportsCollection = function () {
-	this.UnreadCount = 0;
+Models.ReportsCollection = function() {
+  this.UnreadCount = 0;
 
-	this.Unread = new Array();
+  this.Unread = new Array();
 };
 
-Models.Report = function () {
-	this.IsRead = false;
-	this.RID = "unknown";
-	this.Type = "unknown";
-	this.FromX = 0;
-	this.FromY = 0;
-	this.ToX = 0;
-	this.Toy = 0;
-	this.Date = "unknown";
+Models.Report = function() {
+  this.IsRead = false;
+  this.RID = "unknown";
+  this.Type = "unknown";
+  this.FromX = 0;
+  this.FromY = 0;
+  this.ToX = 0;
+  this.Toy = 0;
+  this.Date = "unknown";
 };
 
-Models.Hero = function () {
-    this.HasAdventure = false;
-    this.CanAdventure = false;
-}
+Models.Hero = function() {
+  this.HasAdventure = false;
+  this.CanAdventure = false;
+};
 
 // TODO Implement into PluginsManager
 //Models.ProfilePlugin = function () {

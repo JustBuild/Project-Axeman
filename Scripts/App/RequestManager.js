@@ -15,20 +15,20 @@
  *
  *****************************************************************************/
 function Request(requestSign, requestCategory, requestName, requestData) {
-	this.Sign = requestSign;
-	this.Category = requestCategory;
-	this.Name = requestName;
-	this.Data = requestData;
+  this.Sign = requestSign;
+  this.Category = requestCategory;
+  this.Name = requestName;
+  this.Data = requestData;
 
-	/**************************************************************************
+  /**************************************************************************
 	 *
 	 * Sends request with data and callback to
 	 * listener.
 	 *
 	 **************************************************************************/
-	this.Send = function (callback) {
-		chrome.runtime.sendMessage(this, callback || function () { });
-	};
+  this.Send = function(callback) {
+    chrome.runtime.sendMessage(this, callback || function() {});
+  };
 }
 
 /******************************************************************************
@@ -42,19 +42,21 @@ function Request(requestSign, requestCategory, requestName, requestData) {
  *
  *****************************************************************************/
 function RequestManager() {
-	/**************************************************************************
+  /**************************************************************************
 	 *
 	 * Adds reciever for specific sign
 	 *
 	 *************************************************************************/
-	this.Recieve = function (sign, callback) {
-		console.warn("Created port for " + sign);
-		chrome.runtime.onMessage.addListener(
-			function (request, sender, sendResponse) {
-				if (sign == "*" || sign == request.Sign) {
-					callback(request, sender, sendResponse);
-				}
-			}
-		);
-	};
+  this.Recieve = function(sign, callback) {
+    console.warn("Created port for " + sign);
+    chrome.runtime.onMessage.addListener(function(
+      request,
+      sender,
+      sendResponse
+    ) {
+      if (sign == "*" || sign == request.Sign) {
+        callback(request, sender, sendResponse);
+      }
+    });
+  };
 }

@@ -1,4 +1,4 @@
-﻿/******************************************************************************
+/******************************************************************************
  * TroopAttack.js
  *
  * Author:
@@ -9,79 +9,88 @@
  *
  *****************************************************************************/
 
-
 function TroopAttack() {
-	/// <summary>
-	/// Initializes object
-	/// </summary>
-	this.Register = function () {
-		Log("Registering TroopAttack plugin...", "TroopAttack");
+  /// <summary>
+  /// Initializes object
+  /// </summary>
+  this.Register = function() {
+    Log("Registering TroopAttack plugin...", "TroopAttack");
 
-		// Show carrying capacity
-		TroopCarryCapacity();
-	};
+    // Show carrying capacity
+    TroopCarryCapacity();
+  };
 
-	var TroopCarryCapacity = function () {
-		/// <summary>
-		/// Shows the carrying capacity of troops entered in rally point attack
-		/// </summary>
+  var TroopCarryCapacity = function() {
+    /// <summary>
+    /// Shows the carrying capacity of troops entered in rally point attack
+    /// </summary>
 
-		Log("Adding 'Check all' option to reports and messages", "TroopAttack");
+    Log("Adding 'Check all' option to reports and messages", "TroopAttack");
 
-		$('#content').append('<div class="TroopAttack"><div id="capacity"></div></div>')
+    $("#content").append(
+      '<div class="TroopAttack"><div id="capacity"></div></div>'
+    );
 
-		$('#troops input').change(function(e) {
-			recalculateCapacity();
-		});
+    $("#troops input").change(function(e) {
+      recalculateCapacity();
+    });
 
-		function recalculateCapacity() {
-			var totalCapacity = 0;
-			$('#troops input').each(function(i) {
-				var val = $(this).val();
-				if(!val) return true;
+    function recalculateCapacity() {
+      var totalCapacity = 0;
+      $("#troops input").each(function(i) {
+        var val = $(this).val();
+        if (!val) return true;
 
-				var txt = $(this).attr('name');
-	            var m = new RegExp('.*?' + '(\\d+)', ["i"]).exec(txt);
+        var txt = $(this).attr("name");
+        var m = new RegExp(".*?" + "(\\d+)", ["i"]).exec(txt);
 
-	            if (m == null) {
-	                return true;
-	            }
+        if (m == null) {
+          return true;
+        }
 
-	            var uid = m[1];
-	            var capacity = Enums.TroopResources[uid][6];
-	            if (capacity) {
-	            	totalCapacity += capacity * val;
-	            	$('.TroopAttack #capacity').html("Total carrying capacity: " + NumberWithCommas(totalCapacity));
-	        	}
-			});
-		}
+        var uid = m[1];
+        var capacity = Enums.TroopResources[uid][6];
+        if (capacity) {
+          totalCapacity += capacity * val;
+          $(".TroopAttack #capacity").html(
+            "Total carrying capacity: " + NumberWithCommas(totalCapacity)
+          );
+        }
+      });
+    }
 
-		Log("Adding 'Check all' option successfully added", "TroopAttack");
-	};
+    Log("Adding 'Check all' option successfully added", "TroopAttack");
+  };
 }
 
 // Metadata for this plugin (TroopAttack)
 var TroopAttackMetadata = {
-	Name: "TroopAttack",
-	Alias: "Troop Attack",
-	Category: "Utility",
-	Version: "0.1.0.0",
-	Description: "Shows the carrying capacity of troops entered in rally point attack",
-	Author: "Geczy",
-	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
+  Name: "TroopAttack",
+  Alias: "Troop Attack",
+  Category: "Utility",
+  Version: "0.1.0.0",
+  Description:
+    "Shows the carrying capacity of troops entered in rally point attack",
+  Author: "Geczy",
+  Site: "https://github.com/JustBuild/Project-Axeman/wiki",
 
-	Settings: {
-		IsLoginRequired: true,
-		RunOnPages: [ Enums.TravianPages.Build ],
-		PageMayContain: [	"#troops"]
-	},
+  Settings: {
+    IsLoginRequired: true,
+    RunOnPages: [Enums.TravianPages.Build],
+    PageMayContain: ["#troops"]
+  },
 
-	Flags: {
-		Alpha: true
-	},
+  Flags: {
+    Alpha: true
+  },
 
-	Class: TroopAttack
+  Class: TroopAttack
 };
 
 // Adds this plugin to global list of available plugins
-GlobalPluginsList[GlobalPluginsList.length] = $.extend(true, {}, Models.PluginMetadata, TroopAttackMetadata);
+GlobalPluginsList[GlobalPluginsList.length] = $.extend(
+  true,
+  {},
+  Models.PluginMetadata,
+  TroopAttackMetadata
+);
