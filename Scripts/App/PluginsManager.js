@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
  * PluginsManager.js
  *
  * Author:
@@ -11,7 +11,7 @@
 
 // Global list of available plugins this list is used for registering
 // all plugins so that developer doesn't have to write script path to
-// a lot of places (Only in manifest.json and Development notes.txt)
+// a lot of places (Only in manifest.json and CONTRIBUTING.md)
 //
 // ADD METADATA TO THIS LIST, DO NOT ADD PLUGIN CLASS
 //
