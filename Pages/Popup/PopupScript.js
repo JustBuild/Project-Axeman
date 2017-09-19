@@ -224,7 +224,7 @@ function PopupPage() {
 		var profileImage = $("<img>").addClass("ProfileDetails Image").attr({
 			src: profile.UID == "unknown" ?
 				GetURL("Images/pa.png") :
-				"http://" + profile.ServerAddress + "/hero_image.php?uid=" + profile.UID,
+				"http://" + profile.ServerAddress + "/hero_head.php?uid=" + profile.UID,
 			width: 64, height: 64
 		});
 		var leftContainer = $("<div>").addClass("LeftContainer")
