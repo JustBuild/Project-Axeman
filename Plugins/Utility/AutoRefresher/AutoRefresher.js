@@ -22,16 +22,29 @@ function AutoRefresher() {
   this.Initialize = function(refreshRate) {
     Log("Initializing AutoRefresher plugin", "AutoRefresher");
 
+    CreateTravianSidebar(
+      "Auto Refresher",
+      'Reloading the page in: <span id="PA-refresh-interval" />'
+    );
+
     // ((Math.random() + 0.5) * 1000
     // Result is: 500 .. 1500
-    var refreshMs = refreshRate * ((Math.random() + 0.5) * 1000);
+    var refreshSeconds = Math.round(
+      refreshRate * ((Math.random() + 0.5) * 1000) / 1000
+    );
 
-    setTimeout(function() {
-      Log("Refreshing page!", "AutoRefresher");
-      //location.reload();
-    }, refreshMs);
+    var interval = setInterval(function() {
+      $("#PA-refresh-interval").text(refreshSeconds);
+      refreshSeconds--;
 
-    Log("Refresh in (ms)" + refreshMs);
+      if (refreshSeconds < 0) {
+        Log("Refreshing page!", "AutoRefresher");
+        location.reload();
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    Log("Refresh in (ms)" + refreshSeconds);
   };
 }
 
