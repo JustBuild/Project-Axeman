@@ -230,7 +230,7 @@ function UpgradeIndicator() {
             "</a></li>";
         }
         html += "</ul>";
-        CreateTravianSidebar("Efficiency queue", html);
+        CreateTravianSidebar("Simmer's Queue", '<p>Follow this list to spend the least amount of resources to gain the most amount of population.</p>' + html);
       }
     }
   };
@@ -372,7 +372,7 @@ function UpgradeIndicator() {
             "</a></li>";
         }
         html += "</ul>";
-        CreateTravianSidebar("Efficiency queue", html);
+        CreateTravianSidebar("Simmer's Queue", '<p>Follow this list to spend the least amount of resources to gain the most amount of population.</p>' + html);
       }
     }
   };
