@@ -407,7 +407,9 @@ function _timed(func) {
 function CreateTravianSidebar(header, content) {
   html = "";
   html +=
-    '<div id='+header+' class="sidebarBox">\
+    "<div id=" +
+    header +
+    ' class="sidebarBox">\
 		<div class="sidebarBoxBaseBox">\
 			<div class="baseBox baseBoxTop">\
 				<div class="baseBox baseBoxBottom">\
