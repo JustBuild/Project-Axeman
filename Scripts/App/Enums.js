@@ -1182,5 +1182,74 @@ var Enums = {
       [66355, 35730, 56145, 45940, 4, 82300, 96],
       [84935, 45735, 71870, 58800, 4, 96070, 115]
     ]
+  },
+  MapValues: {
+    "k.spieler": "Player",
+    "k.einwohner": "Population",
+    "k.allianz": "Alliance",
+    "k.volk": "Tribe",
+    "k.dt": "Village",
+    "k.bt": "Occupied oasis",
+    "k.fo": "Unoccupied oasis",
+    "k.vt": "Abandoned valley",
+    "k.regionTooltip": "Region: ",
+    "k.loadingData": "Loading...",
+
+    "a.v1": "Romans",
+    "a.v2": "Teutons",
+    "a.v3": "Gauls",
+    "a.v4": "Nature",
+    "a.v5": "Natars",
+
+    "k.f1": "3-3-3-9",
+    "k.f2": "3-4-5-6",
+    "k.f3": "4-4-4-6",
+    "k.f4": "4-5-3-6",
+    "k.f5": "5-3-4-6",
+    "k.f6": "1-1-1-15",
+    "k.f7": "4-4-3-7",
+    "k.f8": "3-4-4-7",
+    "k.f9": "4-3-4-7",
+    "k.f10": "3-5-4-6",
+    "k.f11": "4-3-5-6",
+    "k.f12": "5-4-3-6",
+    "k.f99": "Natarian village",
+
+    "b.ri1": "Won as attacker without losses.",
+    "b.ri2": "Won as attacker with losses.",
+    "b.ri3": "Lost as attacker.",
+    "b.ri4": "Won as defender without losses.",
+    "b.ri5": "Won as defender with losses.",
+    "b.ri6": "Lost as defender with losses.",
+    "b.ri7": "Lost as defender without losses.",
+
+    "b:ri1": '<img src="img/x.gif" class="iReport iReport1"/>',
+    "b:ri2": '<img src="img/x.gif" class="iReport iReport2"/>',
+    "b:ri3": '<img src="img/x.gif" class="iReport iReport3"/>',
+    "b:ri4": '<img src="img/x.gif" class="iReport iReport4"/>',
+    "b:ri5": '<img src="img/x.gif" class="iReport iReport5"/>',
+    "b:ri6": '<img src="img/x.gif" class="iReport iReport6"/>',
+    "b:ri7": '<img src="img/x.gif" class="iReport iReport7"/>',
+
+    "b:bi0": '<img class="carry empty" src="img/x.gif" alt="Bounty" />',
+    "b:bi1": '<img class="carry half" src="img/x.gif" alt="Bounty" />',
+    "b:bi2": '<img class="carry" src="img/x.gif" alt="Bounty" />',
+
+    "a.r1": "Lumber",
+    "a.r2": "Clay",
+    "a.r3": "Iron",
+    "a.r4": "Crop",
+
+    "a:r1": '<img alt="Lumber" src="img/x.gif" class="r1"/>',
+    "a:r2": '<img alt="Clay" src="img/x.gif" class="r2"/>',
+    "a:r3": '<img alt="Iron" src="img/x.gif" class="r3"/>',
+    "a:r4": '<img alt="Crop" src="img/x.gif" class="r4"/>',
+
+    "k.arrival": "arrival at",
+    "k.ssupport": "reinforcement",
+    "k.sspy": "scouting",
+    "k.sreturn": "return",
+    "k.sraid": "raid",
+    "k.sattack": "attack"
   }
 };
