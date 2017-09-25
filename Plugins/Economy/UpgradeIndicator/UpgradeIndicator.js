@@ -126,6 +126,20 @@ function UpgradeIndicator() {
         // Get upgrade cost for current level
         var fieldUpgradeCost = Enums.Fields[rIndex][fieldLevel];
 
+        // Check if field is under construction
+        if (field.hasClass("underConstruction")) {
+          SetUIElementState(field, "UnderConstruction");
+          continue; // Skip to next field
+        }
+
+        var fieldUpgradeState = "Upgradeable";
+
+        // Check if max upgraded
+        if (fieldLevel >= fieldMaxLevel || field.hasClass("maxLevel")) {
+          SetUIElementState(field, "MaxUpgraded");
+          continue; // Skip to next field
+        }
+
         // Show upgrade efficiency
         if (
           fieldLevel < fieldMaxLevel &&
@@ -151,20 +165,6 @@ function UpgradeIndicator() {
             ];
             resEfficiency.push(resEfficiencyit);
           }
-        }
-
-        // Check if field is under construction
-        if (field.hasClass("underConstruction")) {
-          SetUIElementState(field, "UnderConstruction");
-          continue; // Skip to next field
-        }
-
-        var fieldUpgradeState = "Upgradeable";
-
-        // Check if max upgraded
-        if (fieldLevel >= fieldMaxLevel || field.hasClass("maxLevel")) {
-          SetUIElementState(field, "MaxUpgraded");
-          continue; // Skip to next field
         }
 
         // Go through all resources
@@ -252,7 +252,7 @@ function UpgradeIndicator() {
       // Get current building level and GID
       // TODO Pull this from profile.village model
       var buildingLevel = parseInt($(levelObject).text(), 10) || 0;
-      buildingLevel = $(levelObject).is(".underConstruction")
+      buildingLevel = $(levelObject).parent('.colorLayer').is(".underConstruction")
         ? buildingLevel + 1
         : buildingLevel;
 
@@ -262,38 +262,12 @@ function UpgradeIndicator() {
       var building = Enums.Buildings[GIDs[buildingGID]];
       var buildingUpgradeCost = building[buildingLevel];
 
-      // Show upgrade efficiency
-      if (
-        buildingLevel < building.length &&
-        buildingUpgradeCost &&
-        buildingUpgradeCost.length >= 4
-      ) {
-        var total =
-          buildingUpgradeCost[0] +
-          buildingUpgradeCost[1] +
-          buildingUpgradeCost[2] +
-          buildingUpgradeCost[3];
-        var rPerWheat =
-          buildingUpgradeCost[4] > 0
-            ? Math.floor(total / buildingUpgradeCost[4])
-            : 0;
-
-        if (rPerWheat > 0) {
-          var resEfficiencyit = [
-            rPerWheat,
-            buildingLevel,
-            GIDs[buildingGID],
-            buildingGID
-          ];
-          resEfficiency.push(resEfficiencyit);
-        }
-      }
-
-      if (!$(levelObject).is(".underConstruction")) {
+      if (!$(levelObject).parent('.colorLayer').is(".underConstruction")) {
         DLog("------" + buildingGID + ": " + GIDs[buildingGID]);
 
         var upgradeState = "Upgradeable";
         if (buildingLevel < building.length) {
+
           for (var rrIndex = 0; rrIndex < 4; rrIndex++) {
             // Check if village have warehouse/granary large enough to upgrade field
             var canStoreResource =
@@ -346,6 +320,34 @@ function UpgradeIndicator() {
           buildingUpgradeCost[4]
       ) {
         upgradeState = "NonUpgradeable";
+      }
+
+      // Show upgrade efficiency
+      if (
+        buildingLevel < building.length &&
+        buildingUpgradeCost &&
+        buildingUpgradeCost.length >= 4
+      ) {
+
+        var total =
+          buildingUpgradeCost[0] +
+          buildingUpgradeCost[1] +
+          buildingUpgradeCost[2] +
+          buildingUpgradeCost[3];
+        var rPerWheat =
+          buildingUpgradeCost[4] > 0
+            ? Math.floor(total / buildingUpgradeCost[4])
+            : 0;
+
+        if (rPerWheat > 0) {
+          var resEfficiencyit = [
+            rPerWheat,
+            buildingLevel,
+            GIDs[buildingGID],
+            buildingGID
+          ];
+          resEfficiency.push(resEfficiencyit);
+        }
       }
 
       SetUIElementState(levelObject, upgradeState);
