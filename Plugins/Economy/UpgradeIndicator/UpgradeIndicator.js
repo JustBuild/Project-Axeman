@@ -162,7 +162,7 @@ function UpgradeIndicator() {
         var fieldUpgradeState = "Upgradeable";
 
         // Check if max upgraded
-        if (fieldLevel >= fieldMaxLevel) {
+        if (fieldLevel >= fieldMaxLevel || field.hasClass("maxLevel")) {
           SetUIElementState(field, "MaxUpgraded");
           continue; // Skip to next field
         }
