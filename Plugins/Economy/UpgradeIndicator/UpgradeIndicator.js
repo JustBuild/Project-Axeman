@@ -223,8 +223,9 @@ function UpgradeIndicator() {
             resEfficiency[i][3] +
             '">' +
             (i + 1) +
-            ". Level " +
+            ". L" +
             resEfficiency[i][1] +
+            " R" + resEfficiency[i][0] +
             " " +
             resEfficiency[i][2] +
             "</a></li>";

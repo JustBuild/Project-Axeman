@@ -89,6 +89,44 @@ function Services() {
     ) {
       Log("Crawling page...", "Services");
 
+      // Provide window.ajaxToken
+      // eval(document.getElementsByTagName("script")[0].innerHTML);
+      // $.post(
+      //   "/ajax.php?cmd=mapPositionData",
+      //   {
+      //     cmd: "mapPositionData",
+      //     "data[x]": -100,
+      //     "data[y]": 100,
+      //     "data[zoomLevel]": 3,
+      //     ajaxToken: window.ajaxToken
+      //   },
+      //   function(data, textStatus) {
+      //     data.response.data.tiles.forEach(function(tile) {
+      //       var resources = []
+      //       if(tile.t) {
+      //         var t = tile.t
+      //         Object.keys(Enums.MapValues).forEach(function(key) {
+      //           var val = Enums.MapValues[key];
+      //           var find = '{' + key + '}'
+      //           t = t.replace(find, val)
+      //         })
+      //         resources = (t.split('<br />'))
+      //       }
+      //       if(resources) {
+      //         resources = resources.splice(1, resources.length)
+      //         if(resources.length) {
+      //           console.log(resources, tile)
+      //
+      //           resources.forEach(function(resource) {
+      //             // console.log(Enums.MapValues[it])
+      //           })
+      //         }
+      //       }
+      //     })
+      //   },
+      //   "json"
+      // );
+
       CrawlVillageList();
       activeVillage = ActiveProfile.Villages[ActiveVillageIndex];
 
