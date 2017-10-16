@@ -1,14 +1,14 @@
 {
     "name": "Project Axeman",
     "description": "__MSG_extensionDescription__",
-    "version": "0.2.9",
+    "version": "1.0",
     "manifest_version": 2,
     "default_locale": "en",
     "homepage_url": "http://github.com/JustBuild/Project-Axeman",
     "icons": {
-        "128": "Icons/icon128.png",
-        "16": "Icons/icon16.png",
-        "48": "Icons/icon48.png"
+        "128": "Images/Icons/icon128.png",
+        "16": "Images/Icons/icon16.png",
+        "48": "Images/Icons/icon48.png"
     },
     "permissions": [
         "notifications",
@@ -23,7 +23,7 @@
     },
     "options_page": "Pages/Options/Options.html",
     "browser_action": {
-        "default_icon": "Icons/icon48.png",
+        "default_icon": "Images/Icons/icon48.png",
         "default_title": "Project Axeman",
         "default_popup": "Pages/Popup/Popup.html"
     },

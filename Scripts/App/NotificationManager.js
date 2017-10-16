@@ -16,10 +16,10 @@
  *
  *****************************************************************************/
 function Notification(image, header, message, timeout) {
-	this.image = image;
- 	this.header = header;
- 	this.message = message;
- 	this.timeout = timeout;
+  this.image = image;
+  this.header = header;
+  this.message = message;
+  this.timeout = timeout;
 }
 
 /******************************************************************************
@@ -33,22 +33,25 @@ function Notification(image, header, message, timeout) {
  *
  *****************************************************************************/
 function NotificationManager() {
-	/**************************************************************************
+  /**************************************************************************
 	 *
 	 * Shows simple notification
 	 *
 	 *************************************************************************/
-	this.Show = function(notification) {
-		// Creates new notification object
-		var notification = webkitNotifications.createNotification(
-			notification.image, 
-			notification.header, 
-			notification.message);
+  this.Show = function(notification) {
+    // Creates new notification object
+    var notification = webkitNotifications.createNotification(
+      notification.image,
+      notification.header,
+      notification.message
+    );
 
-		// Shows notification window
-		notification.show();
+    // Shows notification window
+    notification.show();
 
-		// Sets notification timeout to given value or default (5000 ms)
-		setTimeout(function() { notification.cancel(); }, notification.timeout || 5000);
-	}
+    // Sets notification timeout to given value or default (5000 ms)
+    setTimeout(function() {
+      notification.cancel();
+    }, notification.timeout || 5000);
+  };
 }

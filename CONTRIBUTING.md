@@ -1,11 +1,10 @@
-RELEASE TODO LIST
+## RELEASE TODO LIST
 	(1)		Variables.js > IsDevelopmentMode => false
 	(2)		Variables.js > IsDebugMode => false
 	(3)		Changes log
 
 
-LIBRARIES USED
-
+## LIBRARIES USED
 	jQuery current version:		1.11.1
 	jQueryUI current version:	1.9.1
 	jQuery.pageslide			2.0 + <head> fix
@@ -13,13 +12,13 @@ LIBRARIES USED
 	knockout.js					3.1.0
 
 
-APPLICATION DIAGRAM available at
-	https://cacoo.com/diagrams/KjPQ0pHQGjoujRxt
+## APPLICATION DIAGRAM 
+Available at https://cacoo.com/diagrams/KjPQ0pHQGjoujRxt
 
 
-USING AND LAUNCHING APP
+## USING AND LAUNCHING APP
+For using plugins you need to include following scripts:
 
-	For using plugins you need to include following scripts:
 		Total: (8)
 		(in that order)
 
@@ -36,17 +35,18 @@ USING AND LAUNCHING APP
 		<PLUGINS GO HERE>
 
 
-	To launch app include all above stated scripts plus two: 
+To launch app include all above stated scripts plus two: 
+
 		(in that order)
 		
 		Scripts/App/App.js
 		Scripts/App/AppLauncher.js
 
-AVAILABLE PLUGINS
-	To add new plugin, you need to specify name and location of plugin script
-	on two places. On place is in manifest.json, you need to put your script 
-	filename including path to list of extension scripts and in PluginManager.html
-	page (and here below).
+## AVAILABLE PLUGINS
+To add new plugin, you need to specify name and location of plugin script
+on two places. On place is in manifest.json, you need to put your script 
+filename including path to list of extension scripts and in PluginManager.html
+page (and here below).
 
 	Total: (13)
 

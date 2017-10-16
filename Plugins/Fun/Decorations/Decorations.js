@@ -1,4 +1,4 @@
-﻿/******************************************************************************
+/******************************************************************************
  * Decorations.js
  *
  * Author:
@@ -9,123 +9,172 @@
  *
  *****************************************************************************/
 
-
 function Decorations() {
-	/// <summary>
-	/// Initializes object
-	/// </summary>
-	this.Register = function() {
-		Log("Registering Decorations plugin...", "Decorations");
+  /// <summary>
+  /// Initializes object
+  /// </summary>
+  this.Register = function() {
+    Log("Registering Decorations plugin...", "Decorations");
 
-		RemoveInGameHelp();
-		EasyDemolish();
+    RemoveInGameHelp();
+    EasyDemolish();
+    AddPlusLinks();
 
-		$('.openedClosedSwitch.switchClosed').on('click', function(e) {
-			AddCoordsToFarmList();
-		});
+    $(".openedClosedSwitch.switchClosed").on("click", function(e) {
+      AddCoordsToFarmList();
+    });
 
-		AddCoordsToFarmList();
-		RemovePlusAnimation();
+    AddCoordsToFarmList();
+    RemovePlusAnimation();
 
-		var commaClasses = [
-			".rArea",
-			".carry",
-			".val.lc",
-		];
+    var commaClasses = [".rArea", ".carry", ".val.lc"];
 
-		for (var i in commaClasses) {
-			AddCommas(commaClasses[i]);
-		}
-	};
+    for (var i in commaClasses) {
+      AddCommas(commaClasses[i]);
+    }
+  };
 
-	var RemovePlusAnimation = function() {
-		$('head').append('<style id="addedCSS" type="text/css">
-			ul#navigation li.gold a.ani_1{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_2{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_3{background-position:-1 !important1}
-			ul#navigation li.gold a.ani_4{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_5{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_6{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_7{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_8{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_9{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_10{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_11{background-position:-1 !important;}
-			ul#navigation li.gold a.ani_12{background-position:-1 !important;}
-		</style>');
-	};
+  var AddPlusLinks = function() {
+    if (!$(".layoutButton.marketBlack.gold").length) {
+      return false;
+    }
 
-	var EasyDemolish = function() {
-		if (!$('#demolish').length) {
-			return false;
-		}
+    var replaceClasses = ["workshop", "stable", "barracks", "market"];
 
-		$('#demolish option').each(function(index) {
-			$(this).text($(this).text().replace($(this).val() + '.', ''));
-		});
+    var ids = [21, 20, 19, 17];
 
-		$("#demolish").append($("#demolish option").remove().sort(function(a, b) {
-			var at = $(a).text(), bt = $(b).text();
-			return (at > bt)?1:((at < bt)?-1:0);
-		}));
-	}
+    $(".layoutButton.gold:not(.editBlack)").each(function(i) {
+      if ($(this).hasClass(replaceClasses[i] + "Black")) {
+        $(this)
+          .removeClass(replaceClasses[i] + "Black gold")
+          .addClass(replaceClasses[i] + "White green");
+        $(this).off("click hover");
+        $(this).attr(
+          "onclick",
+          'location.href="' + Enums.TravianPages.Build + "?gid=" + ids[i] + '"'
+        );
+      }
+    });
+  };
 
-	var AddCoordsToFarmList = function() {
-		$('.village').each(function(i) {
-			if ($(this).find('.coordDecoration').length) {
-				return true;
-			}
+  var RemovePlusAnimation = function() {
+    $("head").append(
+      '<style id="addedCSS" type="text/css">\
+			ul#navigation li.gold a.ani_1{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_2{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_3{background-position:-1 !important1}\
+			ul#navigation li.gold a.ani_4{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_5{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_6{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_7{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_8{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_9{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_10{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_11{background-position:-1 !important;}\
+			ul#navigation li.gold a.ani_12{background-position:-1 !important;}\
+		</style>'
+    );
+  };
 
-			coords = SplitURL($(this).find('a').attr('href'));
+  var EasyDemolish = function() {
+    if (!$("#demolish").length) {
+      return false;
+    }
 
-			if (!coords["x"]) {
-				return true;
-			}
+    $("#demolish option").each(function(index) {
+      $(this).text(
+        $(this)
+          .text()
+          .replace($(this).val() + ".", "")
+      );
+    });
 
-			var html = '';
-			html += '<span class="coordDecoration">' + coords["x"] + '|' + coords["y"] + '</span>';
+    $("#demolish").append(
+      $("#demolish option")
+        .remove()
+        .sort(function(a, b) {
+          var at = $(a).text(),
+            bt = $(b).text();
+          return at > bt ? 1 : at < bt ? -1 : 0;
+        })
+    );
+  };
 
-			$(this).prepend(html);
-		});
-	}
+  var AddCoordsToFarmList = function() {
+    $(".village").each(function(i) {
+      if ($(this).find(".coordDecoration").length) {
+        return true;
+      }
 
-	var RemoveInGameHelp = function() {
-		/// <summary>
-		/// Removes in game help link from every travian page.
-		/// On some servers this will not remove stone and book since they are
-		/// on one static image, it will only remove question mark and link.
-		/// </summary>
+      coords = SplitURL(
+        $(this)
+          .find("a")
+          .attr("href")
+      );
 
-		Log("Removing in game help...", "Decorations");
-		$("#ingameManual").remove();
-		Log("In game help removed!", "Decorations");
-	};
+      if (!coords["x"]) {
+        return true;
+      }
 
-	var AddCommas = function(commaClass) {
-		if ($(commaClass).length) {
-			$(commaClass).each(function(index) {
-				$(this).html($(this).html().replace($(this).text(), NumberWithCommas($(this).text())));
-			});
-		}
-	};
+      var html = "";
+      html +=
+        '<span class="coordDecoration">' +
+        coords["x"] +
+        "|" +
+        coords["y"] +
+        "</span>";
+
+      $(this).prepend(html);
+    });
+  };
+
+  var RemoveInGameHelp = function() {
+    /// <summary>
+    /// Removes in game help link from every travian page.
+    /// On some servers this will not remove stone and book since they are
+    /// on one static image, it will only remove question mark and link.
+    /// </summary>
+
+    Log("Removing in game help...", "Decorations");
+    $("#ingameManual").remove();
+    Log("In game help removed!", "Decorations");
+  };
+
+  var AddCommas = function(commaClass) {
+    if ($(commaClass).length) {
+      $(commaClass).each(function(index) {
+        $(this).html(
+          $(this)
+            .html()
+            .replace($(this).text(), NumberWithCommas($(this).text()))
+        );
+      });
+    }
+  };
 }
 
 // Metadata for this plugin (Decorations)
 var DecorationsMetadata = {
-	Name: "Decorations",
-	Alias: "Decorations",
-	Category: "Fun",
-	Version: "0.0.1.0",
-	Description: "Removes in game help link, adds grouped numbers into statistics and numberes alliance members",
-	Author: "JustBuild Development",
-	Site: "https://github.com/JustBuild/Project-Axeman/wiki",
+  Name: "Decorations",
+  Alias: "Decorations",
+  Category: "Fun",
+  Version: "0.0.1.0",
+  Description:
+    "Removes in game help link, adds grouped numbers into statistics and numberes alliance members",
+  Author: "JustBuild Development",
+  Site: "https://github.com/JustBuild/Project-Axeman/wiki",
 
-	Flags: {
-		Beta: true
-	},
+  Flags: {
+    Beta: true
+  },
 
-	Class: Decorations
+  Class: Decorations
 };
 
 // Adds this plugin to global list of available plugins
-GlobalPluginsList[GlobalPluginsList.length] = $.extend(true, {}, Models.PluginMetadata, DecorationsMetadata);
+GlobalPluginsList[GlobalPluginsList.length] = $.extend(
+  true,
+  {},
+  Models.PluginMetadata,
+  DecorationsMetadata
+);

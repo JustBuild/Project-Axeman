@@ -13,15 +13,13 @@
 var Settings = new Models.OptionsModel();
 
 // Development and debuging variables
-var IsDevelopmentMode = function () {
-	if (!Settings)
-		return false;
-	return Settings.IsDevelopmentModeEnabled;
+var IsDevelopmentMode = function() {
+  if (!Settings) return false;
+  return Settings.IsDevelopmentModeEnabled;
 };
-var IsLogging = function () {
-	if (!Settings)
-		return false;
-	return Settings.IsLoggingEnabled;
+var IsLogging = function() {
+  if (!Settings) return false;
+  return Settings.IsLoggingEnabled;
 };
 
 // Active page variables
@@ -33,20 +31,20 @@ var ActivePageTravianVersion = "unsuported";
 // Current profile
 var IsLogedIn = false;
 var AvailableProfiles = new Array();
-var ActiveProfile = function () { };
+var ActiveProfile = function() {};
 var ActiveVillageIndex = 0;
 
 function isDevMode() {
-    if (IsDevelopmentMode == null) {
-        var mUrl = chrome.runtime.getURL('manifest.json');
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", mUrl, false);
-        xhr.onload = function () {
-            var json = JSON.parse(this.responseText);
-            IsDevelopmentMode = !('update_url' in json);
-        };
-        xhr.send();
-    }
+  if (IsDevelopmentMode == null) {
+    var mUrl = chrome.runtime.getURL("manifest.json");
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", mUrl, false);
+    xhr.onload = function() {
+      var json = JSON.parse(this.responseText);
+      IsDevelopmentMode = !("update_url" in json);
+    };
+    xhr.send();
+  }
 
-    return IsDevelopmentMode;
+  return IsDevelopmentMode;
 }
