@@ -1,10 +1,3 @@
-
-<p>
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/4SPzLoiLEscoDQp54KBdgWhw/JustBuild/Project-Axeman'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/4SPzLoiLEscoDQp54KBdgWhw/JustBuild/Project-Axeman.svg' />
-</a>
-</p>
-
 # Project Axeman [![Code Climate](https://codeclimate.com/github/JustBuild/Project-Axeman/badges/gpa.svg)](https://codeclimate.com/github/JustBuild/Project-Axeman)
 
 A Chrome extension to make playing the online game [Travian](https://www.travian.com/) a little easier.
